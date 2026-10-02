@@ -67,7 +67,8 @@ test('content and navigation work without JavaScript', async ({ browser }) => {
 test('external links match verified content', async ({ page }) => {
   await page.goto('/portfolio.html');
   await expect(page.getByRole('link', { name: /^Live demo/ })).toHaveAttribute('href', 'https://reorder-ops.vercel.app');
-  await expect(page.locator('a[href="https://github.com/bedtimestoriesforthebrave-dot/ReorderOps"]')).toHaveCount(1);
+  await expect(page.locator('a[href="https://github.com/bedtimestoriesforthebrave-dot/ReorderOps"]')).toHaveCount(0);
+  await expect(page.locator('a[href="https://github.com/bedtimestoriesforthebrave-dot/Author-website"]')).toHaveCount(1);
   await expect(page.locator('a[href="mailto:wilzeu@gmail.com"]')).toHaveCount(1);
   expect(await page.locator('a[target="_blank"]:not([rel~="noopener"])').count()).toBe(0);
 });
