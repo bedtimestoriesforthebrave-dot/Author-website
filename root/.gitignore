@@ -1,0 +1,9 @@
+﻿node_modules/
+.env
+.env.local
+.vercel/
+npm-debug.log*
+
+.build/
+test-results/
+playwright-report/
