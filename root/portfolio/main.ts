@@ -7,7 +7,8 @@ if ('IntersectionObserver' in window) {
       if (entry.isIntersecting) visible.add(entry.target as HTMLElement);
       else visible.delete(entry.target as HTMLElement);
     }
-    const current = sections.find(section => visible.has(section));
+    const current = sections.find(section => visible.has(section))
+      ?? [...sections].reverse().find(section => section.getBoundingClientRect().top < innerHeight * .4);
     for (const link of navLinks) {
       if (current?.id === link.dataset.nav) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
@@ -15,3 +16,48 @@ if ('IntersectionObserver' in window) {
   }, { rootMargin: '-15% 0px -45% 0px', threshold: 0 });
   for (const section of sections) observer.observe(section);
 }
+
+// The animation dependency is fetched only for capable desktop contexts.
+const desktop = window.matchMedia('(min-width: 1100px) and (min-height: 650px) and (hover: hover) and (pointer: fine)');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+const device = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
+const constrained = Boolean(device.connection?.saveData || (device.deviceMemory && device.deviceMemory <= 2) || (device.hardwareConcurrency && device.hardwareConcurrency <= 2));
+const motionButton = document.querySelector<HTMLButtonElement>('.motion-toggle');
+let optedOut = false;
+try { optedOut = localStorage.getItem('portfolio-motion') === 'off'; } catch { /* Storage is optional. */ }
+let cleanup: (() => void) | undefined;
+let generation = 0;
+
+async function syncMotion() {
+  const currentGeneration = ++generation;
+  cleanup?.();
+  cleanup = undefined;
+  const eligible = desktop.matches && !reduced.matches && !constrained && document.querySelector('.travel-panel');
+  document.documentElement.dataset.motion = 'off';
+  if (motionButton) {
+    motionButton.hidden = !eligible;
+    motionButton.setAttribute('aria-pressed', String(optedOut));
+    motionButton.setAttribute('aria-label', optedOut ? 'Enable spatial motion' : 'Disable spatial motion');
+    const label = motionButton.querySelector('[data-motion-label]');
+    if (label) label.textContent = optedOut ? 'off' : 'on';
+  }
+  if (!eligible || optedOut) return;
+  try {
+    const { enableSpatialTravel } = await import('./spatial');
+    if (currentGeneration !== generation) return;
+    cleanup = enableSpatialTravel();
+  } catch {
+    // Failed enhancement must leave a readable, fully functional static page.
+    document.documentElement.dataset.motion = 'off';
+    if (motionButton) motionButton.hidden = true;
+  }
+}
+
+motionButton?.addEventListener('click', () => {
+  optedOut = !optedOut;
+  try { localStorage.setItem('portfolio-motion', optedOut ? 'off' : 'on'); } catch { /* Continue without persistence. */ }
+  void syncMotion();
+});
+desktop.addEventListener('change', () => void syncMotion());
+reduced.addEventListener('change', () => void syncMotion());
+void syncMotion();
