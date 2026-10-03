@@ -117,7 +117,15 @@ export const projectMetadata: ProjectMetadata[] = [
     "prominence": "featured",
     "technologies": [
       "Unreal Engine 5",
-      "C++"
+      "C++",
+      "AI Perception",
+      "StateTree"
+    ],
+    "additionalTechnologies": [
+      "NavMesh",
+      "Enhanced Input",
+      "UMG",
+      "Git / Git LFS"
     ],
     "links": {
       "demo": null,
@@ -126,11 +134,71 @@ export const projectMetadata: ProjectMetadata[] = [
     },
     "media": null,
     "sources": [
-      "@sourceBrief"
+      "@sourceGame"
     ],
     "studyIds": [
       "confirmed-project-scope",
+      "current-playable-focus",
+      "systemic-enemy-ai",
+      "path-aware-hearing",
+      "gradual-visual-detection",
+      "memory-and-search",
+      "behaviour-selection",
+      "player-and-world",
+      "level-composition",
+      "engineering-practices",
       "evidence-to-add"
+    ],
+    "mediaSlots": [
+      {
+        "id": "hero",
+        "sectionId": "hero",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/hero-gameplay.webp",
+        "available": false,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "id": "detection",
+        "sectionId": "gradual-visual-detection",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/detection-debug.webp",
+        "available": false,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "id": "hearing",
+        "sectionId": "path-aware-hearing",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/path-aware-hearing.webp",
+        "available": false,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "id": "search",
+        "sectionId": "memory-and-search",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/search-debug.webp",
+        "available": false,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "id": "loop",
+        "sectionId": "current-playable-focus",
+        "kind": "video",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/stealth-loop.mp4",
+        "available": false,
+        "width": 1920,
+        "height": 1080,
+        "captions": {
+          "en": "/assets/portfolio/a-chain-of-pain/stealth-loop.en.vtt",
+          "fi": "/assets/portfolio/a-chain-of-pain/stealth-loop.fi.vtt"
+        }
+      }
     ]
   },
   {

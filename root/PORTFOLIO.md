@@ -29,7 +29,7 @@ Underlying technical documentation remains English-only. Both portfolio language
 
 ReorderOps was read from the local `Documents/ReorderOps` repository: README, reviewer guide and portfolio case study, with source links to evaluation/control documentation. Only curated conclusions are reproduced. Known prose/language and hosting verification limits are retained. No private datasets, runtime files or credentials are copied.
 
-A Chain of Pain uses the user's confirmed Unreal Engine 5 / C++ narrative-game description. The user requested placeholders for supporting evidence. Specific gameplay features, role and testing are pending.
+A Chain of Pain uses the supplied 3 October 2026 read-only project evidence audit. Its curated case study focuses on the H1 Hunter's perception, memory, StateTree, navigation and gameplay integration. The intended narrative game is distinguished from the playable stealth/AI prototype. Recorded PIE results are historical development evidence, not tests rerun by this website build. Raw audit documents, internal paths and logs are not published. See `content/a-chain-of-pain-media.md` for the five planned capture slots and how to activate real assets.
 
 StoryCodex and education derive from the original portfolio. Author Website also derives from the inspected implementation. Education dates are retained without asserting graduation. The existing public email and LinkedIn are reused; no additional personal CV data is extracted for publication.
 
@@ -58,7 +58,7 @@ Keyboard focus forces its panel front-facing. The optional motion toggle persist
 
 ## Content and media still needed
 
-- A Chain of Pain: gameplay footage/screenshots, architecture, role, status, public build/source link and testing evidence.
+- A Chain of Pain: real gameplay/debug captures and video, a public build/source link, and further runtime evidence where noted. Architecture, role, prototype status and recorded testing are now curated from the audit.
 - StoryCodex: verified media, public release/source link and evaluation/testing evidence.
 - ReorderOps: the source repository returned an unauthenticated public 404, so no broken source link is displayed. Its public demo screenshot is real synthetic-data UI, captured 3 October 2026. A walkthrough video is optional.
 - Author Website: a dedicated application screenshot and a documented role could be added.

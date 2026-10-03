@@ -40,6 +40,12 @@ export function getContent(locale: Locale = 'en') {
         caseStudy: { url: localizePath(metadata.links.caseStudy, locale), label: presentation.linkLabels.caseStudy },
       },
       media: metadata.media && presentation.mediaText ? { ...metadata.media, ...presentation.mediaText } : null,
+      mediaSlots: (metadata.mediaSlots ?? []).map(slot => {
+        const slotCopy = presentation.mediaSlots?.[slot.id];
+        if (!slotCopy) throw new Error(`Incomplete ${locale} media slot: ${metadata.slug}/${slot.id}`);
+        if (slot.sectionId !== 'hero' && !metadata.studyIds.includes(slot.sectionId)) throw new Error(`Unknown media section: ${slot.sectionId}`);
+        return { ...slot, ...slotCopy };
+      }),
       study: presentation.study.map((section, index) => ({ ...section, id: metadata.studyIds[index] })),
     };
   });

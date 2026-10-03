@@ -58,20 +58,243 @@ export const finnish: LocaleCopy = {
         { title: 'Varmennus ja avoimet rajoitteet', paragraphs: ['Testit kattavat puuttuvat ja virheelliset tiedot, laskennan raja-arvot, tallennettujen ajojen toistamisen, vanhentuneet hyväksynnät, transaktioiden peruutukset, rinnakkaisuuden, vierailijoiden eristämisen ja palautuksen. Dokumentoitu v1.4-vaihe raportoi 303 läpäistyä taustajärjestelmän testiä Pythonin versioilla 3.11 ja 3.12 sekä Ruff- ja käyttöliittymätarkistukset.', 'Dokumentoidut julkaistun demon tarkistukset kattavat hankintatoiminnot ja rajatun tekoälykäytön. Kielen luotettavuus, palveluntarjoajan käytön täsmäytys, täysi tuotantopalautus ja kylmäkäynnistyksen ajoitus vaativat vielä varmennusta. Projektissa ei ole reaaliaikaista ERP-integraatiota, tilausten lähettämistä toimittajalle, vastaanottotyönkulkua, poikkeaman ohitusta tai varsinaista käyttäjätunnistautumista. Se osoittaa teknisiä ratkaisuja, ei mitattua ennustetarkkuutta tai vähittäiskaupan säästöjä.'] },
       ],
     },
-    'a-chain-of-pain': {
-      category: 'Ensimmäisen persoonan tarinapeli',
-      description: 'Toisenlainen järjestelmä. Maailma ensimmäisen persoonan näkökulmasta.',
-      summary: 'Unreal Engine 5:llä ja C++:lla rakennettu ensimmäisen persoonan tarinapeli. Reaaliaikainen vastapari tämän valikoiman liiketoimintasovelluksille.',
-      role: null, status: 'Projektin dokumentaatio tulossa',
-      highlights: ['Ensimmäisen persoonan tarina', 'Reaaliaikainen kehitys', 'Unreal Engine 5 / C++'],
-      architecture: 'Unreal Engine 5 / C++. Tarkempi pelijärjestelmien arkkitehtuuri odottaa projektinäyttöä.',
-      challenges: [], verification: [],
-      placeholders: ['Pelikuvakaappaukset ja video', 'Kehitysrooli ja nykyisen version tilanne', 'Varmennettu pelijärjestelmien rakenne', 'Näyttö vihollisen havainnoinnista, tutkimisesta, takaa-ajosta ja etsimisestä, jos nämä on toteutettu', 'Testausmuistiinpanot ja julkiset lähdekoodi- tai latauslinkit'],
-      linkLabels: { demo: 'Avaa demo', github: 'Lähdekoodi', caseStudy: 'Projektin tiedot' }, mediaText: null,
-      study: [
-        { title: 'Vahvistettu projektin laajuus', paragraphs: ['A Chain of Pain on Unreal Engine 5:llä ja C++:lla rakennettu ensimmäisen persoonan tarinapeli. Se tuo reaaliaikaisen ja C++-kehityksen osaksi portfoliota, jonka muut työt painottuvat sovelluksiin ja tekoälyavusteisiin työnkulkuihin.'] },
-        { title: 'Täydennettävä näyttö', paragraphs: ['Pelikuva-aineistoa ja teknistä dokumentaatiota ei ole vielä toimitettu. Niille on jätetty tällä sivulla selkeä paikka. Vihollisten tarkkaa toimintaa, haarautuvia lopputuloksia, uudelleenkäytettäviä järjestelmiä ja kehitysvastuuta kuvataan vasta, kun projektiaineisto tukee väitteitä.'] },
+    "a-chain-of-pain": {
+      "category": "Ensimmäisen persoonan narratiivinen peli",
+      "description": "Hunter, joka toimii havaintojensa perusteella.",
+      "summary": "Kehitteillä oleva Unreal Engine 5 / C++ -pohjainen narratiivinen peli. Nykyinen pelattava osuus keskittyy ensimmäisen persoonan stealth-pelaamiseen ja tutkimiseen. Oma Hunter-järjestelmä yhdistää havainnoinnin, muistin, etsinnän ja ympäristöön reagoinnin.",
+      "role": "Itsenäisesti johdettu, AI-avusteisesti kehitetty projekti, jossa käytetään lisensoituja ympäristöassetteja.",
+      "status": "Kehitteillä · pelattava stealth- ja AI-prototyyppi",
+      "highlights": [
+        "Reitin huomioiva kuulo",
+        "Muistiin perustuva etsintä",
+        "Ympäristöön integroidut toiminnot"
       ],
+      "architecture": "AI Perception → tieto ja muisti → C++:sta generoitu StateTree → liikkuminen, ovet ja pelitapahtumat.",
+      "challenges": [
+        "Pidä havainnointi ja takaa-ajo johdonmukaisina ilman piilossa olevan pelaajan sijainnin seurantaa.",
+        "Sovita navigointi, ovitoiminnot ja kuulo pelattavan alueen rajoihin.",
+        "Erota toistettavat toimintapäätökset reaaliaikaisesta säädöstä ja esitystavasta."
+      ],
+      "verification": [
+        "Tallennettuihin kehitysajoihin sisältyy 12/12 läpäistyä skriptattua AI-regressiotestiä 17.9.2026. Tulos on projektin aiempaa näyttöä; Unreal-testejä ei ajettu uudelleen tämän portfoliopäivityksen aikana.",
+        "Skriptatut PIE-tarkistukset käsittelevät havainnointia, takaa-ajoa, muistia ja kiinniottoa. Konsolikomennot, päälle piirretyt tilatiedot ja maailmaan sijoitetut merkit tukevat kohdennettua pelitestausta ja virheenjäljitystä."
+      ],
+      "placeholders": [
+        "Aitoja peli- ja debug-kuvia suunnitellaan; konseptikuva ei ole pelikuva.",
+        "Julkista peliversio- tai lähdekoodilinkkiä ei ole toimitettu."
+      ],
+      "linkLabels": {
+        "demo": "Avaa demo",
+        "github": "Lähdekoodi",
+        "caseStudy": "Tutustu Hunter-AI:hin"
+      },
+      "mediaText": null,
+      "study": [
+        {
+          "title": "Narratiivinen peli, pelattava AI-osuus",
+          "paragraphs": [
+            "A Chain of Pain on kehitteillä oleva ensimmäisen persoonan narratiivinen peli. Nykyinen pelattava kokonaisuus on sairaalaympäristössä toimiva stealth- ja vihollis-AI-prototyyppi. Dialogia, tavoitteita, tarinatapahtumien laukaisimia, haarautuvia lopputuloksia tai loppuja ei ole vielä toteutettu.",
+            "Pelisuunnittelu, järjestelmäsuunnittelu, arkkitehtuuri, integraatio, kentän koostaminen ja pelitestaus kuuluvat samaan tekniseen kokonaisvastuuseen. Dokumentoidut reiluussäännöt ja hyväksymiskriteerit määrittävät, mitä Hunter saa tietää ja miten sen tulee reagoida."
+          ]
+        },
+        {
+          "title": "Nykyinen pelattava kokonaisuus",
+          "paragraphs": [
+            "Pelattava osuus yhdistää ensimmäisen persoonan liikkumisen ja hiiviskelyn systeemiseen viholliseen: hiivi tai kyykisty, hallitse rajallista paniikkisprinttiä, käytä taskulamppua, avaa ovia ja yritä paeta takaa-ajoa. Askeleet ja ovet antavat Hunterille tietoa; näköyhteyden katkeaminen johtaa etsintään. Haavat, kiinniotto, kuolema ja uusi yritys muodostavat pelin paineen, ja äänet sekä musiikki reagoivat tilanteeseen."
+          ]
+        },
+        {
+          "title": "Systeeminen vihollis-AI",
+          "paragraphs": [
+            "H1 Hunter on oma C++-vihollinen, joka käyttää Unrealin AI Perceptionia ja StateTreetä. Ohjain vastaa päätöksenteosta ja hahmo liikkumisesta sekä fyysisistä toiminnoista. Erillinen tietokomponentti käsittelee havainnot, tunnistuksen, muistin ja etsintätiedot. Toimintatehtävät lukevat tätä komponenttia piilossa olevan pelaajan reaaliaikaisen tilan sijaan.",
+            "Omat C++-tehtävät ja ehdot muodostavat StateTreen, joka generoidaan ja käännetään koodista. Näin toimintarakenne on toistettavissa ja tiedon hankinta pysyy erillään päätöksenteosta sekä ympäristöön vaikuttamisesta."
+          ],
+          "visual": {
+            "kind": "layers",
+            "label": "Hunterin arkkitehtuuri",
+            "caption": "Tieto kulkee tietokomponentin kautta ennen toimintaa. Tunnistus on jatkuva havainnointiprosessi, ei erillinen toimintatila.",
+            "items": [
+              {
+                "title": "Havainnointi",
+                "description": "Näkö, ääni ja taskulampun vihjeet; näköyhteys tarkistetaan joka ruudulla."
+              },
+              {
+                "title": "Tieto ja muisti",
+                "description": "Tunnistusmittari, varmennetut sijainnit, valppaustaso ja etsinnän tiedot."
+              },
+              {
+                "title": "Tilan valinta",
+                "description": "StateTree valitsee korkeimman prioriteetin kelvollisen toiminnan."
+              },
+              {
+                "title": "Toiminta",
+                "description": "Omat C++-tehtävät tutkivat, jahtaavat, etsivät ja partioivat."
+              },
+              {
+                "title": "Ympäristön toiminnot",
+                "description": "Navigointi, lukitsemattomat ovet, kiinniotto ja pelitapahtumat."
+              }
+            ]
+          }
+        },
+        {
+          "title": "Kuulo huomioi reitin, ei vain etäisyyttä",
+          "paragraphs": [
+            "Ääntä arvioidaan kokonaisen kuljettavan NavMesh-reitin pituuden perusteella. Äänen voimakkuus vaikuttaa hyväksyttyyn kantamaan. Lähellä oleva lähde seinän takana tai toisessa kerroksessa voi siksi kuulua Hunterille heikosti, jos kulkureitti on pitkä. Kyseessä on reittigeometriaan perustuva pelimekaniikka, ei fysikaalinen akustiikkasimulaatio.",
+            "Vaimea ääni saa Hunterin pysähtymään, kääntymään ääntä kohti ja kuuntelemaan. Selkeä ääni tai lyhyen ajan sisällä ensimmäisen vahvistava toinen vaimea ääni luo tutkittavan sijainnin. Pelaajan liikkumistapa vaikuttaa askelten äänenvoimakkuuteen, ja ovet ilmoittavat omat äänensä."
+          ]
+        },
+        {
+          "title": "Asteittainen näköhavainto",
+          "paragraphs": [
+            "Tunnistus kertyy mittariin sen sijaan, että näkyvyys olisi pelkkä kyllä–ei-kytkin. Kertymisnopeuteen vaikuttavat etäisyys, katselukulma, liikkumistapa tai asento, liike ja taskulamppu. Mittari laskee näköyhteyden puuttuessa; hyvin läheltä tunnistus tapahtuu heti. Epäily voi käynnistää tutkimisen ennen kuin varmennettu kohde johtaa takaa-ajoon.",
+            "Taskulamppu helpottaa näkemistä, mutta lisää paljastumisen riskiä: se vaikuttaa näkökantamaan ja tunnistukseen, ja näkyvä valokeila tai valaistu kohta voi muodostaa vihjeen. Debug-näkymä näyttää näön osatekijät, jotta toimintaa voi tarkastaa ja säätää."
+          ]
+        },
+        {
+          "title": "Muisti ilman seinien läpi näkemistä",
+          "paragraphs": [
+            "Vihollinen etsii viimeksi havaitsemansa tiedon perusteella sen sijaan, että seuraisi piilossa olevan pelaajan reaaliaikaista sijaintia. Kun näköyhteys katkeaa, viimeinen varmennettu sijainti ja liikesuunta säilyvät. Tuore ääni voi ylläpitää takaa-ajoa tai korvata vanhemman etsintätiedon. Kohteen menettäminen käynnistää etsinnän viimeksi havaitusta paikasta.",
+            "Etsinnän alku painottuu pelaajan viimeaikaiseen kulkusuuntaan. Etsintäsäde laajenee, käytyjä paikkoja vältetään ja ehdotettujen reittien on pysyttävä alueen sisällä. Etsinnän jälkeen AlertRoam partioi katoamisalueella, kunnes valppaus laskee."
+          ]
+        },
+        {
+          "title": "Toiminta valitaan prioriteetin mukaan",
+          "paragraphs": [
+            "StateTree valitsee ensimmäisen kelvollisen tilan tässä prioriteettijärjestyksessä. Valinta tehdään uudelleen tiedon muuttuessa tai tehtävän päättyessä. Tilat kilpailevat valinnasta; ne eivät ole peräkkäisiä pelivaiheita. Kiinniotolla ja tainnutuksella on myös tapahtumapohjaiset ohitukset. Valppaustaso on erillinen tietokomponentin arvo."
+          ],
+          "visual": {
+            "kind": "priority",
+            "label": "StateTree / korkein kelvollinen prioriteetti ensin",
+            "caption": "Erillistä Detect-tilaa ei ole. Täysi tunnistusmittari mahdollistaa Chasen; uusi ääni voi ohjata Searchin sijaan Investigateen.",
+            "items": [
+              {
+                "title": "Capture",
+                "description": "Kiinniotto on aktiivinen. Tila jatkuu, kunnes kuoleman käsittely lataa kentän uudelleen."
+              },
+              {
+                "title": "Stunned",
+                "description": "Tainnutus on aktiivinen; toipuminen käynnistää etsinnän.",
+                "note": "Tuki vain debug-laukaisulle; pelin sisäistä tainnutuslähdettä ei ole vahvistettu."
+              },
+              {
+                "title": "Chase",
+                "description": "Varmennettu kohde on olemassa. Tuore havaittu ääni voi ohjata takaa-ajoa ilman näköyhteyttä."
+              },
+              {
+                "title": "Investigate",
+                "description": "Epäilyttävällä näköhavainnolla, selvällä tai vahvistetulla äänellä tai valovihjeellä on sijainti."
+              },
+              {
+                "title": "Search",
+                "description": "Kohde on kadonnut; etsintä käyttää säilytettyä tietoa."
+              },
+              {
+                "title": "Listen",
+                "description": "Vaimealla äänellä on sijainti, mutta havaintoa ei ole vielä vahvistettu."
+              },
+              {
+                "title": "AlertRoam",
+                "description": "Hunter on edelleen valppaana ilman kohdetta."
+              },
+              {
+                "title": "Roam",
+                "description": "Partiointi, kun mikään korkeamman prioriteetin ehto ei täyty."
+              }
+            ]
+          }
+        },
+        {
+          "title": "Pelaaja, ympäristö ja Hunter",
+          "paragraphs": [
+            "AI toimii osana pelattavaa ympäristöä. Uuden kohtaamisen lyhyellä ryntäyksellä on palautumisaika. Kiinniotto edellyttää ulottuvuutta, varmennettua näköyhteyttä ja lyhyttä kuljettavaa reittiä. Alue ja takaa-ajon etäisyysraja rajoittavat toimintaa. Hunter avaa reitillään suljetut lukitsemattomat ovet ja kunnioittaa lukkoja."
+          ],
+          "visual": {
+            "kind": "integration",
+            "label": "Toisiinsa kytkeytyvät pelijärjestelmät",
+            "caption": "Pelaajan toiminta muuttaa ympäristöä ja havaintotietoa. Hunterin toiminta vaikuttaa takaisin pelaajan paineeseen ja ääniin.",
+            "items": [
+              {
+                "title": "Pelaajan liikkuminen",
+                "description": "Hiipiminen, kyykistyminen ja juoksu vaikuttavat näkyvyyteen ja ääneen. Rajallinen paniikkisprintti tukee pakenemista."
+              },
+              {
+                "title": "Interaktiot ja ovet",
+                "description": "Uudelleenkäytettävä katseeseen perustuva rajapinta ja yhteinen oviluokka palvelevat pelaajaa, AI:ta ja kohtaamisia."
+              },
+              {
+                "title": "Havaintojen syötteet",
+                "description": "Pinnan ja liikkumistavan huomioivat askeleet, ovien äänet ja taskulamppu välittävät tietoa Hunterille."
+              },
+              {
+                "title": "Haavat ja uusi yritys",
+                "description": "Haavat paranevat vaiheittain, ja mallissa on kriittinen tila. Kiinniotto ja kuolema johtavat uuteen yritykseen."
+              },
+              {
+                "title": "Reagoiva ääni",
+                "description": "Musiikki vaihtuu tutkimisen, vaaran, takaa-ajon ja kuoleman välillä Hunterin tilanteen mukaan."
+              }
+            ]
+          }
+        },
+        {
+          "title": "Järjestelmien ympärille koostettu maailma",
+          "paragraphs": [
+            "Laaja yhtenäinen One File Per Actor -kartta sisältää kartanon ja kaksi sairaalarakennusta, jotka on koostettu kolmansien osapuolten modulaarisista ympäristöpaketeista. Hunterin nykyinen alue on H2-sairaala. Monikerroksinen navigointi, esteet, lukitut reitit ja projektin yhteiseen oviluokkaan muunnetut oviassetit yhdistävät tilan AI:hin.",
+            "Yksi skriptattu Door-14-väijytys ohjaa Hunteria hetkellisesti tavallisen StateTree-toiminnan ulkopuolella ja palauttaa sitten ohjauksen systeemiseen takaa-ajoon. Ympäröivä maailma on tätä testattua osuutta laajempi: monikerroksisesta navigoinnista on näyttöä, mutta porrastakaa-ajot tarvitsevat vielä erillistä pelitestausta."
+          ]
+        },
+        {
+          "title": "Tekninen työ ja iterointi",
+          "paragraphs": [
+            "Vaiheittainen kehitys käyttää Gitiä, Git LFS:ää ja One File Per Actor -rakennetta. Uudelleenkäytettävät komponentit erottavat havainnoinnin, hahmon toiminnot, interaktiot, haavat ja äänen. AI:n säätöarvot ovat pelin aikana luettavassa data-assetissa, joten iterointi ei edellytä vakioiden hajauttamista toimintakoodiin."
+          ],
+          "bullets": [
+            "Konsolin testikomennot, visuaaliset merkit ja tilanäkymät näyttävät tunnistuksen, kuulopäätökset, muistetut sijainnit ja etsinnän kohteet.",
+            "Python-työkalut tukevat skriptattuja PIE-regressiotarkistuksia ja vievät kenttägeometrian mittakaavaisiksi pohjapiirroksiksi.",
+            "Suunnittelusäännöt, hyväksymiskriteerit ja pienet kehitysvaiheet pitävät toteutuksen ja katselmoinnin rajattuina."
+          ]
+        },
+        {
+          "title": "Prototyypit ja seuraavat vaiheet",
+          "paragraphs": [
+            "Hunterin pienempi naulapyssyprototyyppi käyttää fyysisiä ammuksia, näköyhteyteen sidottua laukaisua, ammusten kiinnittymistä pintoihin ja samanaikaisten ammusten ylärajaa. Tähtäyksen esitys on paikkamerkkitasolla, ja audiovisuaalinen viimeistely on kesken.",
+            "Nykyinen tekninen näyttö keskittyy yhteen Hunteriin ja sen stealth-pelisilmukkaan. Narratiivinen laajentaminen kuuluu tulevaan työhön. Aito kuva-aineisto helpottaa havainnoinnin, etsinnän ja ympäristöintegraation arviointia tallennetun kehitysnäytön rinnalla."
+          ]
+        }
+      ],
+      "mediaSlots": {
+        "hero": {
+          "title": "Pelattava sairaalaosuus",
+          "description": "Aito pelikuva näyttää sairaalaympäristön koostamisen ja Hunterin samassa tilassa. Nykyinen konseptikuva ei esitä pelitilannetta.",
+          "alt": "Ensimmäisen persoonan pelikuva H2-sairaalasta, jossa näkyvät Hunter ja vuorovaikutteinen ovi.",
+          "caption": "Pelikuva / H2-sairaala. Ympäristö on koostettu kolmansien osapuolten modulaarisista asseteista."
+        },
+        "detection": {
+          "title": "Näköhavainnon perusteet näkyviin",
+          "description": "Suunniteltu debug-kuva näyttää osittain täyttyneen tunnistusmittarin sekä etäisyyden, katselukulman, liikkumistavan ja taskulampun vaikutukset.",
+          "alt": "Hunterin debug-näkymä, jossa näkyvät osittain täyttynyt tunnistusmittari ja näön yksittäiset osatekijät.",
+          "caption": "PIE-debug-kuva / Asteittainen näköhavainto ja näön osatekijät."
+        },
+        "hearing": {
+          "title": "Ääni kerrosten ja reittien välillä",
+          "description": "Suunniteltu debug-kuva vertailee kuulunutta ja vaimentunutta ääntä kuljettavan reitin pituuden ja kuulorajan avulla.",
+          "alt": "Hunterin kuulon debug-tiedot, joissa näkyvät äänipäätös, NavMesh-reitin pituus ja viimeksi kuullun sijainnin merkki.",
+          "caption": "PIE-debug-kuva / Reitin huomioiva kuulo sairaalaympäristössä."
+        },
+        "search": {
+          "title": "Etsintä muistetun tiedon perusteella",
+          "description": "Suunniteltu kuva näyttää viimeisen näköhavainnon merkin, laajenevan etsintäalueen, suuntapainotuksen ja valitun kohteen näköyhteyden katkettua.",
+          "alt": "Hunterin etsinnän debug-merkit, joissa näkyvät viimeksi havaittu sijainti, etsintäalue, suunta ja kohde.",
+          "caption": "PIE-debug-kuva / Muistiin perustuva, suuntapainotettu etsintä."
+        },
+        "loop": {
+          "title": "Lyhyt stealth-pelisilmukka",
+          "description": "Suunniteltu pelivideo yhdistää äänen, tutkimisen, näköhavainnon, takaa-ajon, paon ja etsinnän. Se näyttää toimivan prototyypin eikä lavastettua väitettä ominaisuudesta.",
+          "alt": "Pelivideo, jossa pelaaja herättää Hunterin huomion, pakenee takaa-ajoa ja näkee vihollisen etsivän viimeksi havaitulla alueella.",
+          "caption": "Pelivideo / Integroitu stealth-pelisilmukka. Ympäristötaide on kolmansien osapuolten tekemää."
+        }
+      }
     },
     storycodex: {
       category: 'Android / Tekoälytarinat', description: 'Pieni käyttöliittymä suurelle mielikuvitukselle.',
