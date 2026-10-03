@@ -1,6 +1,7 @@
 import { build } from 'esbuild';
 import { mkdir, readdir, unlink } from 'node:fs/promises';
 import sharp from 'sharp';
+import { createPublicOutput } from './public-output.mjs';
 await mkdir('.build', { recursive: true });
 await build({ entryPoints: ['scripts/generate.ts'], outfile: '.build/generate.mjs', bundle: true, platform: 'node', format: 'esm', target: 'node22' });
 await import(`../.build/generate.mjs?build=${Date.now()}`);
@@ -14,3 +15,4 @@ for (const name of previousChunks) {
 }
 await sharp('assets/portfolio/social-preview.svg').png().toFile('assets/portfolio/social-preview.png');
 await sharp('assets/portfolio/social-preview-fi.svg').png().toFile('assets/portfolio/social-preview-fi.png');
+await createPublicOutput();

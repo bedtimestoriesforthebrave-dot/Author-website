@@ -44,7 +44,7 @@ StoryCodex and education derive from the original portfolio. Author Website also
 ## Commands
 
 Run from `root`: `npm run build`, `npm run typecheck`, `npm run lint`, `npm test`, `npm run dev:local`.
-The build emits portfolio pages plus a small browser entry. Browser tests use a dedicated local static server and never exercise writes to the author API or external services.
+The build emits portfolio pages plus a small browser entry, then stages all deployable author pages, portfolio pages and static assets in `public/`, matching the existing Vercel output directory. Only public file types and the explicit CV/book data files are copied; API handlers remain in `api/` for Vercel function discovery. Source content, tooling, reports and local environment files stay outside the static output. Browser tests serve `public/` through a dedicated local static server and never exercise writes to the author API or external services. Run the build before the tests.
 
 The `portfolio-src` name avoids a static-server directory collision with `/portfolio`. The local Express server resolves HTML extensions and uses the generated English or Finnish 404 fallback according to the URL, mirroring the existing clean-URL hosting behavior without modifying hosting configuration.
 
