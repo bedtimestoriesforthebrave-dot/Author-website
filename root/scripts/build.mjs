@@ -13,3 +13,4 @@ for (const name of previousChunks) {
   if (/^spatial-[A-Z0-9]+\.js$/.test(name) && !outputs.has(path)) await unlink(path);
 }
 await sharp('assets/portfolio/social-preview.svg').png().toFile('assets/portfolio/social-preview.png');
+await sharp('assets/portfolio/social-preview-fi.svg').png().toFile('assets/portfolio/social-preview-fi.png');

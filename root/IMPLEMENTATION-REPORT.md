@@ -148,3 +148,22 @@ The portfolio is complete with documented evidence placeholders. ReorderOps' kno
 6. Final documentation commit — Record portfolio verification and remaining evidence; contains this report. Resolve its hash with `git log -1 --oneline`.
 
 The content/static baseline was completed and checked before the visual system; the visual system was checked before advanced motion. All commits are local. Work stops after this report; nothing is pushed or deployed.
+
+## 25. Bilingual follow-up — 3 October 2026
+
+The portfolio now supports English (default) and Finnish. A shared typed metadata module contains technologies, URLs, media paths, project order and stable section IDs. `content.en.ts` / `content.fi.ts` supply portfolio-authored presentation, and `ui.ts` supplies localized interface and accessibility text. One renderer generates both static portfolios, all four case studies, localized 404 pages and social preview assets. See `PORTFOLIO.md` for maintenance instructions.
+
+The EN / FI switch retains the current project page without JavaScript. With JavaScript it also retains the visible section through shared anchors. The header stays available while scrolling, with anchor offsets keeping content below it. Motion preferences remain shared between languages, and motion labels are localized. There is no browser-language redirect: English remains the default route.
+
+Technical documentation remains English-only. Both locales retain identical technical references and documentation destinations, with an English-language label. No underlying ReorderOps documentation was modified and no Finnish documentation copies were created. A Chain of Pain's requested evidence placeholders remain clearly marked in both languages.
+
+Validation for this follow-up:
+
+- Build, TypeScript and ESLint passed.
+- **25 browser tests passed**, including the original 15 and 10 bilingual checks. These cover Finnish layout/accessibility at 1440, 820, 390 and 320 pixels; all Finnish case studies and images; shared technical references; native navigation with JavaScript disabled; switching in both directions; localized motion controls; canonical/hreflang metadata; clean URLs and Finnish 404 recovery.
+- Finnish portfolio, all case studies and the Finnish 404 had no detected WCAG 2 A/AA or 2.1 AA violations in the tested Chromium contexts. No horizontal overflow was detected at the tested widths.
+- Screenshots of both languages were inspected, including Finnish hero, procurement diagram, workflow and education layouts. The Finnish social preview was inspected.
+- The actual Express runtime returned HTTP 200 for both clean portfolio URLs, all Finnish clean case-study URLs, the existing author landing page and shared CV. An unknown Finnish URL returned HTTP 404 with Finnish recovery content.
+- Current initial JavaScript is **2,518 bytes / 1,160 bytes gzip**; CSS is **28,195 bytes / 5,991 bytes gzip**. Translated content remains in static HTML rather than increasing the browser payload with all locale data. The desktop animation dependency remains lazy.
+
+The preceding measurements/test counts describe the original redesign; the figures above supersede them for the bilingual implementation. Existing unrelated working changes were preserved. This follow-up remains local: nothing was deployed, pushed or changed in external services or hosting settings.

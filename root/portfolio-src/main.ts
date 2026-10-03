@@ -37,9 +37,9 @@ async function syncMotion() {
   if (motionButton) {
     motionButton.hidden = !eligible;
     motionButton.setAttribute('aria-pressed', String(optedOut));
-    motionButton.setAttribute('aria-label', optedOut ? 'Enable spatial motion' : 'Disable spatial motion');
+    motionButton.setAttribute('aria-label', (optedOut ? motionButton.dataset.motionEnable : motionButton.dataset.motionDisable)!);
     const label = motionButton.querySelector('[data-motion-label]');
-    if (label) label.textContent = optedOut ? 'off' : 'on';
+    if (label) label.textContent = (optedOut ? motionButton.dataset.motionOff : motionButton.dataset.motionOn)!;
   }
   if (!eligible || optedOut) return;
   try {
@@ -61,3 +61,32 @@ motionButton?.addEventListener('click', () => {
 desktop.addEventListener('change', () => void syncMotion());
 reduced.addEventListener('change', () => void syncMotion());
 void syncMotion();
+
+/** Keep the counterpart project page and a useful, locale-independent anchor. */
+function currentAnchor(): string {
+  const readingLine = innerHeight * .3;
+  const candidates = [...document.querySelectorAll<HTMLElement>('main section[id], main article[id]')]
+    .map(element => ({ element, rect: element.getBoundingClientRect() }));
+  const atReadingLine = candidates.filter(({ rect }) => rect.top <= readingLine && rect.bottom > readingLine)
+    .sort((a, b) => a.rect.height - b.rect.height)[0];
+  if (atReadingLine) return `#${atReadingLine.element.id}`;
+  const nextVisible = candidates.find(({ rect }) => rect.top >= 0 && rect.top < innerHeight * .7);
+  if (nextVisible) return `#${nextVisible.element.id}`;
+  if (location.hash) {
+    try {
+      const element = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < innerHeight) return location.hash;
+      }
+    } catch { /* A malformed fragment must not block a native language link. */ }
+  }
+  return '';
+}
+for (const languageLink of document.querySelectorAll<HTMLAnchorElement>('[data-locale-switch]')) {
+  const counterpart = languageLink.getAttribute('href')!;
+  const preservePosition = () => { languageLink.href = counterpart + currentAnchor(); };
+  languageLink.addEventListener('pointerenter', preservePosition);
+  languageLink.addEventListener('focus', preservePosition);
+  languageLink.addEventListener('click', preservePosition);
+}

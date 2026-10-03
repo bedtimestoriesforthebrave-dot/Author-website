@@ -184,7 +184,7 @@ app.delete('/api/books/:id', authorize, async (req, res) => {
 // Static hosting supplies 404.html; mirror the portfolio fallback locally.
 app.use((req, res) => {
   if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'Not found' });
-  return res.status(404).sendFile(path.join(__dirname, '404.html'));
+  return res.status(404).sendFile(path.join(__dirname, req.path.startsWith('/fi/') ? 'fi/404.html' : '404.html'));
 });
 
 app.listen(PORT, () => {

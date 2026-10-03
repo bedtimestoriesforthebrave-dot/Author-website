@@ -9,11 +9,23 @@ The inspected application is a static HTML/CSS/JavaScript author site with Node.
 - **Remove from the main experience:** student-first identity, generic biography and equal cards for coursework.
 - **Reuse:** verified StoryCodex / Author Website descriptions and education; the original portfolio is retained in `content/legacy-portfolio.html`.
 
-The portfolio stays at `/portfolio.html`. The author landing page remains at `/`. This avoids displacing the live author site or changing hosting rules. Generated HTML is checked in so the existing static hosting model stays runnable. No deploy, push or external setting changes are part of this work.
+The English portfolio stays at `/portfolio.html` (clean URL `/portfolio`) and is the default. Finnish uses `/fi/portfolio.html` (`/fi/portfolio`). The author landing page remains at `/`. Generated HTML is checked in so the existing static hosting model stays runnable. No deploy, push or external setting changes are part of this work.
 
 ## Content sources
 
-`portfolio-src/content.ts` owns identity, navigation, public links, project prominence, summaries, architecture, testing evidence, case studies, workflow, skills and education. No CMS is introduced. Nullable links/media and explicit `placeholders` prevent invented project evidence.
+`portfolio-src/content.ts` assembles each locale from a single shared content architecture. No CMS is introduced. Nullable links/media and explicit `placeholders` prevent invented project evidence.
+
+- `model.ts` defines the shared metadata and required locale presentation fields.
+- `content.shared.ts` owns identity, project order, stable slugs/section IDs, technologies, URLs, media paths, source references and education dates.
+- `content.en.ts` and `content.fi.ts` own portfolio presentation: hero, project summaries and case studies, workflow, skills wording, education and contact.
+- `ui.ts` owns translated buttons, navigation helpers, labels and accessibility text.
+- `render.ts` renders both languages using the same templates; the generator emits both sets of static pages and social previews.
+
+Edit the source files and run `npm run build`; do not maintain the generated HTML separately. New case-study sections need a shared stable ID and a presentation entry in each locale. Product and technology names remain unchanged.
+
+The EN / FI links work without JavaScript and retain the project page. The small browser entry adds the currently visible section's shared ID when switching, preserving reading position where practical. English is never automatically redirected based on browser settings or a stored language. Both versions include locale-specific canonical URLs, reciprocal `hreflang` links and an English `x-default`.
+
+Underlying technical documentation remains English-only. Both portfolio languages use the same technical files and destinations; source sections label them “Documentation · English” / “Dokumentaatio · englanniksi”. There are no Finnish copies of the Reviewer Guide, architecture, planning rules, AI evaluations, demo controls or engineering/deployment documentation.
 
 ReorderOps was read from the local `Documents/ReorderOps` repository: README, reviewer guide and portfolio case study, with source links to evaluation/control documentation. Only curated conclusions are reproduced. Known prose/language and hosting verification limits are retained. No private datasets, runtime files or credentials are copied.
 
@@ -34,7 +46,7 @@ StoryCodex and education derive from the original portfolio. Author Website also
 Run from `root`: `npm run build`, `npm run typecheck`, `npm run lint`, `npm test`, `npm run dev:local`.
 The build emits portfolio pages plus a small browser entry. Browser tests use a dedicated local static server and never exercise writes to the author API or external services.
 
-The `portfolio-src` name avoids a static-server directory collision with `/portfolio`. The local Express server resolves HTML extensions and uses the generated 404 fallback, mirroring the existing clean-URL hosting behavior without modifying hosting configuration.
+The `portfolio-src` name avoids a static-server directory collision with `/portfolio`. The local Express server resolves HTML extensions and uses the generated English or Finnish 404 fallback according to the URL, mirroring the existing clean-URL hosting behavior without modifying hosting configuration.
 
 ## Motion and fallbacks
 
