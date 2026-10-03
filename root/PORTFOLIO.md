@@ -7,9 +7,9 @@ The inspected application is a static HTML/CSS/JavaScript author site with Node.
 - **Keep:** author pages and API behavior, public personal contact details, LinkedIn, the supplied CV, serverless configuration, original project evidence.
 - **Rewrite:** the separate portfolio, its hierarchy, typography, skills, metadata and responsive behavior.
 - **Remove from the main experience:** student-first identity, generic biography and equal cards for coursework.
-- **Reuse:** verified StoryCodex / Author Website descriptions and education; the original portfolio is retained in `content/legacy-portfolio.html`.
+- **Reuse:** verified StoryCodex / Author Website descriptions and education; the original portfolio is retained outside the deployed site in `../reports/portfolio/legacy-portfolio.html`.
 
-The English portfolio stays at `/portfolio.html` (clean URL `/portfolio`) and is the default. Finnish uses `/fi/portfolio.html` (`/fi/portfolio`). The author landing page remains at `/`. Generated HTML is checked in so the existing static hosting model stays runnable. No deploy, push or external setting changes are part of this work.
+The English portfolio stays at `/portfolio.html` (clean URL `/portfolio`) and is the default. Finnish uses `/fi/portfolio.html` (`/fi/portfolio`). The author landing page remains at `/`. Generated HTML is checked in so the existing static hosting model stays runnable. The release uses the existing Git-triggered deployment without changing hosting configuration.
 
 ## Content sources
 
@@ -27,7 +27,7 @@ The EN / FI links work without JavaScript and retain the project page. The small
 
 Underlying technical documentation remains English-only. Both portfolio languages use the same technical files and destinations; source sections label them “Documentation · English” / “Dokumentaatio · englanniksi”. There are no Finnish copies of the Reviewer Guide, architecture, planning rules, AI evaluations, demo controls or engineering/deployment documentation.
 
-ReorderOps was read from the local `Documents/ReorderOps` repository: README, reviewer guide and portfolio case study, with source links to evaluation/control documentation. Only curated conclusions are reproduced. Known prose/language and hosting verification limits are retained. No private datasets, runtime files or credentials are copied.
+ReorderOps presentation and technical documents derive from its actual project documentation. Five reviewed public editions are kept in `content/reorderops/`; `documentation.ts` owns their shared catalog and semantic Markdown rendering. The generator emits `/docs/reorderops/` and five English document pages. Both case-study locales link to this same catalog. The `/docs/reorderops/` path avoids creating a directory that would shadow `/portfolio`. Private deployment diaries, environment-loading instructions, session identifiers and retained-artifact paths are omitted; historical versions, failed evaluations and limitations remain qualified. Unpublished source references render as readable text, never private repository links. Originals remain untouched.
 
 A Chain of Pain uses the supplied 3 October 2026 read-only project evidence audit. Its curated case study focuses on the H1 Hunter's perception, memory, StateTree, navigation and gameplay integration. The intended narrative game is distinguished from the playable stealth/AI prototype. Recorded PIE results are historical development evidence, not tests rerun by this website build. Raw audit documents, internal paths and logs are not published. See `content/a-chain-of-pain-media.md` for the five planned capture slots and how to activate real assets.
 
@@ -63,4 +63,4 @@ Keyboard focus forces its panel front-facing. The optional motion toggle persist
 - ReorderOps: the source repository returned an unauthenticated public 404, so no broken source link is displayed. Its public demo screenshot is real synthetic-data UI, captured 3 October 2026. A walkthrough video is optional.
 - Author Website: a dedicated application screenshot and a documented role could be added.
 
-The earlier portfolio remains intact in `content/legacy-portfolio.html`. The existing CV PDF is reused without editing its personal details or asserting that it is current. `scripts/capture-evidence.mjs` is an explicit read-only capture/check helper and is never called during a normal build or test.
+The earlier portfolio and implementation reports remain in `../reports/portfolio/`, outside the deployed `root` directory. The user-confirmed final one-page Finnish CV remains unmodified at `/data/cv.pdf`; release checks require its SHA-256 to match `816a9a649b9eb6c4c48f7deae6a5ada682383a51a9977415a1a283e90d441c16`. `scripts/capture-evidence.mjs` is an explicit read-only capture/check helper and is never called during a normal build or test.

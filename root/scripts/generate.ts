@@ -1,6 +1,7 @@
-import { access, mkdir, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { getContent, locales } from '../portfolio-src/content';
 import { createRenderer } from '../portfolio-src/render';
+import { documentationIndex, documentationRoot, documents, renderMarkdown } from '../portfolio-src/documentation';
 const writeHtml = (path: string, html: string) => writeFile(path, html.replace(/[ \t]+$/gm, ''));
 for (const locale of locales) {
   const prefix = locale === 'en' ? '' : 'fi/';
@@ -23,4 +24,12 @@ for (const locale of locales) {
     await writeHtml(`${prefix}case-studies/${project.slug}.html`, renderer.renderStudy(project));
   }
 }
+const docsRenderer = createRenderer('en');
+await mkdir(`.${documentationRoot}`, { recursive: true });
+await writeHtml(`.${documentationRoot}/index.html`, docsRenderer.renderDocumentation('Technical Documentation', 'Curated engineering evidence for ReorderOps: the review workflow, system architecture, deterministic planning, AI evaluation and public-demo controls.'));
+for (const doc of documents) {
+  const source = await readFile(`content/reorderops/${doc.slug}.md`, 'utf8');
+  await writeHtml(`.${documentationRoot}/${doc.slug}.html`, docsRenderer.renderDocumentation(doc.title, doc.description, `${documentationRoot}/${doc.slug}.html`, { ...renderMarkdown(source), note: doc.note }));
+}
+console.log(`Generated English technical documentation at ${documentationIndex}.`);
 console.log('Generated English and Finnish portfolios, case studies and 404 pages from shared typed content.');

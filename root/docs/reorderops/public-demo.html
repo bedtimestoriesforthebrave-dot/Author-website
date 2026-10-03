@@ -1,0 +1,172 @@
+<!doctype html>
+  <html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Public Demo Controls — ReorderOps — Ville Lähteenmäki</title><meta name="description" content="Anonymous visitor isolation, bounded actions and persistent AI admission. Documents read-only AI, conservative cost reservations and remaining limits.">
+
+  <meta property="og:locale" content="en_US">
+
+  <meta name="theme-color" content="#111310"><link rel="canonical" href="https://vlnikolai.com/docs/reorderops/public-demo">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Ville Lähteenmäki">
+  <meta property="og:title" content="Public Demo Controls — ReorderOps — Ville Lähteenmäki"><meta property="og:description" content="Anonymous visitor isolation, bounded actions and persistent AI admission. Documents read-only AI, conservative cost reservations and remaining limits.">
+  <meta property="og:url" content="https://vlnikolai.com/docs/reorderops/public-demo"><meta property="og:image" content="https://vlnikolai.com/assets/portfolio/social-preview.png">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Ville Lähteenmäki — Software &amp; AI Developer. Selected work: ReorderOps, A Chain of Pain, StoryCodex and Author Website.">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Public Demo Controls — ReorderOps — Ville Lähteenmäki"><meta name="twitter:description" content="Anonymous visitor isolation, bounded actions and persistent AI admission. Documents read-only AI, conservative cost reservations and remaining limits."><meta name="twitter:image" content="https://vlnikolai.com/assets/portfolio/social-preview.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/portfolio/favicon.svg">
+  <link rel="stylesheet" href="/css/portfolio.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ville Lähteenmäki","jobTitle":"Software & AI Developer","url":"https://vlnikolai.com/portfolio","sameAs":["https://github.com/bedtimestoriesforthebrave-dot","https://www.linkedin.com/in/ville-l%C3%A4hteenm%C3%A4ki-734698302"]}</script>
+  </head><body class="study-page"><a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="header-inner">
+  <a class="wordmark" href="/portfolio.html" aria-label="Ville Lähteenmäki, portfolio home"><span class="monogram" aria-hidden="true">VL<span>_</span></span><span class="wordmark-name">Ville Lähteenmäki</span></a>
+  <nav aria-label="Main navigation"><a href="/portfolio.html#work" data-nav="work">Work</a><a href="/portfolio.html#approach" data-nav="approach">Approach</a><a href="/portfolio.html#background" data-nav="background">About</a><a href="/portfolio.html#contact" data-nav="contact">Contact</a></nav>
+  <div class="header-actions"><div class="language-switch" role="group" aria-label="Language"><a href="/case-studies/reorderops.html" lang="en" hreflang="en" aria-label="English" aria-current="page">EN</a><span aria-hidden="true">/</span><a href="/fi/case-studies/reorderops.html" lang="fi" hreflang="fi" aria-label="Suomi">FI</a></div><a class="cv-link" href="/data/cv.pdf">CV · PDF <span aria-hidden="true">↗</span></a><button class="motion-toggle" type="button" aria-pressed="false" data-motion-on="on" data-motion-off="off" data-motion-enable="Enable spatial motion" data-motion-disable="Disable spatial motion" hidden>Motion <span data-motion-label>on</span></button></div>
+  </div></header><main id="main" tabindex="-1" class="container study-main documentation-page"><nav class="doc-navigation" aria-label="Documentation navigation"><a class="text-link" href="/case-studies/reorderops.html">Back to ReorderOps case study <span aria-hidden="true">↗</span></a><a class="text-link" href="/docs/reorderops/">Documentation index <span aria-hidden="true">↗</span></a><a class="text-link" href="https://reorder-ops.vercel.app/">Live demo <span aria-hidden="true">↗</span></a></nav><header class="study-hero"><p class="section-label"><span>01</span> ReorderOps / Documentation · English</p><h1>Public Demo Controls</h1><p class="study-lead">Anonymous visitor isolation, bounded actions and persistent AI admission. Documents read-only AI, conservative cost reservations and remaining limits.</p><p class="documentation-language">Technical documentation is published in English. The EN / FI switch returns to the matching ReorderOps case study.</p></header><p class="study-note">Public architecture edition of the recorded V6 controls. Private deployment checkpoints, activation instructions and session identifiers are omitted. Reported checks are historical evidence, not new tests run for this portfolio release.</p><div class="study-layout"><nav class="study-toc" aria-label="Document sections"><p class="micro-label">In this document</p><a href="#visitor-experience-and-storage">Visitor experience and storage</a><a href="#public-ai-admission-and-accounting">Public AI admission and accounting</a><a href="#verification-scope-and-limitations">Verification scope and limitations</a></nav><article class="study-body doc-prose" aria-label="Public Demo Controls"><p>Implemented and verified locally on 2 October 2026, then pushed with user approval as <code>afa5ea8</code>.
+Both public hosts expose the new code; <strong>visitor sessions/actions are enabled and verified;
+guarded paid AI is enabled in visitor sessions</strong>. Hosted quota/isolation and browser checks
+pass; manual review found a Finnish language failure and live financial reconciliation remains
+pending. See hosted AI findings.
+The hosting dashboard&#39;s deployed commit was not independently read. Staging defaults remain
+read-only with paid AI disabled. These
+controls extend V4/V5 without changing planning-v1.3, synthetic-operations-v2 or migration 0004.</p>
+<h2 id="visitor-experience-and-storage">Visitor experience and storage</h2>
+<p>Visitors choose <strong>Start my demo session</strong>, without signup. The backend takes a consistent SQLite
+backup of the synthetic showcase into a separate visitor database. Inventory, saved scenarios,
+decisions, drafts, audit and assistant evidence all use that visitor&#39;s database. V4 current-state
+validation, warning acknowledgement, duplicate prevention, idempotency and append-only audit
+triggers remain in force. Drafts send nothing to suppliers and never count as confirmed supply.
+Public planning-run creation, operational edits and resets remain blocked.</p>
+<p>The token is a random 256-bit bearer capability; only its SHA-256 hash is stored server-side.
+The frontend keeps the token in tab-scoped <code>sessionStorage</code> and sends it in <code>Authorization</code>,
+never in URLs or cookies. Starting/ending a session clears cached page context by reloading;
+ending or expiry returns to the read-only showcase. This is anonymous access to disposable
+synthetic data, not real-account authentication. Anyone holding a token can use that session.
+The server requires an exact configured Origin for session creation and token-bearing POSTs;
+CORS/Origin checks constrain browsers, but direct callers can supply an Origin themselves.</p>
+<div class="doc-table" role="region" aria-label="Documentation table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Bound</th>
+<th>Policy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Lifetime</td>
+<td>24 hours, fixed rather than sliding</td>
+</tr>
+<tr>
+<td>Stored visitor copies</td>
+<td>At most 24; crash-orphan copies count until cleanup removes them</td>
+</tr>
+<tr>
+<td>New sessions</td>
+<td>50 per UTC day across all visitors</td>
+</tr>
+<tr>
+<td>Action attempts</td>
+<td>30 per session, including failed attempts and retries</td>
+</tr>
+<tr>
+<td>Database size</td>
+<td>4 MiB guard before copying or admitting an action</td>
+</tr>
+<tr>
+<td>Global HTTP traffic</td>
+<td>120 requests/minute in the one process; excess gets 429</td>
+</tr>
+<tr>
+<td>Request body</td>
+<td>Existing 64 KiB pre-parse limit</td>
+</tr>
+</tbody></table>
+</div><p>Storage lives beside the showcase: a separate control database plus generated visitor databases. The control database owns schema version 1; it is separate from the application
+Alembic history. No new service, volume, worker, background timer or keep-alive is required.
+Visitor engines use <code>NullPool</code> and dispose connections after requests. Cleanup runs on the next
+session creation, skips databases with in-flight requests, and removes only exact expired visitor
+files and their SQLite sidecars. Ending a session expires it immediately; removal can wait until
+that next creation. The showcase and local V4 history are preserved. Cleanup discards whole
+disposable databases instead of weakening their audit triggers. Control/AI records older than
+45 days are pruned during cleanup; current-month spending and unexpired leases remain intact.</p>
+<p>Capacity exhaustion leaves the showcase available and refuses new sessions. A crash between
+copying and registering a session can leave an unregistered copy. The same cleanup removes it only
+when its name is an exact generated identifier (32 lowercase hex characters plus <code>.sqlite3</code>), it
+has no control-database row, it has no in-flight request, and neither it nor any SQLite sidecar
+was modified in the last hour (<code>ORPHAN_GRACE_SECONDS</code>). Other names, symlinks, recent or
+in-use files are left for operator review. Until removed, orphans consume capacity. The HTTP limiter resets on process restart; durable
+session/action/AI quotas do not. Creating another session evades a per-visitor quota, but not
+global session, traffic, concurrency or spend bounds. This deliberately small anonymous demo
+does not provide user identity, a WAF or protection against sustained distributed denial of service.</p>
+<h2 id="public-ai-admission-and-accounting">Public AI admission and accounting</h2>
+<p>Public AI requires a valid visitor session and all explicit enable flags. Shared-showcase
+questions still return deterministic evidence. The assistant remains read-only even in a visitor
+session; purchase decisions still require the human confirmation screen.</p>
+<div class="doc-table" role="region" aria-label="Documentation table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Bound</th>
+<th>Policy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Daily allowance</td>
+<td>$0.50 per UTC day</td>
+</tr>
+<tr>
+<td>Monthly allowance</td>
+<td>$4.00 per UTC calendar month; adjustable backend variable</td>
+</tr>
+<tr>
+<td>Questions</td>
+<td>100 admitted globally/day, 10 per visitor/day</td>
+</tr>
+<tr>
+<td>Concurrent question</td>
+<td>One, admitted atomically across threads/restarts</td>
+</tr>
+<tr>
+<td>Model and tier</td>
+<td>Exact <code>gpt-6-luna</code>, OpenAI API endpoint, Standard/default tier</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>At most 20,000 counted tokens per generation</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>At most 1,200 tokens per generation, including reasoning/formatting</td>
+</tr>
+<tr>
+<td>Orchestration</td>
+<td>Existing four rounds/eight tools, 30-second question timeout, no SDK retries</td>
+</tr>
+</tbody></table>
+</div><p>Before provider work, a short SQLite <code>BEGIN IMMEDIATE</code> transaction checks all quotas and charges
+the full worst-case four-round reservation: <strong>$0.0155</strong>. It also records a concurrency lease.
+There is no database transaction held during a model await. Before each generation, the
+<a href="https://developers.openai.com/api/docs/guides/token-counting" rel="noopener noreferrer">Responses input-token endpoint</a>
+counts the same input, instructions, tools and output schema. An over-limit input or UTC-day
+change prevents generation.</p>
+<p>Settlement sums returned usage across all rounds, refunds unused reservation only when usage
+is known, and retains the full reservation for timeout, cancellation, missing usage or process
+crash. An expired crash lease releases concurrency, not reserved spending. Unexpected model,
+tier or token bounds persist an accounting block across restart and require operator review;
+there is no browser/admin reset endpoint. SQLite admission failure falls back to deterministic
+evidence without calling the provider. Failed settlement leaves the original reservation charged.</p>
+<p>Accounting uses integer micro-USD and conservatively estimates Standard text/function usage
+at $0.125/M input (cache-write upper rate), $0.50/M output, plus 25% headroom, with no cache
+discount. Rates were checked against the <a href="https://developers.openai.com/api/docs/models/gpt-6-luna" rel="noopener noreferrer">model page</a>.
+This is an application estimate under those reviewed rates, not a guarantee about the provider&#39;s
+invoice, taxes, future tariff changes or usage by other applications on the same account.
+The prepaid balance is a separate safeguard, not the admission mechanism. A model/tariff change
+requires review of the allowlist, reservation and tests before public use.</p>
+<p>The ledger stores identifiers, UTC periods, state and token/cost metadata, not prompts, response
+prose, tool output, credentials or IP addresses. Existing browser conversation history stays in
+memory. Provider usage observations are allowlisted metadata; staging access logs stay disabled.</p>
+<h2 id="verification-scope-and-limitations">Verification scope and limitations</h2>
+<p>Offline tests use disposable synthetic databases and mocked SDK HTTP; no real credentials or
+billable model calls are used. They cover two visitors plus unchanged showcase fingerprints,
+draft/audit/assistant isolation, replay/hold rules, expiry, in-flight cleanup, storage/action limits,
+independent daily spend/personal/global quotas, monthly rollover, concurrent admission, retained
+crash/timeout reservations, accounting anomalies, exact token preflight, and fallback.</p>
+<p>The local browser exercised session creation, FILTER-420 warning acknowledgement, a 210-unit
+internal draft with visitor actor and linked audit, then session end and an empty shared draft
+list. This is local proof only; the hosted checkpoint and live-provider accounting are still pending.</p>
+</article></div><nav class="doc-navigation" aria-label="Documentation navigation"><a class="text-link" href="/case-studies/reorderops.html">Back to ReorderOps case study <span aria-hidden="true">↗</span></a><a class="text-link" href="/docs/reorderops/">Documentation index <span aria-hidden="true">↗</span></a><a class="text-link" href="https://reorder-ops.vercel.app/">Live demo <span aria-hidden="true">↗</span></a></nav></main><footer class="site-footer container"><p>© 2026 Ville Lähteenmäki</p><p>Software. Evidence. Human judgment.</p><a href="#main">Back to top <span aria-hidden="true">↑</span></a></footer><script type="module" src="/assets/portfolio/main.js"></script></body></html>

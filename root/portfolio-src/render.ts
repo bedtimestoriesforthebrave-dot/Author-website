@@ -1,5 +1,6 @@
 import { getContent, localizePath, locales } from './content';
 import type { Locale, Link, Project, StudyVisual } from './model';
+import { documentationIndex, documentationRoot, documents } from './documentation';
 
 export function createRenderer(locale: Locale = 'en') {
   const { site, projects, evidencePath, ui } = getContent(locale);
@@ -16,15 +17,15 @@ export function createRenderer(locale: Locale = 'en') {
   const sectionLabel = (number: string, label: string) => `<p class="section-label"><span>${number}</span> ${text(label)}</p>`;
   const travel = (inner: string) => `<div class="travel-panel">${inner}</div>`;
 
-  function head(title: string, description: string, path: string) {
+  function head(title: string, description: string, path: string, bilingual = true) {
     const canonical = absolute(path);
     return `<!doctype html>
   <html lang="${locale}"><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${text(title)}</title><meta name="description" content="${escape(description)}">
-  ${locales.map(language => `<link rel="alternate" hreflang="${language}" href="${absolute(path, language)}">`).join('')}<link rel="alternate" hreflang="x-default" href="${absolute(path, 'en')}">
+  ${bilingual ? `${locales.map(language => `<link rel="alternate" hreflang="${language}" href="${absolute(path, language)}">`).join('')}<link rel="alternate" hreflang="x-default" href="${absolute(path, 'en')}">` : ''}
   <meta property="og:locale" content="${locale === 'fi' ? 'fi_FI' : 'en_US'}">
-  <meta property="og:locale:alternate" content="${locale === 'fi' ? 'en_US' : 'fi_FI'}">
+  ${bilingual ? `<meta property="og:locale:alternate" content="${locale === 'fi' ? 'en_US' : 'fi_FI'}">` : ''}
   <meta name="theme-color" content="#111310"><link rel="canonical" href="${canonical}">
   <meta property="og:type" content="website"><meta property="og:site_name" content="${text(site.name)}">
   <meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${escape(description)}">
@@ -106,11 +107,21 @@ export function createRenderer(locale: Locale = 'en') {
 
   function renderStudy(project: Project) {
     return `${head(`${project.title} — ${site.name}`, project.summary, `/case-studies/${project.slug}.html`)}<body class="study-page">${header(true, `/case-studies/${project.slug}.html`)}<main id="main" class="container study-main" tabindex="-1"><a class="text-link back-link" href="${path('/portfolio.html')}#${project.slug}"><span aria-hidden="true">←</span> ${text(ui.backWork)}</a>
-    <header class="study-hero">${sectionLabel(project.number, project.category)}<h1>${text(project.title)}</h1><p class="study-lead">${text(project.summary)}</p>${tags(project, true)}<div class="project-actions">${project.links.demo ? link(project.links.demo, 'button primary') : ''}${project.links.github ? link(project.links.github, 'button secondary') : ''}</div><dl class="study-facts"><div><dt>${text(ui.status)}</dt><dd>${text(project.status)}</dd></div><div><dt>${text(ui.role)}</dt><dd>${text(project.role ?? ui.rolePending)}</dd></div><div><dt>${text(ui.architecture)}</dt><dd>${text(project.architecture)}</dd></div></dl>${project.media ? `<figure class="project-media"><a href="${escape(project.media.src)}" aria-label="${text(ui.fullScreenshot.replace('{project}', project.title))}"><img src="${escape(project.media.src)}" alt="${escape(project.media.alt)}" width="${project.media.width}" height="${project.media.height}" loading="lazy" decoding="async"></a><figcaption>${text(project.media.caption)} ${text(ui.imageHint)}</figcaption></figure>` : ''}${mediaSlots(project, 'hero')}</header>
-    <div class="study-layout"><nav class="study-toc" aria-label="${text(ui.caseNavigation)}"><p class="micro-label">${text(ui.inStudy)}</p>${project.study.map(section => `<a href="#${section.id}">${text(section.title)}</a>`).join('')}${project.placeholders.length ? `<a href="#forthcoming-evidence">${text(ui.forthcoming)}</a>` : ''}</nav><article class="study-body">${project.study.map(section => `<section id="${section.id}"><h2>${text(section.title)}</h2>${section.paragraphs.map(paragraph => `<p>${text(paragraph)}</p>`).join('')}${section.bullets ? `<ul>${section.bullets.map(item => `<li>${text(item)}</li>`).join('')}</ul>` : ''}${section.visual ? studyVisual(section.visual) : ''}${mediaSlots(project, section.id)}${section.note ? `<p class="study-note">${text(section.note)}</p>` : ''}</section>`).join('')}
+    <header class="study-hero">${sectionLabel(project.number, project.category)}<h1>${text(project.title)}</h1><p class="study-lead">${text(project.summary)}</p>${tags(project, true)}<div class="project-actions">${project.links.demo ? link(project.links.demo, 'button primary') : ''}${project.links.github ? link(project.links.github, 'button secondary') : ''}${project.links.documentation ? link(project.links.documentation, 'button secondary') : ''}</div><dl class="study-facts"><div><dt>${text(ui.status)}</dt><dd>${text(project.status)}</dd></div><div><dt>${text(ui.role)}</dt><dd>${text(project.role ?? ui.rolePending)}</dd></div><div><dt>${text(ui.architecture)}</dt><dd>${text(project.architecture)}</dd></div></dl>${project.media ? `<figure class="project-media"><a href="${escape(project.media.src)}" aria-label="${text(ui.fullScreenshot.replace('{project}', project.title))}"><img src="${escape(project.media.src)}" alt="${escape(project.media.alt)}" width="${project.media.width}" height="${project.media.height}" loading="lazy" decoding="async"></a><figcaption>${text(project.media.caption)} ${text(ui.imageHint)}</figcaption></figure>` : ''}${mediaSlots(project, 'hero')}</header>
+    <div class="study-layout"><nav class="study-toc" aria-label="${text(ui.caseNavigation)}"><p class="micro-label">${text(ui.inStudy)}</p>${project.study.map(section => `<a href="#${section.id}">${text(section.title)}</a>`).join('')}${project.links.documentation ? `<a href="#technical-documentation">${text(ui.documentation)}</a>` : ''}${project.placeholders.length ? `<a href="#forthcoming-evidence">${text(ui.forthcoming)}</a>` : ''}</nav><article class="study-body">${project.study.map(section => `<section id="${section.id}"><h2>${text(section.title)}</h2>${section.paragraphs.map(paragraph => `<p>${text(paragraph)}</p>`).join('')}${section.bullets ? `<ul>${section.bullets.map(item => `<li>${text(item)}</li>`).join('')}</ul>` : ''}${section.visual ? studyVisual(section.visual) : ''}${mediaSlots(project, section.id)}${section.note ? `<p class="study-note">${text(section.note)}</p>` : ''}</section>`).join('')}
     ${project.verification.length ? `<section id="verification-record"><h2>${text(ui.verification)}</h2><ul>${project.verification.map(item => `<li>${text(item)}</li>`).join('')}</ul></section>` : ''}
+    ${project.links.documentation ? `<section id="technical-documentation"><h2>${text(ui.documentation)}</h2><p>${text(ui.documentationSummary)}</p>${link(project.links.documentation)}</section>` : ''}
     ${project.placeholders.length ? `<section id="forthcoming-evidence" class="evidence-placeholder"><p class="micro-label">${text(ui.documentationStatus)}</p><h2>${text(ui.forthcoming)}</h2><ul>${project.placeholders.map(item => `<li>${text(item)}</li>`).join('')}</ul></section>` : ''}
     <section class="sources"><h2>${text(ui.sources)}</h2><p>${text(ui.sourcesIntro)}</p><ul>${project.sources.map(source => `<li>${text(source)}</li>`).join('')}</ul>${project.slug === 'reorderops' || project.links.github ? `<p class="documentation-language">${text(ui.documentationEnglish)}</p>` : ''}${project.links.github ? link({ label: ui.browseDocs, url: `${project.links.github.url}/tree/main/${project.slug === 'reorderops' ? 'docs' : 'root'}` }) : ''}</section></article></div><div class="study-next"><span class="micro-label">${text(ui.exploreRest)}</span><a class="text-link" href="${path('/portfolio.html')}#work">${text(ui.returnProjects)} ${arrow}</a></div></main>${footer()}<script type="module" src="/assets/portfolio/main.js"></script></body></html>`;
+  }
+
+  function renderDocumentation(title: string, description: string, pagePath = documentationIndex, article?: { html: string; headings: { id: string; title: string }[]; note: string }) {
+    const navigation = `<nav class="doc-navigation" aria-label="Documentation navigation"><a class="text-link" href="/case-studies/reorderops.html">Back to ReorderOps case study ${arrow}</a><a class="text-link" href="${documentationIndex}">Documentation index ${arrow}</a><a class="text-link" href="https://reorder-ops.vercel.app/">Live demo ${arrow}</a></nav>`;
+    const content = article
+      ? `<p class="study-note">${text(article.note)}</p><div class="study-layout"><nav class="study-toc" aria-label="Document sections"><p class="micro-label">In this document</p>${article.headings.map(item => `<a href="#${item.id}">${text(item.title)}</a>`).join('')}</nav><article class="study-body doc-prose" aria-label="${text(title)}">${article.html}</article></div>`
+      : `<ul class="doc-index" aria-label="Technical documents">${documents.map(doc => `<li><p class="micro-label">${text(doc.category)}</p><h2><a href="${documentationRoot}/${doc.slug}.html">${text(doc.title)}</a></h2><p>${text(doc.description)}</p><a class="text-link" href="${documentationRoot}/${doc.slug}.html">Read ${text(doc.title)} ${arrow}</a></li>`).join('')}</ul>`;
+    const documentHeader = header(true, '/case-studies/reorderops.html').replace(/ data-locale-switch="(?:en|fi)"/g, '');
+    return `${head(`${title} — ReorderOps — ${site.name}`, description, pagePath, false)}<body class="study-page">${documentHeader}<main id="main" tabindex="-1" class="container study-main documentation-page">${navigation}<header class="study-hero"><p class="section-label"><span>01</span> ReorderOps / Documentation · English</p><h1>${text(title)}</h1><p class="study-lead">${text(description)}</p><p class="documentation-language">Technical documentation is published in English. The EN / FI switch returns to the matching ReorderOps case study.</p></header>${content}${navigation}</main>${footer()}<script type="module" src="/assets/portfolio/main.js"></script></body></html>`;
   }
 
   function render404() {
@@ -126,5 +137,5 @@ export function createRenderer(locale: Locale = 'en') {
     <text x="64" y="505" fill="#a6ae9e" font-size="20">${projects.map(project => text(project.title)).join(' / ')}</text><text x="64" y="584" fill="#a6ae9e" font-size="16">${text(ui.selectedProjects.toUpperCase())}</text><text x="1136" y="584" fill="#d6f68a" font-size="16" text-anchor="end">VL_</text></g></svg>`;
   }
 
-  return { renderPortfolio, renderStudy, render404, renderSocialPreview };
+  return { renderPortfolio, renderStudy, render404, renderSocialPreview, renderDocumentation };
 }

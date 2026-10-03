@@ -38,6 +38,7 @@ export function getContent(locale: Locale = 'en') {
         demo: metadata.links.demo ? { url: metadata.links.demo, label: presentation.linkLabels.demo } : null,
         github: metadata.links.github ? { url: metadata.links.github, label: presentation.linkLabels.github } : null,
         caseStudy: { url: localizePath(metadata.links.caseStudy, locale), label: presentation.linkLabels.caseStudy },
+        documentation: metadata.links.documentation ? { url: metadata.links.documentation, label: ui.documentation } : null,
       },
       media: metadata.media && presentation.mediaText ? { ...metadata.media, ...presentation.mediaText } : null,
       mediaSlots: (metadata.mediaSlots ?? []).map(slot => {

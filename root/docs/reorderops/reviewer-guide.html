@@ -1,0 +1,234 @@
+<!doctype html>
+  <html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reviewer Guide — ReorderOps — Ville Lähteenmäki</title><meta name="description" content="Follow inventory evidence, deterministic recommendations and human-controlled purchasing. Distinguishes the public visitor experience from local-only controls.">
+
+  <meta property="og:locale" content="en_US">
+
+  <meta name="theme-color" content="#111310"><link rel="canonical" href="https://vlnikolai.com/docs/reorderops/reviewer-guide">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Ville Lähteenmäki">
+  <meta property="og:title" content="Reviewer Guide — ReorderOps — Ville Lähteenmäki"><meta property="og:description" content="Follow inventory evidence, deterministic recommendations and human-controlled purchasing. Distinguishes the public visitor experience from local-only controls.">
+  <meta property="og:url" content="https://vlnikolai.com/docs/reorderops/reviewer-guide"><meta property="og:image" content="https://vlnikolai.com/assets/portfolio/social-preview.png">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Ville Lähteenmäki — Software &amp; AI Developer. Selected work: ReorderOps, A Chain of Pain, StoryCodex and Author Website.">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Reviewer Guide — ReorderOps — Ville Lähteenmäki"><meta name="twitter:description" content="Follow inventory evidence, deterministic recommendations and human-controlled purchasing. Distinguishes the public visitor experience from local-only controls."><meta name="twitter:image" content="https://vlnikolai.com/assets/portfolio/social-preview.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/portfolio/favicon.svg">
+  <link rel="stylesheet" href="/css/portfolio.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ville Lähteenmäki","jobTitle":"Software & AI Developer","url":"https://vlnikolai.com/portfolio","sameAs":["https://github.com/bedtimestoriesforthebrave-dot","https://www.linkedin.com/in/ville-l%C3%A4hteenm%C3%A4ki-734698302"]}</script>
+  </head><body class="study-page"><a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="header-inner">
+  <a class="wordmark" href="/portfolio.html" aria-label="Ville Lähteenmäki, portfolio home"><span class="monogram" aria-hidden="true">VL<span>_</span></span><span class="wordmark-name">Ville Lähteenmäki</span></a>
+  <nav aria-label="Main navigation"><a href="/portfolio.html#work" data-nav="work">Work</a><a href="/portfolio.html#approach" data-nav="approach">Approach</a><a href="/portfolio.html#background" data-nav="background">About</a><a href="/portfolio.html#contact" data-nav="contact">Contact</a></nav>
+  <div class="header-actions"><div class="language-switch" role="group" aria-label="Language"><a href="/case-studies/reorderops.html" lang="en" hreflang="en" aria-label="English" aria-current="page">EN</a><span aria-hidden="true">/</span><a href="/fi/case-studies/reorderops.html" lang="fi" hreflang="fi" aria-label="Suomi">FI</a></div><a class="cv-link" href="/data/cv.pdf">CV · PDF <span aria-hidden="true">↗</span></a><button class="motion-toggle" type="button" aria-pressed="false" data-motion-on="on" data-motion-off="off" data-motion-enable="Enable spatial motion" data-motion-disable="Disable spatial motion" hidden>Motion <span data-motion-label>on</span></button></div>
+  </div></header><main id="main" tabindex="-1" class="container study-main documentation-page"><nav class="doc-navigation" aria-label="Documentation navigation"><a class="text-link" href="/case-studies/reorderops.html">Back to ReorderOps case study <span aria-hidden="true">↗</span></a><a class="text-link" href="/docs/reorderops/">Documentation index <span aria-hidden="true">↗</span></a><a class="text-link" href="https://reorder-ops.vercel.app/">Live demo <span aria-hidden="true">↗</span></a></nav><header class="study-hero"><p class="section-label"><span>01</span> ReorderOps / Documentation · English</p><h1>Reviewer Guide</h1><p class="study-lead">Follow inventory evidence, deterministic recommendations and human-controlled purchasing. Distinguishes the public visitor experience from local-only controls.</p><p class="documentation-language">Technical documentation is published in English. The EN / FI switch returns to the matching ReorderOps case study.</p></header><p class="study-note">Public edition of the reviewer guide. The private deployment diary and milestone-maintenance instructions are omitted; local-only steps remain explicitly identified.</p><div class="study-layout"><nav class="study-toc" aria-label="Document sections"><p class="micro-label">In this document</p><a href="#what-is-reorderops-for">What is ReorderOps for?</a><a href="#what-works-in-this-version">What works in this version?</a><a href="#reading-the-overview">Reading the overview</a><a href="#following-the-product-evidence">Following the product evidence</a><a href="#why-calculations-and-ai-have-different-jobs">Why calculations and AI have different jobs</a><a href="#inspecting-procurement-planning">Inspecting procurement planning</a><a href="#human-controlled-purchasing-in-v4">Human-controlled purchasing in V4</a><a href="#the-five-fixed-demonstrations">The five fixed demonstrations</a><a href="#what-happens-behind-the-screen">What happens behind the screen?</a><a href="#a-five-minute-review-of-the-current-version">A five-minute review of the current version</a><a href="#current-limitations">Current limitations</a><a href="#reviewing-the-v5-assistant">Reviewing the V5 assistant</a></nav><article class="study-body doc-prose" aria-label="Reviewer Guide"><p>This guide explains the application without assuming a software-development background. It describes what works now, what is planned, and what to look for when testing.</p>
+<h2 id="what-is-reorderops-for">What is ReorderOps for?</h2>
+<p>ReorderOps is being built to help an inventory planner answer three questions:</p>
+<ol>
+<li>Which products might need attention?</li>
+<li>What evidence supports that conclusion?</li>
+<li>What action should a person review before an order is prepared?</li>
+</ol>
+<p>Imagine a store that sells filters. Having 20 filters on a shelf might be fine if the store sells one per day, but urgent if it sells ten per day. Even then, another order might be unnecessary if a confirmed delivery will arrive tomorrow. ReorderOps is designed to make those differences visible.</p>
+<p>This is a portfolio demonstration, using historical retail observations. It is not connected to a real store or supplier.</p>
+<p>The public staging profile uses fully generated inventory history instead of the private retail
+CSV. Its shared showcase is read-only; no-signup temporary visitor sessions now support isolated
+approval/rejection, drafts and audit. Planning-run creation remains blocked publicly. Guarded
+paid AI is enabled only inside visitor sessions, with deterministic fallback at quotas/failures.
+Hosted checks pass; language reliability and live financial reconciliation remain qualified.
+See <a href="/docs/reorderops/public-demo.html">public demo controls</a>.
+The working local capabilities
+described below remain available. Temporary hosting is verified at
+<a href="https://reorder-ops.vercel.app" rel="noopener noreferrer">https://reorder-ops.vercel.app</a>; post-wake readiness follows a user-observed Sleeping state.
+Cold-start timing, usage and final launch remain qualified. See
+the staging guide.</p>
+<h2 id="what-works-in-this-version">What works in this version?</h2>
+<p>You can view one store&#39;s inventory, search and filter its products, sort them by recorded stock or sales coverage, and select a product to inspect its history and calculations. These are read-only actions: they do not change stock or place orders.</p>
+<p>The planning date is <strong>30 January 2024</strong>. The source file contains daily observations from January 2022 to January 2024. The application does not pretend these are today&#39;s business figures.</p>
+<div class="doc-table" role="region" aria-label="Documentation table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Current status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Inventory overview, filters, and sorting</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Product evidence and historical chart</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Exact daily values behind the chart</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Sales coverage calculation</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Generated supplier policies and daily stock projections</td>
+<td>Working, synthetic operational inputs</td>
+</tr>
+<tr>
+<td>Deterministic recommendations and saved planning runs</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Approve/reject and purchase-order drafts</td>
+<td>Working locally and in isolated anonymous hosted sessions</td>
+</tr>
+<tr>
+<td>Audit history</td>
+<td>Working, successes and blocked attempts</td>
+</tr>
+<tr>
+<td>Operations Assistant and backend evidence cards</td>
+<td>Working with deterministic fallback; baseline and expanded evaluations recorded, semantic/language limitations remain</td>
+</tr>
+</tbody></table>
+</div><p>Planned features are described below to explain the project&#39;s direction. They should not be counted as working when reviewing this release.</p>
+<h2 id="reading-the-overview">Reading the overview</h2>
+<p><strong>Products monitored</strong> is the number of distinct source items at Store S001: 20. The source file includes five stores, but this first version deliberately concentrates on one.</p>
+<p><strong>Below usual cover</strong> counts items whose stock, measured in days of recent sales, is below the 25th percentile of that same product&#39;s historical coverage. It is a cue to inspect the product. It is not an instruction to buy.</p>
+<p><strong>Recorded inventory</strong> adds the units recorded for the selected store on the planning date. Products can be different sizes or prices, so this number is a count of units, not a financial valuation.</p>
+<p><strong>Source history</strong> tells you how many daily dates are present in the file. The importer keeps all five stores&#39; observations, even though the screen shows S001.</p>
+<p>In the table:</p>
+<ul>
+<li><strong>SKU</strong> means a product identifier. ReorderOps includes the store in it, such as S001-P0001, because a source ID can describe different categories at different stores.</li>
+<li><strong>Stock</strong> is the source&#39;s recorded quantity on the planning date. For this demonstration we treat it as stock at the beginning of that day. The source does not document the timing, so this is an assumption.</li>
+<li><strong>Daily sales</strong> is the average number of units sold per calendar day over the previous 28 days, excluding the planning date.</li>
+<li><strong>Cover</strong> is the number of days that stock would last if sales continued at that average rate, without further deliveries.</li>
+<li><strong>Review band</strong> compares today&#39;s cover with the product&#39;s own past year. <strong>Below usual</strong> means below the 25th percentile; <strong>Above usual</strong> means above the 75th percentile; anything between, including the boundaries, is <strong>Usual</strong>. Ties count as half when calculating rank. The small &quot;usual&quot; figure under Cover is the product&#39;s median cover over that year. These bands do not account for suppliers or delivery times.</li>
+</ul>
+<p>Why compare with the product&#39;s own history rather than a fixed number of days? Recorded coverage is usually below one week. Some products normally run at about 1.5 days and others at about 5. A single cut-off would mostly separate lean products from well-stocked ones, rather than pointing out what is unusual today. Recorded coverage alone does not establish how often deliveries occur. Supplier lead times inform the separate procurement planning rules.</p>
+<p>If a required input is missing, the result should say it is unavailable. It must not turn missing information into a healthy-looking zero.</p>
+<h2 id="following-the-product-evidence">Following the product evidence</h2>
+<p>Select a SKU to see its stock, average daily sales, and the coverage calculation. As an illustrative example, 100 units of stock divided by 10 units sold per day gives 10 days of coverage. The app uses the selected product&#39;s actual source values, not this example.</p>
+<p>Below the calculation, <strong>Compared with its past year</strong> states how today&#39;s cover ranks against the previous 365 days, for example &quot;at the 8th percentile of historical coverage&quot;, and gives the product&#39;s usual (median) cover. Extreme ranks are described as below the 1st or above the 99th percentile. If fewer than 180 past days can be compared, the app says so and shows no band.</p>
+<p>The history chart shows recorded inventory and daily sales for the previous 56 completed days. It is a picture of observations, not a forecast. Open <strong>View the exact daily observations</strong> to inspect the numbers behind it. A promotion indicator tells you whether the source marked that day as promotional; it does not prove a promotion caused higher sales.</p>
+<p>If stock was zero during the 28-day calculation window, the app displays that fact. A store cannot sell an item it does not have, so recorded sales may understate customer demand. This source does not let us calculate how many sales were lost.</p>
+<h2 id="why-calculations-and-ai-have-different-jobs">Why calculations and AI have different jobs</h2>
+<p>Calculations are performed by ordinary, repeatable software rules. Given the same data and policy, they should give the same answer. A tester can inspect the inputs and follow the arithmetic.</p>
+<p>The optional AI assistant retrieves those results through a small set of controlled lookup functions. Its job is to explain evidence and suggest which existing recommendation to review. It does not decide the authoritative order quantity, approve its own proposal, or write directly to the database.</p>
+<p>For example, a question such as &quot;What needs attention?&quot; produces an explanation linked to the relevant products and evidence. A proposal card then gives the person a place to review the backend&#39;s recommendation. If no AI service is configured or it fails, a deterministic text explanation remains available. The project is usable without a paid AI account.</p>
+<h2 id="inspecting-procurement-planning">Inspecting procurement planning</h2>
+<p>Open <strong>Procurement planning</strong> and choose either <strong>Imported sales + generated operations</strong> or <strong>Five fixed synthetic scenarios</strong>, then <strong>Calculate and save run</strong>. Imported runs use S001&#39;s historical observed sales. All suppliers, policies, opening balances, and POs are generated; fixed scenarios also use synthetic demand. These are not real company purchasing records.</p>
+<p>Select a planning SKU to inspect its status, recommended quantity, receipt dates, daily net-stock projection, and saved calculation inputs. The full structured evidence is available in expandable panels. The saved-run selector restores previous evidence. Unchanged inputs and versions within the same workspace reproduce the business result; after simulation edits, the seed alone does not restore fixtures. Explicit reset creates a fresh workspace while preserving prior history. Run IDs and actual save timestamps intentionally differ.</p>
+<p>Planning uses a complete 28-day observed-sales average. Missing days block calculation, zero demand never creates an infinite coverage value or MOQ purchase, and demand changes are reviewed using a separate seven-day versus preceding 28-day comparison. Receipt dates are applied before each day&#39;s demand. Negative projected net stock represents accumulated unmet demand. The projection excludes the proposed order, so issuing a recommendation does not make a shortage disappear. Full formulas and replay commands are in <a href="/docs/reorderops/planning-rules.html">the planning rules</a>.</p>
+<h2 id="human-controlled-purchasing-in-v4">Human-controlled purchasing in V4</h2>
+<p>A <strong>planning run</strong> checks products against the same historical date and policies, then saves the findings. It is a batch review, not placing orders. <strong>Lead time</strong> is ordering-to-receipt time; <strong>safety stock</strong> is a buffer; <strong>MOQ</strong> is the supplier minimum; <strong>order multiple</strong> is its allowed increment. A minimum of 120 does not mean all quantities must be multiples of 120.</p>
+<p>Select an actionable SKU, then <strong>Review approval</strong>. The confirmation shows quantity, supplier, MOQ/multiple, simulated order date, estimated receipt, stockout date and all warnings. Acknowledge every warning and optionally add a reason before <strong>Confirm and create draft</strong>. ETA uses policy lead time, not a supplier commitment. The identity is the server&#39;s placeholder <strong>demo-user</strong>, not an authenticated account.</p>
+<p><strong>Planning results are advisory snapshots. Operational actions always validate current state before execution.</strong> Approval rereads relevant stock, inbound, demand and terms, then reruns the same deterministic calculation. Changed evidence blocks approval with a specific message. Locally, calculate a new run and inspect its evidence; in the public demo, where runs cannot be created, start a new demo session to get current evidence. The app never silently approves a refreshed quantity. The README stale-state walkthrough uses an auditable demo CLI stock edit.</p>
+<p><strong>Reject recommendation</strong> records an optional reason and no draft. The decision is final for that run/SKU; a later run can be reviewed separately. Old V3 runs and retired simulation workspaces are read-only. A review-required demand anomaly cannot be approved: acknowledgement/reason alone does not resolve it. That override is deliberately deferred.</p>
+<p>Approval creates an internal <strong>purchase-order draft</strong>, sends nothing to a supplier, and does not add confirmed supply. Repeated requests return the original result. A new run cannot create a second active draft for the same product in the same workspace. The UI shows that existing draft separately from saved calculation evidence.</p>
+<p>Open <strong>PO drafts</strong> to follow the source recommendation, validation, actor/time, reason, MOQ/multiple and audit evidence. <strong>Audit trail</strong> shows readable event names and expandable structured metadata for successful decisions and blocked attempts. Actual event timestamps are separate from simulated business dates. Audit rows are append-only in the app and database; someone with direct file/schema access can still tamper with the database.</p>
+<h2 id="the-five-fixed-demonstrations">The five fixed demonstrations</h2>
+<div class="doc-table" role="region" aria-label="Documentation table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Expected behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FILTER-420: stock runs out before normal delivery</td>
+<td>Recommend 210 units and flag expediting review; the normal order cannot prevent the earlier shortage</td>
+</tr>
+<tr>
+<td>BELT-210: low stock, timely confirmed supply</td>
+<td><code>COVERED_BY_INBOUND</code>, zero duplicate purchasing quantity</td>
+</tr>
+<tr>
+<td>MOTOR-12: supplier deliveries take longer</td>
+<td><code>SUPPLIER_RISK</code>, five lines average 21 days vs nominal 14; no automatic policy change or oversized order. With low stock the order is still recommended, with a supplier warning</td>
+</tr>
+<tr>
+<td>VALVE-88: requirement below supplier minimum</td>
+<td>Raw requirement 75 units becomes 120 units because of MOQ</td>
+</tr>
+<tr>
+<td>BEARING-51: recent sales rise sharply</td>
+<td><code>REVIEW_REQUIRED</code>, zero automatic purchasing quantity; no approval-to-draft path; anomaly resolution/override remains deferred</td>
+</tr>
+</tbody></table>
+</div><p>These use fixed scenario inputs so every tester can reproduce them, independently of the general generator seed or CSV. Their demand and operational data are synthetic and labeled. The downloaded CSV&#39;s origin and license still need verification; we do not claim it is real operational history.</p>
+<h2 id="what-happens-behind-the-screen">What happens behind the screen?</h2>
+<div class="doc-table" role="region" aria-label="Documentation table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Part</th>
+<th>What it does</th>
+<th>Why it exists</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Web interface</td>
+<td>Displays products, charts, and review controls</td>
+<td>Lets a person inspect evidence comfortably</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Answers inventory requests, calculates/saves runs, and validates human-approved actions</td>
+<td>Keeps business rules in one place</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>Stores observations, immutable snapshots, simulation state, decisions, drafts and audit</td>
+<td>Makes saved results consistent and traceable</td>
+</tr>
+<tr>
+<td>Importer</td>
+<td>Checks the source and loads it without editing the original</td>
+<td>Avoids duplicate records and silent data corrections</td>
+</tr>
+<tr>
+<td>Calculation functions</td>
+<td>Work out historical sales coverage, stock projections, and replenishment</td>
+<td>Makes the arithmetic repeatable and testable</td>
+</tr>
+<tr>
+<td>Optional AI adapter</td>
+<td>Converts controlled evidence into an explanation</td>
+<td>Adds useful interpretation while preserving the action boundary</td>
+</tr>
+<tr>
+<td>Automated tests</td>
+<td>Check important examples and failure cases</td>
+<td>Helps prevent changes from breaking expected behavior</td>
+</tr>
+</tbody></table>
+</div><p>The original data stays in <code>Data/Raw/</code>. A separate local database can be rebuilt from it. Repeating setup should not duplicate the observations.</p>
+<h2 id="a-five-minute-review-of-the-current-version">A five-minute review of the current version</h2>
+<ol>
+<li>Open the public demo (or start the local app using its README). Confirm the historical date and Store S001 are visible.</li>
+<li>Confirm the overview shows 20 products. Search for a SKU and filter by a category.</li>
+<li>Keep the default sort, <strong>Most below usual</strong>, select the top item, and follow its displayed division and past-year comparison. A rounded screen value can differ slightly from a calculation using the full underlying average.</li>
+<li>Open the exact daily observations. Confirm history stops on 29 January 2024 and that the chart corresponds to those observations.</li>
+<li>Try a search with no matches. It should show an empty state and let you clear the filters.</li>
+<li>Use the keyboard to reach filters and SKU buttons. Resize the window and check that the table remains usable.</li>
+<li>Reload a page after selecting a product. The selected product should be preserved in the page address.</li>
+<li>Open Procurement planning. In the public demo, start a visitor session and select its saved fixed scenarios; locally, save the five fixed scenarios in an initialized workspace, and inspect VALVE-88’s 75-to-120 MOQ evidence. Confirm BELT-210 has no approval action and BEARING-51 shows its held calculated need. Previously edited scenarios need the README’s explicit reset to restore fixtures.</li>
+<li>Review FILTER-420, acknowledge expediting, and create one internal draft. Inspect PO drafts and its linked audit history. Reload the planning page: APPROVED persists. Locally, save another run: the existing draft blocks a duplicate purchase. Public run creation is blocked.</li>
+<li>Reject another recommendation with a reason. Locally, follow the stale-state walkthrough in the README, confirm a stale approval creates no draft, and inspect the blocked audit event.</li>
+</ol>
+<p>Report a bug with the selected SKU, filter/sort choices, expected result, actual result, and a screenshot if helpful. Particularly useful feedback includes unclear labels, mismatched evidence, inaccessible controls, and errors presented as valid data.</p>
+<h2 id="current-limitations">Current limitations</h2>
+<p>This release has persisted synthetic operations, deterministic planning, saved evidence, approval/rejection, internal drafts, audit and an optional read-only AI assistant. It has no live operational integration, anomaly override, draft cancellation/submission, receipt workflow or authentication. Drafts remain active; reset creates a separate simulation while preserving old history. Historical cover excludes incoming supply; planning projections use generated dated receipts and assume a constant observed-sales rate. Source inventory timing and provenance are not verified. Demo risk thresholds and synthetic inputs are not calibrated purchasing policies. It is intended for demonstrating and testing the workflow, not for managing real purchases.</p>
+<h2 id="reviewing-the-v5-assistant">Reviewing the V5 assistant</h2>
+<p>Open <strong>Operations Assistant</strong> and select a saved fixed-scenario run. Try the seven
+starter questions. FILTER retains the saved 210-unit result and expediting warning;
+BEARING retains its purchasing hold and calculated requirement without an approval
+path. Supplier and inbound cards preserve their evidence. Draft/history questions
+show existing human actions without pretending a draft is incoming supply.</p>
+<p>Ask “Approve FILTER-420”: the assistant performs no action and links the human review
+screen. Ask about UNKNOWN-9: it must not invent a product. A previously changed SKU
+shows stale evidence even if its final MOQ quantity is unchanged. Changing the selected
+run clears conversation and pins a different evidence context explicitly.</p>
+<p>Without provider configuration, the label says <strong>Deterministic explanation</strong> and
+backend cards remain usable. Provider setup and the opt-in live evaluation are in
+<a href="/docs/reorderops/architecture.html">the V5 guide</a>. The first live-model baseline passed eleven cases on 1 October 2026.
+AI prose still requires review, even when its evidence references are valid.
+The <a href="/docs/reorderops/ai-evaluation.html">expanded evaluation</a> records 63 initial and ten corrective
+generations, fixes for identifier/absence handling, and remaining semantic/language failures.</p>
+</article></div><nav class="doc-navigation" aria-label="Documentation navigation"><a class="text-link" href="/case-studies/reorderops.html">Back to ReorderOps case study <span aria-hidden="true">↗</span></a><a class="text-link" href="/docs/reorderops/">Documentation index <span aria-hidden="true">↗</span></a><a class="text-link" href="https://reorder-ops.vercel.app/">Live demo <span aria-hidden="true">↗</span></a></nav></main><footer class="site-footer container"><p>© 2026 Ville Lähteenmäki</p><p>Software. Evidence. Human judgment.</p><a href="#main">Back to top <span aria-hidden="true">↑</span></a></footer><script type="module" src="/assets/portfolio/main.js"></script></body></html>

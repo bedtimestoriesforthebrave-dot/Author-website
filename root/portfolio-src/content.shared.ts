@@ -86,7 +86,8 @@ export const projectMetadata: ProjectMetadata[] = [
     "links": {
       "demo": "https://reorder-ops.vercel.app",
       "github": null,
-      "caseStudy": "/case-studies/reorderops.html"
+      "caseStudy": "/case-studies/reorderops.html",
+      "documentation": "/docs/reorderops/"
     },
     "media": {
       "src": "/assets/portfolio/reorderops-demo.webp",

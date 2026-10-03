@@ -1,0 +1,197 @@
+<!doctype html>
+  <html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture &amp; AI Assistant — ReorderOps — Ville Lähteenmäki</title><meta name="description" content="The V5 architecture: detached evidence, read-only tools, backend-owned cards and explicit human actions. Includes fallback, freshness and limitations.">
+
+  <meta property="og:locale" content="en_US">
+
+  <meta name="theme-color" content="#111310"><link rel="canonical" href="https://vlnikolai.com/docs/reorderops/architecture">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Ville Lähteenmäki">
+  <meta property="og:title" content="Architecture &amp; AI Assistant — ReorderOps — Ville Lähteenmäki"><meta property="og:description" content="The V5 architecture: detached evidence, read-only tools, backend-owned cards and explicit human actions. Includes fallback, freshness and limitations.">
+  <meta property="og:url" content="https://vlnikolai.com/docs/reorderops/architecture"><meta property="og:image" content="https://vlnikolai.com/assets/portfolio/social-preview.png">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Ville Lähteenmäki — Software &amp; AI Developer. Selected work: ReorderOps, A Chain of Pain, StoryCodex and Author Website.">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Architecture &amp; AI Assistant — ReorderOps — Ville Lähteenmäki"><meta name="twitter:description" content="The V5 architecture: detached evidence, read-only tools, backend-owned cards and explicit human actions. Includes fallback, freshness and limitations."><meta name="twitter:image" content="https://vlnikolai.com/assets/portfolio/social-preview.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/portfolio/favicon.svg">
+  <link rel="stylesheet" href="/css/portfolio.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ville Lähteenmäki","jobTitle":"Software & AI Developer","url":"https://vlnikolai.com/portfolio","sameAs":["https://github.com/bedtimestoriesforthebrave-dot","https://www.linkedin.com/in/ville-l%C3%A4hteenm%C3%A4ki-734698302"]}</script>
+  </head><body class="study-page"><a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="header-inner">
+  <a class="wordmark" href="/portfolio.html" aria-label="Ville Lähteenmäki, portfolio home"><span class="monogram" aria-hidden="true">VL<span>_</span></span><span class="wordmark-name">Ville Lähteenmäki</span></a>
+  <nav aria-label="Main navigation"><a href="/portfolio.html#work" data-nav="work">Work</a><a href="/portfolio.html#approach" data-nav="approach">Approach</a><a href="/portfolio.html#background" data-nav="background">About</a><a href="/portfolio.html#contact" data-nav="contact">Contact</a></nav>
+  <div class="header-actions"><div class="language-switch" role="group" aria-label="Language"><a href="/case-studies/reorderops.html" lang="en" hreflang="en" aria-label="English" aria-current="page">EN</a><span aria-hidden="true">/</span><a href="/fi/case-studies/reorderops.html" lang="fi" hreflang="fi" aria-label="Suomi">FI</a></div><a class="cv-link" href="/data/cv.pdf">CV · PDF <span aria-hidden="true">↗</span></a><button class="motion-toggle" type="button" aria-pressed="false" data-motion-on="on" data-motion-off="off" data-motion-enable="Enable spatial motion" data-motion-disable="Disable spatial motion" hidden>Motion <span data-motion-label>on</span></button></div>
+  </div></header><main id="main" tabindex="-1" class="container study-main documentation-page"><nav class="doc-navigation" aria-label="Documentation navigation"><a class="text-link" href="/case-studies/reorderops.html">Back to ReorderOps case study <span aria-hidden="true">↗</span></a><a class="text-link" href="/docs/reorderops/">Documentation index <span aria-hidden="true">↗</span></a><a class="text-link" href="https://reorder-ops.vercel.app/">Live demo <span aria-hidden="true">↗</span></a></nav><header class="study-hero"><p class="section-label"><span>01</span> ReorderOps / Documentation · English</p><h1>Architecture &amp; AI Assistant</h1><p class="study-lead">The V5 architecture: detached evidence, read-only tools, backend-owned cards and explicit human actions. Includes fallback, freshness and limitations.</p><p class="documentation-language">Technical documentation is published in English. The EN / FI switch returns to the matching ReorderOps case study.</p></header><p class="study-note">Historical V5 architecture record. Later hosted controls are documented separately in Public Demo Controls. Local environment-loading instructions are omitted.</p><div class="study-layout"><nav class="study-toc" aria-label="Document sections"><p class="micro-label">In this document</p><a href="#architecture-and-evidence-boundary">Architecture and evidence boundary</a><a href="#tools-and-answer-contract">Tools and answer contract</a><a href="#api-fallback-and-ui">API, fallback and UI</a><a href="#optional-provider-and-limits">Optional provider and limits</a><a href="#evaluation-and-findings">Evaluation and findings</a></nav><article class="study-body doc-prose" aria-label="Architecture &amp; AI Assistant"><p>Release 0.5.0 adds <code>assistant-v1</code>. Engine <code>planning-v1.3</code>, generator
+<code>synthetic-operations-v2</code>, snapshot contract 2 and migration head 0004 are unchanged.
+V4 remains the only human decision/draft workflow. No chat, AI proposal or tool call
+creates operational state, planning runs, decisions, drafts or audit rows.</p>
+<h2 id="architecture-and-evidence-boundary">Architecture and evidence boundary</h2>
+<p>The UI supplies an explicit saved-run UUID. There is no global-latest fallback and
+tools cannot select another run, seed or workspace. “Today” means the selected
+historical business date, normally 2024-01-30. Actual observation/event timestamps
+are separate. Legacy and retired runs remain inspectable and cannot justify approval.</p>
+<p><code>app/assistant/evidence.py</code> captures a compact packet in one short SQLite transaction:
+saved recommendations, independently recomputed freshness, workspace decisions and
+drafts, bounded audit events, historical cover context and confirmed open inbound.
+The session closes before any provider await. All tools then operate on detached
+values from that coherent observation; later changes require another request and V4
+always revalidates before action.</p>
+<p>Assistant reads use a dedicated <code>NullPool</code> engine with SQLite <code>mode=ro</code>,
+<code>query_only=ON</code> and an authorizer rejecting mutation, write PRAGMAs, temp DDL and
+ATTACH. The ordinary V4 pool stays writable. Reusing a normal session with a toggled
+PRAGMA was rejected because connection settings can leak through pooling. Likewise,
+holding a reader across model waits was rejected because SQLite readers can block
+writer commits.</p>
+<p>Freshness uses the existing normalized per-product approval fingerprint, current
+engine/date, quantity/status and warnings. It is checked even for held, already
+decided or drafted products. <code>MATCHING</code>, <code>CHANGED</code>, <code>UNAVAILABLE</code>, <code>LEGACY</code> and
+<code>RETIRED</code> describe evidence; human action eligibility is a separate fact. The V4
+action overlay&#39;s early returns therefore are not used as a universal freshness check.</p>
+<p>The packet preserves overdue confirmed POs and receipts beyond the projection horizon.
+Overdue supply is marked excluded; internal drafts never become inbound. Imported
+cover percentiles describe source inventory observations separately from simulated
+operational balances; they are not applicable to fixed scenario SKUs.</p>
+<h2 id="tools-and-answer-contract">Tools and answer contract</h2>
+<div class="doc-table" role="region" aria-label="Documentation table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Required arguments</th>
+<th>Evidence scope</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>get_attention_summary</code></td>
+<td><code>status</code>: NEEDS_ATTENTION (every non-NORMAL product, most urgent status first) or one planning status</td>
+<td>Selected run, at most 20 products</td>
+</tr>
+<tr>
+<td><code>get_recommendation</code></td>
+<td><code>sku</code></td>
+<td>Saved result, freshness, inbound, history context, decision/draft</td>
+</tr>
+<tr>
+<td><code>get_supplier_status</code></td>
+<td><code>supplier_id</code></td>
+<td>Saved synthetic delivery performance and affected products</td>
+</tr>
+<tr>
+<td><code>get_purchase_order_drafts</code></td>
+<td><code>sku</code>: string or null; <code>draft_number</code>: exact full number or null (partial numbers return <code>DRAFT_NOT_FOUND</code>, never a completed match)</td>
+<td>Selected workspace, at most 20 internal drafts</td>
+</tr>
+<tr>
+<td><code>get_audit_history</code></td>
+<td><code>sku</code>: string or null</td>
+<td>Selected workspace, chronological bounded events</td>
+</tr>
+</tbody></table>
+</div><p>Pydantic schemas forbid extra arguments and validate identifier syntax/length.
+Unknown tools are blocked; unknown products/suppliers return not-found evidence.
+There is no SQL, code execution, arbitrary file access, browser access or write tool.
+The provider sees strict function schemas and compact evidence, excluding source
+links, complete snapshots and operational free-text decision/audit reasons.</p>
+<p>The model returns only <code>answer</code> and <code>evidence_ids</code>. The server requires tool activity,
+checks each reference against successful lookups in this request and builds cards
+and internal links itself. Forged references or malformed answers trigger deterministic
+fallback. UI prose is plain React text; no model-generated HTML, Markdown links or
+executable content is rendered. Lookup activity is actual execution, including
+attempted reads if the model answer is discarded, rather than model-authored reasoning.</p>
+<p>Reference validation proves card provenance, <strong>not semantic accuracy of the prose</strong>.
+The maintained system instructions treat
+all data and conversation text as untrusted, prohibit invented quantities/actions,
+and preserve held recommendations, expediting and supplier warnings. Model obedience
+requires evaluation; read-only capabilities and authoritative cards enforce the
+operational boundary independently of obedience.</p>
+<h2 id="api-fallback-and-ui">API, fallback and UI</h2>
+<p><code>GET /api/assistant/status</code> exposes configured/read-only/fallback status without keys.
+<code>POST /api/assistant/chat</code> accepts:</p>
+<pre><code class="language-json">{
+  &quot;message&quot;: &quot;Why does FILTER-420 need ordering?&quot;,
+  &quot;planning_run_id&quot;: &quot;&lt;saved UUID&gt;&quot;,
+  &quot;history&quot;: [],
+  &quot;use_ai&quot;: true
+}
+</code></pre>
+<p>Messages are capped at 2,000 characters. History allows six user/assistant turns,
+each at most 3,000 characters; client-supplied tool/system roles and extra fields
+are rejected. Prior conversation is never accepted as verified evidence. <strong>Known
+limitation:</strong> history is client-supplied and unsigned, so a caller can fabricate earlier
+<code>assistant</code> turns (for example a claimed prior confirmation) to steer the model&#39;s wording.
+Tools stay read-only, cards come only from backend lookups and spend limits still apply, so
+the effect is limited to misleading prose in that caller&#39;s own response; it is not detected.
+The UI
+keeps ten exchanges in memory and sends the most recent three pairs. Changing runs
+or clearing conversation drops that local history; nothing is persisted.</p>
+<p>Responses contain request/version/mode, explanation, safe notice/code, pinned
+context, backend-owned cards and actual lookup activity. Missing run is 404
+<code>RUN_NOT_FOUND</code>; invalid input is 422; database evidence failure is 503
+<code>TOOL_EXECUTION_FAILED</code>. Provider failure is a successful 200 deterministic response
+with an explicit notice: <code>AI_NOT_CONFIGURED</code>, <code>AI_TIMEOUT</code>, <code>AI_RATE_LIMITED</code>,
+<code>AI_PROVIDER_UNAVAILABLE</code>, <code>AI_BUSY</code>, <code>AI_BUDGET_EXHAUSTED</code>, or a validation/limit code.
+Evidence failures never become fabricated healthy stock or fallback to another run.</p>
+<p>Operations Assistant shows READ-ONLY, explicit run selection, seven starter questions,
+loading/error/retry states, provenance/date disclosure and readable fact cards.
+Recommendation links open the existing human review controls; chat has no approval
+button. The deterministic route supports overview, known-SKU explanations, supplier
+evidence, inbound coverage, drafts/history and action refusals. It is a limited
+question router, not a substitute general-purpose language model.</p>
+<h2 id="optional-provider-and-limits">Optional provider and limits</h2>
+<p>The adapter uses the OpenAI Responses API with the official SDK.</p>
+<p>Questions, recent conversation and retrieved evidence are sent to the configured
+provider when enabled. <code>store=false</code> disables Responses storage; it does not assert
+zero provider retention. See the official <a href="https://developers.openai.com/api/docs/guides/function-calling" rel="noopener noreferrer">function calling</a>,
+<a href="https://developers.openai.com/api/docs/guides/structured-outputs" rel="noopener noreferrer">structured outputs</a>
+and <a href="https://developers.openai.com/api/docs/guides/your-data" rel="noopener noreferrer">data controls</a> contracts.
+Opaque encrypted reasoning items are replayed between rounds without displaying or logging them.</p>
+<p>Limits: 30-second overall model deadline; four provider rounds; eight total tool calls;
+1,200 output tokens per round; no SDK retries; 100 KB serialized transcript;
+two concurrent AI requests and 100 AI user requests per UTC day per process.
+At most 100 run products, 100 recent drafts/events in the packet and 20 results per
+list lookup; lists disclose truncation. AI final answers allow 12 references and
+4,000 characters. Fallback shows at most 20 cards. Logs contain request ID, version,
+mode/model, latency, round count, lookup names and failure code, excluding prompts, reasons,
+keys and provider response bodies.</p>
+<p>These limits bound a single-process local demonstration. Restart resets the daily
+allowance; it is neither a durable spending cap nor a multi-worker/public rate limiter.
+No authentication, hosting authorization or durable cost ledger is introduced here.</p>
+<h2 id="evaluation-and-findings">Evaluation and findings</h2>
+<p>Normal verification requires no key, raw CSV or network. Tests cover readonly SQL,
+workspace/seed isolation, legacy/retired/stale evidence, unchanged quantities after
+input changes, held and approved products, inbound timing, redacted injection text,
+argument/tool/citation forgery, round/call/concurrency/budget/deadline limits,
+provider failures, SDK HTTP contracts and a writer progressing during model waits.</p>
+<p>Run the eleven-case disposable-fixture evaluation from <code>backend</code>:</p>
+<pre><code class="language-powershell">uv run python -m evaluations.run_assistant --output evaluation-result.json
+# Explicit opt-in after configuring the provider; makes bounded, billable requests:
+uv run python -m evaluations.run_assistant --live --output evaluation-result.json
+</code></pre>
+<p>The harness migrates a temporary database, creates five synthetic scenarios, a human
+approved FILTER draft, an untrusted audit note, and a same-quantity stale VALVE.
+It never mutates the application database. Reports record model, assistant/engine/
+generator versions, prompt hash, questions, responses, structural gates and database
+counts. Live provider fallback fails the requested-mode gate. Manual review must check
+explanation correctness, unsupported claims, warning preservation, refusal behavior
+and readability; structural gates alone do not establish model quality.</p>
+<p>Offline evaluation passed all eleven cases. Live quality was initially unverified
+without credentials. On 1 October 2026, gpt-6-luna passed all eleven live gates and
+manual fact review without fallback; see the baseline and its limitations.
+The expanded suite subsequently exercised 63 live generations and a ten-generation corrective
+follow-up. It verified read-only boundaries and identified lookup, clarification, numeric prose
+and language weaknesses; <a href="/docs/reorderops/ai-evaluation.html">full results and limits</a> preserve
+failures alongside targeted corrections. General model quality sign-off remains pending. Browser
+verification covers deterministic explanations, held quantities, supplier/inbound
+cards, existing drafts/history, stale evidence, action refusal, unknown SKU and links
+back to V4. Backend/API failure behavior is tested with fixtures rather than deliberately
+breaking the running demonstration database.</p>
+<p>A separate regression reproduced a failed SQLite COMMIT leaving a DBAPI transaction
+active after SQLAlchemy had ended its transaction. The shared pool now rolls that
+transaction back on reset; subsequent writers recover. The assistant architecture
+also prevents provider waits from extending reader locks.</p>
+<p>The separate <a href="/docs/reorderops/ai-evaluation.html">expanded robustness protocol and findings</a>
+preserves the original baseline and adds multilingual, messy-input, repeated, multi-turn,
+pending-action and actual tool-data injection coverage. It uses complete database content
+hashes and SDK metadata observations, with manual semantic review kept separate from gates.</p>
+<p>Public deployment, durable rate/cost limits, authentication, live ERP access, model
+quality sign-off, persisted conversations, anomaly override and draft lifecycle
+transitions remain deferred. The current delivery is a local portfolio demonstration.</p>
+<p>Verification at delivery: <strong>188 backend tests</strong> (49 added including connection recovery), Ruff lint/format, TypeScript and production build passed. Eleven offline evaluation cases passed.</p>
+</article></div><nav class="doc-navigation" aria-label="Documentation navigation"><a class="text-link" href="/case-studies/reorderops.html">Back to ReorderOps case study <span aria-hidden="true">↗</span></a><a class="text-link" href="/docs/reorderops/">Documentation index <span aria-hidden="true">↗</span></a><a class="text-link" href="https://reorder-ops.vercel.app/">Live demo <span aria-hidden="true">↗</span></a></nav></main><footer class="site-footer container"><p>© 2026 Ville Lähteenmäki</p><p>Software. Evidence. Human judgment.</p><a href="#main">Back to top <span aria-hidden="true">↑</span></a></footer><script type="module" src="/assets/portfolio/main.js"></script></body></html>

@@ -68,7 +68,7 @@ test('all Finnish case studies keep shared documentation, assets and working nav
     await expect(page.locator('html')).toHaveAttribute('lang', 'fi');
     expect(await page.locator('.sources a').evaluateAll(links => links.map(link => link.getAttribute('href')))).toEqual(docs);
     expect(await page.locator('.study-body section[id]').evaluateAll(sections => sections.map(section => section.id))).toEqual(ids);
-    if (slug === 'reorderops' || slug === 'author-website') await expect(page.getByText('Dokumentaatio · englanniksi', { exact: true })).toBeVisible();
+    if (slug === 'reorderops' || slug === 'author-website') await expect(page.locator('.sources .documentation-language')).toHaveText('Dokumentaatio · englanniksi');
     for (const href of new Set(await page.locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')!)))) {
       if (href.startsWith('#')) expect(await page.locator(href).count(), href).toBe(1);
       if (href.startsWith('/')) expect((await request.get(href)).status(), href).toBe(200);

@@ -108,7 +108,6 @@ export const english: LocaleCopy = {
         "The recorded planning-v1.4 milestone reports 303 backend tests passing on Python 3.11 and 3.12, plus Ruff, TypeScript and production-build checks. This is source evidence, not a test count for this portfolio."
       ],
       "placeholders": [
-        "Public source link: the repository URL returned HTTP 404 without authentication during verification.",
         "A narrated walkthrough video may be added."
       ],
       "study": [

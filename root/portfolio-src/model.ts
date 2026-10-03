@@ -18,7 +18,7 @@ export interface ProjectMetadata {
   slug: ProjectSlug; title: string; number: string;
   prominence: 'flagship' | 'featured' | 'selected'; technologies: string[];
   additionalTechnologies?: string[];
-  links: { demo: string | null; github: string | null; caseStudy: string };
+  links: { demo: string | null; github: string | null; caseStudy: string; documentation?: string };
   media: { src: string; width: number; height: number } | null;
   sources: string[]; studyIds: string[];
   mediaSlots?: MediaSlotMetadata[];
@@ -32,7 +32,7 @@ export interface ProjectCopy {
   mediaSlots?: Record<string, MediaSlotCopy>;
 }
 export interface Project extends Omit<ProjectMetadata, 'links' | 'media' | 'studyIds' | 'mediaSlots'>, Omit<ProjectCopy, 'linkLabels' | 'mediaText' | 'study' | 'mediaSlots'> {
-  links: { demo: Link | null; github: Link | null; caseStudy: Link };
+  links: { demo: Link | null; github: Link | null; caseStudy: Link; documentation: Link | null };
   media: (NonNullable<ProjectMetadata['media']> & NonNullable<ProjectCopy['mediaText']>) | null;
   study: StudySection[];
   mediaSlots: MediaSlot[];

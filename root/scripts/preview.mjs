@@ -16,7 +16,9 @@ createServer(async (req, res) => {
   if (pathname === '/portfolio') pathname = '/portfolio.html';
   if (pathname === '/fi/portfolio') pathname = '/fi/portfolio.html';
   if (/^\/(fi\/)?case-studies\/[a-z-]+$/.test(pathname)) pathname += '.html';
-  if (!/^\/((fi\/)?(portfolio\.html|404\.html|case-studies\/[a-z-]+\.html)|css\/portfolio\.css|assets\/portfolio\/[a-zA-Z0-9/_.-]+|data\/cv\.pdf)$/.test(pathname)) {
+  if (pathname === '/docs/reorderops' || pathname === '/docs/reorderops/') pathname = '/docs/reorderops/index.html';
+  if (/^\/docs\/reorderops\/[a-z-]+$/.test(pathname)) pathname += '.html';
+  if (!/^\/((fi\/)?(portfolio\.html|404\.html|case-studies\/[a-z-]+\.html)|docs\/reorderops\/(index|reviewer-guide|architecture|planning-rules|ai-evaluation|public-demo)\.html|css\/portfolio\.css|assets\/portfolio\/[a-zA-Z0-9/_.-]+|data\/cv\.pdf)$/.test(pathname)) {
     await notFound(res, pathname.startsWith('/fi/')); return;
   }
   const file = resolve(base, `.${pathname}`);
