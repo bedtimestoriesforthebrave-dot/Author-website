@@ -4,5 +4,5 @@
     "strict": true, "noEmit": true, "lib": ["ES2022", "DOM"],
     "types": ["node"], "skipLibCheck": true
   },
-  "include": ["portfolio/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
+  "include": ["portfolio-src/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
 }

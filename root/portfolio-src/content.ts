@@ -1,4 +1,4 @@
-export interface Link { label: string; url: string }
+export interface Link { label: string; url: string; download?: string }
 export interface StudySection { title: string; paragraphs: string[]; bullets?: string[] }
 export interface Project {
   slug: string;
@@ -45,6 +45,7 @@ export const site = {
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ville-l%C3%A4hteenm%C3%A4ki-734698302' },
   ],
   cv: { label: 'CV · PDF', url: '/data/cv.pdf' },
+  cvDownload: { label: 'Download CV', url: '/data/cv.pdf', download: 'Ville-Lahteenmaki-CV.pdf' },
   selection: 'A selection of recent and technically relevant work.',
   workflow: {
     title: 'Accelerate the work.\nVerify the result.',

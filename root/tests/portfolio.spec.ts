@@ -49,6 +49,13 @@ test('all local destinations, CV and case studies resolve', async ({ page, reque
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(results.violations).toEqual([]);
     for (const href of await page.locator('a[href^="#"]').evaluateAll(elements => elements.map(element => element.getAttribute('href')!))) expect(await page.locator(href).count()).toBe(1);
+    for (const image of await page.locator('img').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect(image).toHaveJSProperty('complete', true);
+      expect(await image.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+    }
+    await page.getByRole('link', { name: 'Back to selected work' }).click();
+    await expect(page.locator(`#${slug}`)).toBeVisible();
   }
 });
 
@@ -71,4 +78,28 @@ test('external links match verified content', async ({ page }) => {
   await expect(page.locator('a[href="https://github.com/bedtimestoriesforthebrave-dot/Author-website"]')).toHaveCount(1);
   await expect(page.locator('a[href="mailto:wilzeu@gmail.com"]')).toHaveCount(1);
   expect(await page.locator('a[target="_blank"]:not([rel~="noopener"])').count()).toBe(0);
+});
+
+test('CV download and metadata assets are available', async ({ page, request }) => {
+  await page.goto('/portfolio.html');
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'Download CV' }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe('Ville-Lahteenmaki-CV.pdf');
+  expect(await download.failure()).toBeNull();
+  for (const path of ['/assets/portfolio/favicon.svg', '/assets/portfolio/social-preview.png', '/assets/portfolio/reorderops-demo.webp']) {
+    expect((await request.get(path)).status()).toBe(200);
+  }
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://vlnikolai.com/portfolio');
+});
+
+test('unknown routes show an accessible 404 with recovery links', async ({ page, request }) => {
+  const response = await page.goto('/missing-project');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { name: 'This path ends here.' })).toBeVisible();
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
+  await page.getByRole('link', { name: 'Return to portfolio' }).click();
+  await expect(page).toHaveURL(/portfolio\.html$/);
+  for (const path of ['/.env', '/portfolio-src/content.ts', '/.git/config', '/api/login']) expect((await request.get(path)).status()).toBe(404);
 });

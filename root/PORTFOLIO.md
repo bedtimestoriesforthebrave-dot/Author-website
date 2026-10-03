@@ -13,7 +13,7 @@ The portfolio stays at `/portfolio.html`. The author landing page remains at `/`
 
 ## Content sources
 
-`portfolio/content.ts` owns identity, navigation, public links, project prominence, summaries, architecture, testing evidence, case studies, workflow, skills and education. No CMS is introduced. Nullable links/media and explicit `placeholders` prevent invented project evidence.
+`portfolio-src/content.ts` owns identity, navigation, public links, project prominence, summaries, architecture, testing evidence, case studies, workflow, skills and education. No CMS is introduced. Nullable links/media and explicit `placeholders` prevent invented project evidence.
 
 ReorderOps was read from the local `Documents/ReorderOps` repository: README, reviewer guide and portfolio case study, with source links to evaluation/control documentation. Only curated conclusions are reproduced. Known prose/language and hosting verification limits are retained. No private datasets, runtime files or credentials are copied.
 
@@ -33,3 +33,22 @@ StoryCodex and education derive from the original portfolio. Author Website also
 
 Run from `root`: `npm run build`, `npm run typecheck`, `npm run lint`, `npm test`, `npm run dev:local`.
 The build emits portfolio pages plus a small browser entry. Browser tests use a dedicated local static server and never exercise writes to the author API or external services.
+
+The `portfolio-src` name avoids a static-server directory collision with `/portfolio`. The local Express server resolves HTML extensions and uses the generated 404 fallback, mirroring the existing clean-URL hosting behavior without modifying hosting configuration.
+
+## Motion and fallbacks
+
+GSAP / ScrollTrigger is a lazy desktop enhancement: at least 1100px wide and 650px tall, fine pointer, hover, no reduced-motion request, no save-data hint and no indicated low memory/CPU. The main entry remains small and does not fetch GSAP on mobile, reduced-motion or constrained contexts. Case studies are always static.
+
+Each HTML panel travels from an upper-left perspective to neutral transforms, remains exactly neutral across 60% of its scroll range, then recedes toward the lower-right. There is no pinning, wheel interception or custom scroll controller. Background SVG transforms follow the same native scroll position; there is no continuous animation loop or WebGL.
+
+Keyboard focus forces its panel front-facing. The optional motion toggle persists locally when storage is available. Preference/viewport changes revert the GSAP context and remove inline transforms. A failed chunk download leaves static content visible.
+
+## Content and media still needed
+
+- A Chain of Pain: gameplay footage/screenshots, architecture, role, status, public build/source link and testing evidence.
+- StoryCodex: verified media, public release/source link and evaluation/testing evidence.
+- ReorderOps: the source repository returned an unauthenticated public 404, so no broken source link is displayed. Its public demo screenshot is real synthetic-data UI, captured 3 October 2026. A walkthrough video is optional.
+- Author Website: a dedicated application screenshot and a documented role could be added.
+
+The earlier portfolio remains intact in `content/legacy-portfolio.html`. The existing CV PDF is reused without editing its personal details or asserting that it is current. `scripts/capture-evidence.mjs` is an explicit read-only capture/check helper and is never called during a normal build or test.

@@ -2,5 +2,5 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 export default tseslint.config(
   { ignores: ['node_modules/**', 'assets/**', '.build/**', 'test-results/**', 'playwright-report/**', 'root/**', '.git/**'] },
-  { files: ['portfolio/**/*.ts', 'scripts/**/*.ts', 'tests/**/*.ts', 'playwright.config.ts'], extends: [js.configs.recommended, ...tseslint.configs.recommended] }
+  { files: ['portfolio-src/**/*.ts', 'scripts/**/*.ts', 'tests/**/*.ts', 'playwright.config.ts'], extends: [js.configs.recommended, ...tseslint.configs.recommended] }
 );

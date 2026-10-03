@@ -11,7 +11,7 @@ const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_TO, CONTACT_FROM, RE
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname), { extensions: ['html'] }));
 
 const authorize = (req, res, next) => {
   const header = req.headers.authorization || '';
@@ -179,6 +179,12 @@ app.delete('/api/books/:id', authorize, async (req, res) => {
   books.splice(index, 1);
   await writeBooks(books);
   res.status(204).end();
+});
+
+// Static hosting supplies 404.html; mirror the portfolio fallback locally.
+app.use((req, res) => {
+  if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'Not found' });
+  return res.status(404).sendFile(path.join(__dirname, '404.html'));
 });
 
 app.listen(PORT, () => {

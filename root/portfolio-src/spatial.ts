@@ -30,6 +30,7 @@ export function enableSpatialTravel(): () => void {
       scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: true },
     });
   });
+  void document.fonts.ready.then(() => ScrollTrigger.refresh());
   document.documentElement.dataset.motion = 'on';
   return () => {
     context.revert();
