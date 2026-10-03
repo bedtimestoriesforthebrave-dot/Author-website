@@ -100,7 +100,9 @@ export const finnish: LocaleCopy = {
         {
           "title": "Nykyinen pelattava kokonaisuus",
           "paragraphs": [
-            "Pelattava osuus yhdistää ensimmäisen persoonan liikkumisen ja hiiviskelyn systeemiseen viholliseen: hiivi tai kyykisty, hallitse rajallista paniikkisprinttiä, käytä taskulamppua, avaa ovia ja yritä paeta takaa-ajoa. Askeleet ja ovet antavat Hunterille tietoa; näköyhteyden katkeaminen johtaa etsintään. Haavat, kiinniotto, kuolema ja uusi yritys muodostavat pelin paineen, ja äänet sekä musiikki reagoivat tilanteeseen."
+            "Nykyinen pelattava osuus on sairaalaympäristöön sijoittuva ensimmäisen persoonan stealth-prototyyppi. Hiipiminen, kyykistyminen, juoksu ja rajallinen panic sprint tarjoavat eri tapoja tutkia ympäristöä ja paeta. Liikkuminen, äänet, ovien käyttö ja taskulamppu vaikuttavat siihen, mitä Hunter havaitsee.",
+            "Hunter voi pysähtyä kuuntelemaan, tutkia vahvempia havaintoja, ajaa pelaajaa takaa ja etsiä tätä. Kuulo käyttää kuljettavan NavMesh-reitin pituutta pelkän suoraviivaisen etäisyyden sijaan, joten seinät, kerrokset ja reitin muoto vaikuttavat äänen selkeyteen. Näköyhteyden katkettua Hunter etsii viimeisen varmennetun sijainnin, liikesuunnan ja uusien äänihavaintojen perusteella eikä seuraa piilossa olevan pelaajan reaaliaikaista sijaintia.",
+            "Ympäristön interaktiot käyttävät pelaajan ja Hunterin yhteistä ovijärjestelmää. Haavat ja kriittinen tila tuovat painetta; kiinniotto ja kuolema johtavat uuteen yritykseen. Mukautuva musiikki reagoi vihollisen tilaan, kun tutkiminen vaihtuu vaaraksi tai takaa-ajoksi."
           ]
         },
         {
@@ -260,7 +262,8 @@ export const finnish: LocaleCopy = {
           "paragraphs": [
             "Hunterin pienempi naulapyssyprototyyppi käyttää fyysisiä ammuksia, näköyhteyteen sidottua laukaisua, ammusten kiinnittymistä pintoihin ja samanaikaisten ammusten ylärajaa. Tähtäyksen esitys on paikkamerkkitasolla, ja audiovisuaalinen viimeistely on kesken.",
             "Nykyinen tekninen näyttö keskittyy yhteen Hunteriin ja sen stealth-pelisilmukkaan. Narratiivinen laajentaminen kuuluu tulevaan työhön. Aito kuva-aineisto helpottaa havainnoinnin, etsinnän ja ympäristöintegraation arviointia tallennetun kehitysnäytön rinnalla."
-          ]
+          ],
+          "note": "Projektista voidaan tarvittaessa esitellä gameplayta, AI-debug-näkymiä ja teknistä toteutusta tarkemmin."
         }
       ],
       "mediaSlots": {

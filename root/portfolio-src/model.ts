@@ -5,7 +5,7 @@ export interface StudyVisual {
   kind: 'layers' | 'priority' | 'integration'; label: string; caption: string;
   items: { title: string; description: string; note?: string }[];
 }
-export interface StudyCopy { title: string; paragraphs: string[]; bullets?: string[]; visual?: StudyVisual }
+export interface StudyCopy { title: string; paragraphs: string[]; bullets?: string[]; visual?: StudyVisual; note?: string }
 export interface StudySection extends StudyCopy { id: string }
 export interface MediaSlotMetadata {
   id: string; sectionId: string | 'hero'; kind: 'image' | 'video';

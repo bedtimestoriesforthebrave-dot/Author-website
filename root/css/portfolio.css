@@ -175,6 +175,7 @@ main.container, .site-footer { position: relative; z-index: 1; }
 .study-hero > .media-pending { max-width: 1000px; }
 .study-slot { margin-block: 24px; }
 .study-slot video { display: block; width: 100%; height: auto; }
+.study-note { padding: 14px 18px; border-left: 2px solid var(--line); background: var(--surface); }
 @media (max-width: 480px) {
   .study-visual { padding: 16px; }
   .study-visual-layers li { grid-template-columns: minmax(0, 1fr); gap: 4px; }

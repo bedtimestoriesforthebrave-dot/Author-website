@@ -212,7 +212,9 @@ export const english: LocaleCopy = {
         {
           "title": "The current playable focus",
           "paragraphs": [
-            "The slice connects first-person movement and stealth to a systemic enemy: sneak or crouch, manage a limited panic sprint, use the flashlight, open doors and try to escape a pursuit. Footsteps and doors give the Hunter information; breaking sight leads to search. Wounds, capture, death and retry close the pressure loop, while audio and music react to the action."
+            "The current playable slice is a first-person stealth prototype in a hospital environment. Sneaking, crouching, running and a limited panic sprint offer different ways to explore and escape. Movement, noise, door use and the flashlight affect what the Hunter can perceive.",
+            "The Hunter can stop to listen, investigate stronger evidence, chase and search. Its hearing uses navigable NavMesh path distance rather than only straight-line distance, so walls, floors and route geometry affect whether sound is faint or clear. After losing sight, it searches from the last verified position, movement direction and newer sound evidence rather than continuously tracking the hidden player.",
+            "Environmental interactions use a shared door system for the player and Hunter. Wounds and a critical state create pressure; capture and death lead to retry. Adaptive music responds to the enemy’s state as exploration becomes danger or pursuit."
           ]
         },
         {
@@ -372,7 +374,8 @@ export const english: LocaleCopy = {
           "paragraphs": [
             "A smaller Hunter nail-gun prototype uses physical projectiles, line-of-sight-gated firing, projectile embedding and a live projectile cap. Its aim presentation is placeholder-level, with audiovisual polish still incomplete.",
             "The current engineering evidence centres on one Hunter and its stealth loop. Narrative expansion remains future work. Real media will make the perception, search and environment integration easier to assess alongside the recorded development evidence."
-          ]
+          ],
+          "note": "Gameplay, AI debug views and deeper technical implementation details are available on request."
         }
       ],
       "mediaSlots": {

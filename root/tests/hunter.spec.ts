@@ -20,6 +20,10 @@ for (const locale of locales) {
       await expect(page.locator('h1')).toHaveText('A Chain of Pain');
       await expect(page.locator('.study-lead')).toHaveText(project.summary);
       await expect(page.locator('.study-facts')).toContainText(project.role!);
+      await expect(page.locator('#current-playable-focus > p')).toHaveCount(3);
+      await expect(page.locator('#evidence-to-add .study-note')).toHaveText(locale === 'fi'
+        ? 'Projektista voidaan tarvittaessa esitellä gameplayta, AI-debug-näkymiä ja teknistä toteutusta tarkemmin.'
+        : 'Gameplay, AI debug views and deeper technical implementation details are available on request.');
       await expect(page.locator('.study-visual-priority li strong')).toHaveText(states);
       await expect(page.locator('.study-visual-priority small')).toContainText(locale === 'fi' ? 'debug-laukaisulle' : 'Debug-triggered');
       await expect(page.locator('aside[data-media-slot]')).toHaveCount(5);
@@ -53,6 +57,7 @@ for (const locale of locales) {
     await expect(card.locator('.project-status')).toContainText(project.status);
     await expect(card.locator('.tags li')).toHaveCount(4);
     await expect(card.locator('figcaption')).toContainText(locale === 'fi' ? 'Konseptikuva' : 'Concept graphic');
+    await expect(page.locator('.study-note')).toHaveCount(0);
     await card.getByRole('link', { name: project.links.caseStudy.label }).click();
     await expect(page).toHaveURL(new RegExp(`${route(locale)}$`));
     await expect(page.locator('#confirmed-project-scope')).toContainText(locale === 'fi' ? 'ei ole vielä toteutettu' : 'are not implemented yet');
@@ -105,6 +110,7 @@ test('public game pages contain curated evidence without raw audit content or un
         expect(prose).not.toContain(section.title);
         for (const paragraph of section.paragraphs) expect(prose).not.toContain(paragraph);
         if (section.visual) expect(prose).not.toContain(section.visual.caption);
+        if (section.note) expect(prose).not.toContain(section.note);
       }
       for (const slot of english.mediaSlots) expect(prose).not.toContain(slot.description);
       expect(prose).not.toContain('Capture planned');
