@@ -10,7 +10,7 @@ test('deployment output preserves the approved pages, assets and exact CV', asyn
   for (const file of ['index.html', 'about.html', 'books.html', 'contact.html', 'admin.html', 'portfolio.html', 'fi/portfolio.html', 'case-studies/reorderops.html', 'fi/case-studies/reorderops.html', 'docs/reorderops/index.html', 'docs/reorderops/reviewer-guide.html', 'docs/reorderops/architecture.html', 'docs/reorderops/planning-rules.html', 'docs/reorderops/ai-evaluation.html', 'docs/reorderops/public-demo.html', 'assets/portfolio/main.js', 'css/portfolio.css', 'css/styles.css', 'js/books.js', 'pictures/front.png', 'data/books.json', 'data/cv.pdf']) {
     assert.deepEqual(await readFile(join('public', file)), await readFile(file), file);
   }
-  assert.equal(createHash('sha256').update(await readFile('public/data/cv.pdf')).digest('hex'), '816a9a649b9eb6c4c48f7deae6a5ada682383a51a9977415a1a283e90d441c16');
+  assert.equal(createHash('sha256').update(await readFile('public/data/cv.pdf')).digest('hex'), '8024b2f3e44b61c0899d9c638377e98efa12a371c77009a435ee551e70ea03fa');
   const output = await readdir('public');
   for (const privateEntry of ['api', 'content', 'portfolio-src', 'scripts', 'tests', '.build', '.env', 'package.json', 'package-lock.json', 'README.md', 'PORTFOLIO.md', 'dev-server.js', 'vercel.json']) assert.ok(!output.includes(privateEntry), privateEntry);
 });

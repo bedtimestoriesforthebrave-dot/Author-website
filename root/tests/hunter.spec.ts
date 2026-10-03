@@ -8,7 +8,7 @@ const states = ['Capture', 'Stunned', 'Chase', 'Investigate', 'Search', 'Listen'
 for (const locale of locales) {
   const project = getContent(locale).projects.find(item => item.slug === 'a-chain-of-pain')!;
   for (const width of [1440, 820, 390, 320]) {
-    test(`${locale} Hunter study: accessible, static and complete at ${width}px`, async ({ page }) => {
+    test(`${locale} game study: accessible, static and complete at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: width > 800 ? 1000 : 844 });
       await page.emulateMedia({ reducedMotion: 'reduce' });
       const errors: string[] = [];
@@ -21,6 +21,11 @@ for (const locale of locales) {
       await expect(page.locator('.study-lead')).toHaveText(project.summary);
       await expect(page.locator('.study-facts')).toContainText(project.role!);
       await expect(page.locator('#current-playable-focus > p')).toHaveCount(3);
+      const story = page.locator('#confirmed-project-scope');
+      await expect(story).toContainText(locale === 'fi' ? 'ei ole vielä toteutettu' : 'are not implemented yet');
+      await expect(story).toContainText(locale === 'fi' ? 'pelaajan valintoja' : 'player choices');
+      await expect(page.locator('#character-development')).toContainText(locale === 'fi' ? 'AI-avusteinen prototypointi' : 'AI-assisted character prototyping');
+      await expect(page.locator('#audio-and-original-soundtrack')).toContainText(locale === 'fi' ? 'Sävelsin pelin alkuperäisen soundtrackin.' : 'I composed the game’s original soundtrack.');
       await expect(page.locator('#evidence-to-add .study-note')).toHaveText(locale === 'fi'
         ? 'Projektista voidaan tarvittaessa esitellä gameplayta, AI-debug-näkymiä ja teknistä toteutusta tarkemmin.'
         : 'Gameplay, AI debug views and deeper technical implementation details are available on request.');
@@ -56,8 +61,14 @@ for (const locale of locales) {
     await expect(card.locator('.project-summary')).toHaveText(project.summary);
     await expect(card.locator('.project-status')).toContainText(project.status);
     await expect(card.locator('.tags li')).toHaveCount(4);
+    await expect(card.getByRole('link', { name: locale === 'fi' ? 'Tutustu projektiin' : 'Explore project', exact: false })).toBeVisible();
     await expect(card.locator('figcaption')).toContainText(locale === 'fi' ? 'Konseptikuva' : 'Concept graphic');
     await expect(page.locator('.study-note')).toHaveCount(0);
+    const contact = page.locator('#contact');
+    await expect(contact.locator('h2')).toHaveText(locale === 'fi' ? 'Ota yhteyttä.' : 'Get in touch.');
+    await expect(contact).not.toContainText(locale === 'fi' ? 'Onko sinulla projekti mielessä?' : 'Have a project in mind?');
+    await expect(contact.getByRole('link', { name: /wilzeu@gmail.com/ })).toHaveAttribute('href', 'mailto:wilzeu@gmail.com');
+    await expect(contact.locator('.contact-links a')).toHaveCount(3);
     await card.getByRole('link', { name: project.links.caseStudy.label }).click();
     await expect(page).toHaveURL(new RegExp(`${route(locale)}$`));
     await expect(page.locator('#confirmed-project-scope')).toContainText(locale === 'fi' ? 'ei ole vielä toteutettu' : 'are not implemented yet');

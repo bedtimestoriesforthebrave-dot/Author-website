@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { documents, documentationIndex, documentationRoot, renderMarkdown } from '../portfolio-src/documentation';
 
-const cvHash = '816a9a649b9eb6c4c48f7deae6a5ada682383a51a9977415a1a283e90d441c16';
+const cvHash = '8024b2f3e44b61c0899d9c638377e98efa12a371c77009a435ee551e70ea03fa';
 const docsPaths = [documentationIndex, ...documents.map(doc => `${documentationRoot}/${doc.slug}.html`)];
 const portfolioPaths = ['/portfolio.html', '/fi/portfolio.html', '/case-studies/reorderops.html', '/fi/case-studies/reorderops.html', '/case-studies/a-chain-of-pain.html', '/fi/case-studies/a-chain-of-pain.html'];
 const exposure = /[CE]:\\|C:\\Users\\|localhost|127\.0\.0\.1|\.env\b|\.runtime\/|PROJECT_EVIDENCE\.md|CLAIM_MATRIX\.md|sk-(?:proj-)?[a-zA-Z0-9_-]{20,}|ghp_[a-zA-Z0-9]{20,}/i;

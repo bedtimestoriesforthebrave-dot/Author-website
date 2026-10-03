@@ -49,8 +49,8 @@ export const english: LocaleCopy = {
       }
     },
     "contact": {
-      "title": "Let’s build\nsomething useful.",
-      "description": "For software, AI workflows or technical product work, get in touch."
+      "title": "Get in touch.",
+      "description": "Software development, AI, technical projects or opportunities."
     },
     "navigationLabels": {
       "work": "Work",
@@ -170,17 +170,17 @@ export const english: LocaleCopy = {
       }
     },
     "a-chain-of-pain": {
-      "category": "First-Person Narrative Game",
-      "description": "A Hunter that acts on what it perceives.",
-      "summary": "An Unreal Engine 5 / C++ narrative game in development. The current playable slice focuses on first-person stealth and exploration, with a custom Hunter that combines perception, memory, search and environment interaction.",
+      "category": "Story-driven First-Person Narrative Game",
+      "description": "A solo-directed Unreal Engine 5 / C++ game combining story, systemic gameplay and atmosphere.",
+      "summary": "Built around an evolving story and lore, the project combines first-person exploration, stealth, enemy AI, environmental interaction, level design, character prototyping and original music. The current playable slice develops the gameplay and technical systems supporting that broader story-driven experience.",
       "role": "Solo-directed, AI-assisted development using licensed environment assets.",
       "status": "In development · playable stealth / AI prototype",
       "highlights": [
-        "Path-aware hearing",
-        "Memory-based search",
-        "Integrated world interaction"
+        "Story & worldbuilding",
+        "Gameplay & enemy systems",
+        "Level design & original audio"
       ],
-      "architecture": "AI Perception → knowledge / memory → C++-generated StateTree → movement, doors and gameplay events.",
+      "architecture": "Unreal Engine 5 / C++ connects player movement and interaction, systemic enemy AI, world design and reactive audio.",
       "challenges": [
         "Make perception and pursuit consistent without tracking hidden player positions.",
         "Keep navigation, door interaction and hearing aligned with the playable territory.",
@@ -197,23 +197,43 @@ export const english: LocaleCopy = {
       "linkLabels": {
         "demo": "Live demo",
         "github": "Source code",
-        "caseStudy": "Explore Hunter AI"
+        "caseStudy": "Explore project"
       },
       "mediaText": null,
       "study": [
         {
-          "title": "A narrative game, a playable AI slice",
+          "title": "Story & worldbuilding",
           "paragraphs": [
-            "A Chain of Pain is a first-person narrative game in development. Its current playable work is a stealth and enemy-AI prototype in a hospital environment. Dialogue, objectives, story triggers, branching outcomes and endings are not implemented yet.",
-            "The project brings game design, system design, architecture, integration, level composition and playtesting under one technical direction. Documented fairness rules and acceptance criteria guide what the Hunter should know and how it should respond."
+            "A Chain of Pain is a story-driven first-person narrative game in development, built around a broader story and evolving lore. World history, environmental storytelling, encounters and the structure of the game are designed to support that story, including moments without direct dialogue.",
+            "The current playable slice focuses on the gameplay and technical systems that will support the narrative experience. Dialogue, player choices, objectives, story triggers, branching endings and full narrative progression are not implemented yet. Game design, engineering, level composition, character development and original music sit within one solo-directed project."
           ]
         },
         {
-          "title": "The current playable focus",
+          "title": "Gameplay systems & the playable slice",
           "paragraphs": [
-            "The current playable slice is a first-person stealth prototype in a hospital environment. Sneaking, crouching, running and a limited panic sprint offer different ways to explore and escape. Movement, noise, door use and the flashlight affect what the Hunter can perceive.",
-            "The Hunter can stop to listen, investigate stronger evidence, chase and search. Its hearing uses navigable NavMesh path distance rather than only straight-line distance, so walls, floors and route geometry affect whether sound is faint or clear. After losing sight, it searches from the last verified position, movement direction and newer sound evidence rather than continuously tracking the hidden player.",
-            "Environmental interactions use a shared door system for the player and Hunter. Wounds and a critical state create pressure; capture and death lead to retry. Adaptive music responds to the enemy’s state as exploration becomes danger or pursuit."
+            "First-person exploration and stealth-oriented movement form the current playable loop in the hospital environment. Sneaking, crouching, running and a limited panic sprint offer different ways to move through encounters and escape.",
+            "A reusable look-at interaction system connects the player to the environment, including a shared door system used by both player and enemy. The flashlight supports exploration while also affecting enemy perception. Movement and door noise feed the same gameplay loop.",
+            "Wounds recover in stages and include a critical state. Capture and death lead into a retry flow. These player systems provide the playable foundation for the broader game; the Hunter is one major system within it."
+          ]
+        },
+        {
+          "title": "World & level design",
+          "paragraphs": [
+            "The large environment combines a manor and two hospital buildings in a single One File Per Actor map. I compose the layout, traversal routes and encounter spaces using licensed third-party modular environment assets; the source assets are not my original modelling work. World history and environmental storytelling guide the design of the spaces. The H2 hospital currently connects multi-floor NavMesh, AI territory, barriers, locked routes and doors adapted to the shared interaction system.",
+            "One scripted Door-14 ambush temporarily directs the Hunter outside normal StateTree behaviour, then hands control back to the systemic chase. The surrounding world is broader than this tested slice: multi-floor navigation setup is evidenced, but stair chases still need dedicated playtesting."
+          ]
+        },
+        {
+          "title": "Character development",
+          "paragraphs": [
+            "AI-assisted character prototyping and development for Hunter 1. The character remains a work in progress, with its presentation and gameplay integration still being developed."
+          ]
+        },
+        {
+          "title": "Audio & original soundtrack",
+          "paragraphs": [
+            "I composed the game’s original soundtrack.",
+            "I also integrated reactive audio systems that respond to enemy state and gameplay. Music changes between exploration, danger, chase and death, while surface- and gait-aware footsteps and door sounds connect the player’s actions to the enemy’s hearing."
           ]
         },
         {
@@ -351,13 +371,6 @@ export const english: LocaleCopy = {
           }
         },
         {
-          "title": "A world composed around the systems",
-          "paragraphs": [
-            "A large single One File Per Actor map contains a manor and two hospital buildings, composed from third-party modular environment kits. The current Hunter territory is the H2 hospital. Multi-floor navigation, barriers, locked routes and door assets converted to the project’s shared door class connect the space to the AI.",
-            "One scripted Door-14 ambush temporarily directs the Hunter outside normal StateTree behaviour, then hands control back to the systemic chase. The surrounding world is broader than this tested slice: multi-floor navigation setup is evidenced, but stair chases still need dedicated playtesting."
-          ]
-        },
-        {
           "title": "Engineering and iteration",
           "paragraphs": [
             "Milestone development uses Git, Git LFS and One File Per Actor. Reusable components separate perception, character actions, interaction, wounds and audio. AI tuning lives in a data asset read during play, making iteration possible without scattering constants through behaviour code."
@@ -372,7 +385,7 @@ export const english: LocaleCopy = {
           "title": "Prototype work and next steps",
           "paragraphs": [
             "A smaller Hunter nail-gun prototype uses physical projectiles, line-of-sight-gated firing, projectile embedding and a live projectile cap. Its aim presentation is placeholder-level, with audiovisual polish still incomplete.",
-            "The current engineering evidence centres on one Hunter and its stealth loop. Narrative expansion remains future work. Real media will make the perception, search and environment integration easier to assess alongside the recorded development evidence."
+            "The current playable slice brings player systems, systemic enemy AI, world composition and reactive audio together. The broader story and lore guide the project, while narrative delivery remains future implementation work. Character development and audiovisual polish continue alongside gameplay iteration."
           ],
           "note": "Gameplay, AI debug views and deeper technical implementation details are available on request."
         }

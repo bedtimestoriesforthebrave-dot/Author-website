@@ -140,13 +140,15 @@ export const projectMetadata: ProjectMetadata[] = [
     "studyIds": [
       "confirmed-project-scope",
       "current-playable-focus",
+      "level-composition",
+      "character-development",
+      "audio-and-original-soundtrack",
       "systemic-enemy-ai",
       "path-aware-hearing",
       "gradual-visual-detection",
       "memory-and-search",
       "behaviour-selection",
       "player-and-world",
-      "level-composition",
       "engineering-practices",
       "evidence-to-add"
     ],

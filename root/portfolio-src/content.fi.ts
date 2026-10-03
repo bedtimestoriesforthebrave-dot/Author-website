@@ -33,7 +33,7 @@ export const finnish: LocaleCopy = {
       summary: 'Työni ulottuu liiketoimintasovelluksista mobiiliohjelmistoihin ja vuorovaikutteisiin ympäristöihin. Yhteistä niille on monimutkaisen toiminnan tekeminen ymmärrettäväksi, tarkasteltavaksi ja hyödylliseksi.',
       education: { institution: 'Savonia-ammattikorkeakoulu', qualification: 'IT-tradenomiopinnot (Business Information Technology)', note: 'Ohjelmistokehitystä, tiedonhallintaa, analytiikkaa, automaatiota ja projektityötä. Valmistumista ei ole vahvistettu.' },
     },
-    contact: { title: 'Rakennetaan\njotain hyödyllistä.', description: 'Ota yhteyttä ohjelmistoihin, tekoälyn työnkulkuihin tai tekniseen tuotekehitykseen liittyen.' },
+    contact: { title: 'Ota yhteyttä.', description: 'Ohjelmistokehitys, AI, tekniset projektit tai työmahdollisuudet.' },
   },
   evidencePath: ['Data', 'Deterministinen logiikka', 'Jäsennellyt perustelut', 'Tekoälyn tulkinta', 'Ihmisen hyväksyntä', 'Validoitu toiminto', 'Tapahtumaloki'],
   projects: {
@@ -59,17 +59,17 @@ export const finnish: LocaleCopy = {
       ],
     },
     "a-chain-of-pain": {
-      "category": "Ensimmäisen persoonan narratiivinen peli",
-      "description": "Hunter, joka toimii havaintojensa perusteella.",
-      "summary": "Kehitteillä oleva Unreal Engine 5 / C++ -pohjainen narratiivinen peli. Nykyinen pelattava osuus keskittyy ensimmäisen persoonan stealth-pelaamiseen ja tutkimiseen. Oma Hunter-järjestelmä yhdistää havainnoinnin, muistin, etsinnän ja ympäristöön reagoinnin.",
+      "category": "Tarinavetoinen ensimmäisen persoonan narratiivinen peli",
+      "description": "Itsenäisesti johdettu Unreal Engine 5 / C++ -peliprojekti, jossa tarina, systeeminen gameplay ja tunnelma kohtaavat.",
+      "summary": "Kehittyvän tarinan ja loren ympärille rakentuva projekti yhdistää ensimmäisen persoonan tutkimisen, stealthin, vihollis-AI:n, ympäristöinteraktiot, level designin, hahmoprototypoinnin ja alkuperäisen musiikin. Nykyinen pelattava osuus kehittää gameplay- ja teknisiä järjestelmiä, jotka tukevat tätä laajempaa tarinavetoista kokemusta.",
       "role": "Itsenäisesti johdettu, AI-avusteisesti kehitetty projekti, jossa käytetään lisensoituja ympäristöassetteja.",
       "status": "Kehitteillä · pelattava stealth- ja AI-prototyyppi",
       "highlights": [
-        "Reitin huomioiva kuulo",
-        "Muistiin perustuva etsintä",
-        "Ympäristöön integroidut toiminnot"
+        "Tarina & maailmanrakennus",
+        "Gameplay- ja vihollisjärjestelmät",
+        "Level design & alkuperäinen musiikki"
       ],
-      "architecture": "AI Perception → tieto ja muisti → C++:sta generoitu StateTree → liikkuminen, ovet ja pelitapahtumat.",
+      "architecture": "Unreal Engine 5 / C++ yhdistää pelaajan liikkumisen ja interaktiot, systeemisen vihollis-AI:n, ympäristösuunnittelun ja reagoivan äänen.",
       "challenges": [
         "Pidä havainnointi ja takaa-ajo johdonmukaisina ilman piilossa olevan pelaajan sijainnin seurantaa.",
         "Sovita navigointi, ovitoiminnot ja kuulo pelattavan alueen rajoihin.",
@@ -86,23 +86,43 @@ export const finnish: LocaleCopy = {
       "linkLabels": {
         "demo": "Avaa demo",
         "github": "Lähdekoodi",
-        "caseStudy": "Tutustu Hunter-AI:hin"
+        "caseStudy": "Tutustu projektiin"
       },
       "mediaText": null,
       "study": [
         {
-          "title": "Narratiivinen peli, pelattava AI-osuus",
+          "title": "Tarina ja maailmanrakennus",
           "paragraphs": [
-            "A Chain of Pain on kehitteillä oleva ensimmäisen persoonan narratiivinen peli. Nykyinen pelattava kokonaisuus on sairaalaympäristössä toimiva stealth- ja vihollis-AI-prototyyppi. Dialogia, tavoitteita, tarinatapahtumien laukaisimia, haarautuvia lopputuloksia tai loppuja ei ole vielä toteutettu.",
-            "Pelisuunnittelu, järjestelmäsuunnittelu, arkkitehtuuri, integraatio, kentän koostaminen ja pelitestaus kuuluvat samaan tekniseen kokonaisvastuuseen. Dokumentoidut reiluussäännöt ja hyväksymiskriteerit määrittävät, mitä Hunter saa tietää ja miten sen tulee reagoida."
+            "A Chain of Pain on kehitteillä oleva tarinavetoinen ensimmäisen persoonan narratiivinen peli, jonka suunnittelu rakentuu laajemman tarinan ja kehittyvän loren ympärille. Maailman historiaa, ympäristön kautta kerrottavaa tarinaa, kohtaamisia ja pelin rakennetta suunnitellaan tukemaan tarinaa myös ilman suoraa dialogia.",
+            "Nykyinen pelattava osuus keskittyy gameplay- ja teknisiin järjestelmiin, joiden päälle narratiivinen kokemus rakentuu. Dialogia, pelaajan valintoja, tavoitteita, tarinatapahtumien laukaisimia, haarautuvia loppuja tai täyttä narratiivista etenemistä ei ole vielä toteutettu. Pelisuunnittelu, ohjelmistokehitys, kentän koostaminen, hahmokehitys ja alkuperäinen musiikki kuuluvat samaan itsenäisesti johdettuun projektiin."
           ]
         },
         {
-          "title": "Nykyinen pelattava kokonaisuus",
+          "title": "Gameplay-järjestelmät ja pelattava osuus",
           "paragraphs": [
-            "Nykyinen pelattava osuus on sairaalaympäristöön sijoittuva ensimmäisen persoonan stealth-prototyyppi. Hiipiminen, kyykistyminen, juoksu ja rajallinen panic sprint tarjoavat eri tapoja tutkia ympäristöä ja paeta. Liikkuminen, äänet, ovien käyttö ja taskulamppu vaikuttavat siihen, mitä Hunter havaitsee.",
-            "Hunter voi pysähtyä kuuntelemaan, tutkia vahvempia havaintoja, ajaa pelaajaa takaa ja etsiä tätä. Kuulo käyttää kuljettavan NavMesh-reitin pituutta pelkän suoraviivaisen etäisyyden sijaan, joten seinät, kerrokset ja reitin muoto vaikuttavat äänen selkeyteen. Näköyhteyden katkettua Hunter etsii viimeisen varmennetun sijainnin, liikesuunnan ja uusien äänihavaintojen perusteella eikä seuraa piilossa olevan pelaajan reaaliaikaista sijaintia.",
-            "Ympäristön interaktiot käyttävät pelaajan ja Hunterin yhteistä ovijärjestelmää. Haavat ja kriittinen tila tuovat painetta; kiinniotto ja kuolema johtavat uuteen yritykseen. Mukautuva musiikki reagoi vihollisen tilaan, kun tutkiminen vaihtuu vaaraksi tai takaa-ajoksi."
+            "Ensimmäisen persoonan tutkiminen ja stealth-painotteinen liikkuminen muodostavat nykyisen pelisilmukan sairaalaympäristössä. Hiipiminen, kyykistyminen, juoksu ja rajallinen panic sprint tarjoavat eri tapoja liikkua kohtaamistilanteissa ja paeta.",
+            "Uudelleenkäytettävä katseeseen perustuva interaktiojärjestelmä yhdistää pelaajan ympäristöön. Siihen kuuluu pelaajan ja vihollisen yhteinen ovijärjestelmä. Taskulamppu tukee tutkimista ja vaikuttaa samalla vihollisen havainnointiin. Liikkumisen ja ovien äänet ovat osa samaa pelisilmukkaa.",
+            "Haavat paranevat vaiheittain, ja mukana on kriittinen tila. Kiinniotto ja kuolema johtavat uuteen yritykseen. Nämä pelaajan järjestelmät muodostavat laajemman pelin pelattavan perustan; Hunter on yksi sen keskeisistä järjestelmistä."
+          ]
+        },
+        {
+          "title": "Ympäristö ja level design",
+          "paragraphs": [
+            "Laaja ympäristö yhdistää kartanon ja kaksi sairaalarakennusta yhteen One File Per Actor -karttaan. Koostan tilat, kulkureitit ja kohtaamisalueet lisensoiduista kolmansien osapuolten modulaarisista ympäristöasseteista; alkuperäiset assetit eivät ole omaa mallinnustyötäni. Maailman historia ja ympäristön kautta kerrottava tarina ohjaavat tilojen suunnittelua. H2-sairaala yhdistää tällä hetkellä monikerroksisen NavMeshin, AI:n toiminta-alueen, esteet, lukitut reitit ja yhteiseen interaktiojärjestelmään sovitetut ovet.",
+            "Yksi skriptattu Door-14-väijytys ohjaa Hunteria hetkellisesti tavallisen StateTree-toiminnan ulkopuolella ja palauttaa sitten ohjauksen systeemiseen takaa-ajoon. Ympäröivä maailma on tätä testattua osuutta laajempi: monikerroksisesta navigoinnista on näyttöä, mutta porrastakaa-ajot tarvitsevat vielä erillistä pelitestausta."
+          ]
+        },
+        {
+          "title": "Hahmokehitys",
+          "paragraphs": [
+            "Hunter 1 -hahmon AI-avusteinen prototypointi ja kehitys. Hahmo on edelleen työn alla, ja sen esitystapaa sekä gameplay-integraatiota kehitetään yhä."
+          ]
+        },
+        {
+          "title": "Äänimaailma ja alkuperäinen soundtrack",
+          "paragraphs": [
+            "Sävelsin pelin alkuperäisen soundtrackin.",
+            "Toteutin myös reagoivia äänijärjestelmiä, jotka mukautuvat vihollisen tilaan ja gameplayhin. Musiikki vaihtuu tutkimisen, vaaran, takaa-ajon ja kuoleman välillä. Pinnan ja liikkumistavan huomioivat askeleet sekä ovien äänet yhdistävät pelaajan toiminnan vihollisen kuuloon."
           ]
         },
         {
@@ -240,13 +260,6 @@ export const finnish: LocaleCopy = {
           }
         },
         {
-          "title": "Järjestelmien ympärille koostettu maailma",
-          "paragraphs": [
-            "Laaja yhtenäinen One File Per Actor -kartta sisältää kartanon ja kaksi sairaalarakennusta, jotka on koostettu kolmansien osapuolten modulaarisista ympäristöpaketeista. Hunterin nykyinen alue on H2-sairaala. Monikerroksinen navigointi, esteet, lukitut reitit ja projektin yhteiseen oviluokkaan muunnetut oviassetit yhdistävät tilan AI:hin.",
-            "Yksi skriptattu Door-14-väijytys ohjaa Hunteria hetkellisesti tavallisen StateTree-toiminnan ulkopuolella ja palauttaa sitten ohjauksen systeemiseen takaa-ajoon. Ympäröivä maailma on tätä testattua osuutta laajempi: monikerroksisesta navigoinnista on näyttöä, mutta porrastakaa-ajot tarvitsevat vielä erillistä pelitestausta."
-          ]
-        },
-        {
           "title": "Tekninen työ ja iterointi",
           "paragraphs": [
             "Vaiheittainen kehitys käyttää Gitiä, Git LFS:ää ja One File Per Actor -rakennetta. Uudelleenkäytettävät komponentit erottavat havainnoinnin, hahmon toiminnot, interaktiot, haavat ja äänen. AI:n säätöarvot ovat pelin aikana luettavassa data-assetissa, joten iterointi ei edellytä vakioiden hajauttamista toimintakoodiin."
@@ -261,7 +274,7 @@ export const finnish: LocaleCopy = {
           "title": "Prototyypit ja seuraavat vaiheet",
           "paragraphs": [
             "Hunterin pienempi naulapyssyprototyyppi käyttää fyysisiä ammuksia, näköyhteyteen sidottua laukaisua, ammusten kiinnittymistä pintoihin ja samanaikaisten ammusten ylärajaa. Tähtäyksen esitys on paikkamerkkitasolla, ja audiovisuaalinen viimeistely on kesken.",
-            "Nykyinen tekninen näyttö keskittyy yhteen Hunteriin ja sen stealth-pelisilmukkaan. Narratiivinen laajentaminen kuuluu tulevaan työhön. Aito kuva-aineisto helpottaa havainnoinnin, etsinnän ja ympäristöintegraation arviointia tallennetun kehitysnäytön rinnalla."
+            "Nykyinen pelattava osuus yhdistää pelaajan järjestelmät, systeemisen vihollis-AI:n, ympäristön koostamisen ja reagoivan äänen. Laajempi tarina ja lore ohjaavat projektia, mutta narratiivisen kokonaisuuden toteutus kuuluu tulevaan työhön. Hahmokehitys ja audiovisuaalinen viimeistely jatkuvat gameplayn iteroinnin rinnalla."
           ],
           "note": "Projektista voidaan tarvittaessa esitellä gameplayta, AI-debug-näkymiä ja teknistä toteutusta tarkemmin."
         }
