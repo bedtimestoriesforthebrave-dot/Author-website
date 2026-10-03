@@ -13,7 +13,7 @@ The English portfolio stays at `/portfolio.html` (clean URL `/portfolio`) and is
 
 ## Content sources
 
-`portfolio-src/content.ts` assembles each locale from a single shared content architecture. No CMS is introduced. Nullable links/media and explicit `placeholders` prevent invented project evidence.
+`portfolio-src/content.ts` assembles each locale from a single shared content architecture. No CMS is introduced. Nullable links, roles and media prevent invented project evidence: absent optional content renders nothing.
 
 - `model.ts` defines the shared metadata and required locale presentation fields.
 - `content.shared.ts` owns identity, project order, stable slugs/section IDs, technologies, URLs, media paths, source references and education dates.

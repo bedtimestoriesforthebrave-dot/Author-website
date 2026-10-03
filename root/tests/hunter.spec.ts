@@ -26,13 +26,13 @@ for (const locale of locales) {
       await expect(story).toContainText(locale === 'fi' ? 'pelaajan valintoja' : 'player choices');
       await expect(page.locator('#character-development')).toContainText(locale === 'fi' ? 'AI-avusteinen prototypointi' : 'AI-assisted character prototyping');
       await expect(page.locator('#audio-and-original-soundtrack')).toContainText(locale === 'fi' ? 'Sävelsin pelin alkuperäisen soundtrackin.' : 'I composed the game’s original soundtrack.');
-      await expect(page.locator('#evidence-to-add .study-note')).toHaveText(locale === 'fi'
+      await expect(page.locator('#prototype-work-and-next-steps .study-note')).toHaveText(locale === 'fi'
         ? 'Projektista voidaan tarvittaessa esitellä gameplayta, AI-debug-näkymiä ja teknistä toteutusta tarkemmin.'
         : 'Gameplay, AI debug views and deeper technical implementation details are available on request.');
       await expect(page.locator('.study-visual-priority li strong')).toHaveText(states);
       await expect(page.locator('.study-visual-priority small')).toContainText(locale === 'fi' ? 'debug-laukaisulle' : 'Debug-triggered');
-      await expect(page.locator('aside[data-media-slot]')).toHaveCount(5);
-      await expect(page.locator('[data-media-slot] img, [data-media-slot] video, [data-media-slot] source')).toHaveCount(0);
+      // Unavailable media slots render nothing: no placeholder cards, empty frames or asset requests.
+      await expect(page.locator('[data-media-slot], .media-pending, #forthcoming-evidence')).toHaveCount(0);
       await expect(page.locator('#verification-record')).toContainText('12/12');
       await expect(page.locator('#verification-record')).toContainText(locale === 'fi' ? 'ei ajettu uudelleen' : 'not a new Unreal test run');
       await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');
@@ -126,5 +126,6 @@ test('public game pages contain curated evidence without raw audit content or un
       for (const slot of english.mediaSlots) expect(prose).not.toContain(slot.description);
       expect(prose).not.toContain('Capture planned');
     }
+    for (const placeholder of ['Capture planned', 'Forthcoming evidence', 'Kuvaus tulossa', 'Täydennettävä näyttö', 'tulossa', 'forthcoming']) expect(prose).not.toContain(placeholder);
   }
 });

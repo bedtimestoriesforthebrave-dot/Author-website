@@ -152,8 +152,9 @@ main.container, .site-footer { position: relative; z-index: 1; }
 /* Case studies stay in a calm document flow. */
 .study-main { padding-top: 40px; }.back-link { color: var(--muted); }.study-hero { padding-top: 60px; padding-bottom: 55px; }.study-hero .section-label { margin-bottom: 18px; }.study-hero h1 { font-size: clamp(3.2rem, 7.5vw, 7rem); letter-spacing: -.07em; line-height: 1.02; margin-bottom: 30px; }.study-lead { max-width: 850px; color: var(--muted); font-size: clamp(1.1rem, 2.1vw, 1.6rem); line-height: 1.65; }
 .study-facts { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 36px; border-top: 1px solid var(--line); margin-top: 40px; padding-top: 25px; }.study-facts dt { font-family: var(--mono); font-size: .57rem; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }.study-facts dd { margin: 0; font-size: .78rem; line-height: 1.8; }
+.study-facts-compact { grid-template-columns: 1fr 3fr; }
 .study-layout { display: grid; grid-template-columns: 240px minmax(0, 800px); gap: 80px; border-top: 1px solid var(--line); align-items: start; }.study-toc { position: sticky; top: 140px; margin-block: 48px; }.study-toc .micro-label { font-size: .56rem; color: var(--muted); }.study-toc a { display: block; text-decoration: none; color: var(--muted); font-size: .72rem; line-height: 1.6; padding-block: 9px; }.study-toc a:hover { color: var(--accent); }.study-body > section { padding-block: 45px; border-bottom: 1px solid var(--line); }.study-body > section:last-child { border-bottom: 0; }.study-body h2 { font-size: 1.7rem; letter-spacing: -.035em; margin-bottom: 22px; }.study-body p, .study-body li { color: var(--muted); font-size: .93rem; line-height: 1.9; }.study-body p:last-child { margin-bottom: 0; }.study-body .sources li { font-family: var(--mono); font-size: .65rem; }.study-next { display: flex; justify-content: space-between; align-items: center; padding-block: 50px; border-top: 1px solid var(--line); }.study-next .micro-label { color: var(--muted); }
-.project-media { padding: 18px; background: var(--surface); border: 1px solid var(--line); }.project-media img { width: 100%; }.study-hero > .project-media { margin-top: 45px; max-width: 1000px; }.project-media a { display: block; }.evidence-placeholder .micro-label { color: var(--accent); }
+.project-media { padding: 18px; background: var(--surface); border: 1px solid var(--line); }.project-media img { width: 100%; }.study-hero > .project-media { margin-top: 45px; max-width: 1000px; }.project-media a { display: block; }
 .study-visual { margin-block: 28px; padding: 24px; border: 1px solid var(--line); background: var(--surface); }
 .study-visual > .micro-label { color: var(--accent); font-size: .63rem; }
 .study-visual ol, .study-visual ul { margin: 0; padding: 0; list-style: none; }
@@ -168,11 +169,6 @@ main.container, .site-footer { position: relative; z-index: 1; }
 .study-visual-priority li .state-priority { margin: 0 0 8px; color: var(--accent); font-family: var(--mono); font-size: .6rem; }
 .study-visual-layers li + li { position: relative; margin-top: 28px; }
 .study-visual-layers li + li::before { content: '↓'; position: absolute; top: -26px; left: 15px; color: var(--accent); font-family: var(--mono); }
-.media-pending { margin-block: 24px; padding: 22px; border-left: 2px solid var(--line); background: var(--surface); }
-.media-pending .micro-label { color: var(--muted); font-size: .58rem; }
-.media-pending h3 { margin-bottom: 8px; font-size: .94rem; }
-.media-pending p:last-child { margin: 0; color: var(--muted); font-size: .82rem; }
-.study-hero > .media-pending { max-width: 1000px; }
 .study-slot { margin-block: 24px; }
 .study-slot video { display: block; width: 100%; height: auto; }
 .study-note { padding: 14px 18px; border-left: 2px solid var(--line); background: var(--surface); }
@@ -197,7 +193,6 @@ main.container, .site-footer { position: relative; z-index: 1; }
   .study-visual { padding: 16px; }
   .study-visual-layers li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .study-visual-priority ol, .study-visual-integration ul { grid-template-columns: minmax(0, 1fr); }
-  .media-pending { padding: 18px; }
 }
 .not-found { padding-block: 100px 140px; min-height: 70vh; }.not-found h1 { font-size: clamp(2.7rem, 6vw, 5rem); line-height: 1.1; letter-spacing: -.05em; }.not-found > p:not(.section-label) { color: var(--muted); }.not-found .button { margin-right: 25px; }
 /* Keep supporting technical information comfortably readable. */

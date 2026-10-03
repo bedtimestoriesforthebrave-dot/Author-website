@@ -26,7 +26,7 @@ export interface ProjectMetadata {
 export interface ProjectCopy {
   category: string; description: string; summary: string; role: string | null; status: string;
   highlights: string[]; architecture: string; challenges: string[]; verification: string[];
-  placeholders: string[]; study: StudyCopy[];
+  study: StudyCopy[];
   linkLabels: { demo: string; github: string; caseStudy: string };
   mediaText: { alt: string; caption: string } | null;
   mediaSlots?: Record<string, MediaSlotCopy>;

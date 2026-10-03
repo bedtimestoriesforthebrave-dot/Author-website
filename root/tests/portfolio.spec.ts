@@ -103,3 +103,27 @@ test('unknown routes show an accessible 404 with recovery links', async ({ page,
   await expect(page).toHaveURL(/portfolio\.html$/);
   for (const path of ['/.env', '/portfolio-src/content.ts', '/.git/config', '/api/login']) expect((await request.get(path)).status()).toBe(404);
 });
+
+test('public pages omit unavailable optional content instead of rendering placeholders', async ({ page }) => {
+  const placeholders = /forthcoming|coming soon|capture planned|to be added|tulossa|täydennettävä|täydennetään|lisätään myöhemmin/i;
+  const roles: Record<string, Record<string, string | null>> = {
+    en: { reorderops: 'Application design & implementation', storycodex: null, 'author-website': 'Website and backend design and implementation' },
+    fi: { reorderops: 'Sovelluksen suunnittelu ja toteutus', storycodex: null, 'author-website': 'Sivuston ja backendin suunnittelu ja toteutus' },
+  };
+  for (const prefix of ['', '/fi']) {
+    const locale = prefix ? 'fi' : 'en';
+    await page.goto(`${prefix}/portfolio.html`);
+    expect(await page.locator('main').innerText()).not.toMatch(placeholders);
+    await expect(page.locator('#a-chain-of-pain figcaption')).toHaveText(locale === 'fi' ? 'Konseptikuva' : 'Concept graphic');
+    await expect(page.locator('#contact')).toContainText(locale === 'fi' ? 'Ota yhteyttä.' : 'Get in touch.');
+    for (const slug of ['reorderops', 'a-chain-of-pain', 'storycodex', 'author-website']) {
+      await page.goto(`${prefix}/case-studies/${slug}.html`);
+      expect(await page.locator('main').innerText(), `${locale} ${slug}`).not.toMatch(placeholders);
+      await expect(page.locator('#forthcoming-evidence, .evidence-placeholder, .media-pending, a[href="#forthcoming-evidence"]')).toHaveCount(0);
+      for (const item of await page.locator('.study-facts dd, figcaption, .study-body h2, .study-toc a').allInnerTexts()) expect(item.trim(), `${locale} ${slug}`).not.toBe('');
+      const role = roles[locale][slug];
+      if (role === null) await expect(page.locator('.study-facts > div')).toHaveCount(2);
+      else if (role) await expect(page.locator('.study-facts')).toContainText(role);
+    }
+  }
+});

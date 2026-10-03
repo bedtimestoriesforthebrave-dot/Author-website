@@ -150,7 +150,7 @@ export const projectMetadata: ProjectMetadata[] = [
       "behaviour-selection",
       "player-and-world",
       "engineering-practices",
-      "evidence-to-add"
+      "prototype-work-and-next-steps"
     ],
     "mediaSlots": [
       {

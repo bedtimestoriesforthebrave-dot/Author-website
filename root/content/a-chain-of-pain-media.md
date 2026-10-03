@@ -1,6 +1,6 @@
 # A Chain of Pain — portfolio media slots
 
-This is a maintenance guide, not a public case-study page. The public English and Finnish pages share five slots from `portfolio-src/content.shared.ts`. Titles, placeholder descriptions, alt text and captions live in `content.en.ts` / `content.fi.ts`. Planned slots render text only: no empty image frame, broken request or fake gameplay image.
+This is a maintenance guide, not a public case-study page. The public English and Finnish pages share five slots from `portfolio-src/content.shared.ts`. Titles, internal capture descriptions, alt text and captions live in `content.en.ts` / `content.fi.ts`. Slots with `available: false` render nothing publicly: no placeholder card, empty image frame, broken request or fake gameplay image.
 
 ## Expected files
 

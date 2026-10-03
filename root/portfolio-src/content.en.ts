@@ -107,9 +107,6 @@ export const english: LocaleCopy = {
         "Multilingual, messy-input and adversarial AI evaluations retain observed semantic and language failures.",
         "The recorded planning-v1.4 milestone reports 303 backend tests passing on Python 3.11 and 3.12, plus Ruff, TypeScript and production-build checks. This is source evidence, not a test count for this portfolio."
       ],
-      "placeholders": [
-        "A narrated walkthrough video may be added."
-      ],
       "study": [
         {
           "title": "The problem",
@@ -189,10 +186,6 @@ export const english: LocaleCopy = {
       "verification": [
         "Recorded development runs include a 12/12 scripted AI regression pass on 17 September 2026. This is saved project evidence, not a new Unreal test run during this portfolio update.",
         "Scripted PIE checks exercise perception, pursuit, memory and capture. Console commands, overlays and world markers support focused playtesting and diagnosis."
-      ],
-      "placeholders": [
-        "Real gameplay and debug captures are planned; the concept graphic is not a gameplay screenshot.",
-        "A public build or source link has not been supplied."
       ],
       "linkLabels": {
         "demo": "Live demo",
@@ -439,11 +432,6 @@ export const english: LocaleCopy = {
         "Safety-focused interaction design and controlled prompting for children."
       ],
       "verification": [],
-      "placeholders": [
-        "Verified screenshots",
-        "Public source or release link",
-        "Formal evaluation / testing evidence"
-      ],
       "study": [
         {
           "title": "An accessible story-making flow",
@@ -475,7 +463,7 @@ export const english: LocaleCopy = {
       "category": "Full-stack / serverless web",
       "description": "A publishing site, with the tools behind it.",
       "summary": "A bilingual author website with book management, JWT-based admin authentication and a contact API. Static pages meet a Node.js backend, with an Express server for local development.",
-      "role": null,
+      "role": "Website and backend design and implementation",
       "status": "Existing website",
       "highlights": [
         "Bilingual static frontend",
@@ -488,9 +476,6 @@ export const english: LocaleCopy = {
         "Separate public book data from authenticated management."
       ],
       "verification": [],
-      "placeholders": [
-        "Dedicated application screenshot"
-      ],
       "study": [
         {
           "title": "A public site and an admin workflow",

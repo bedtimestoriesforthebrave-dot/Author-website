@@ -46,7 +46,6 @@ export const finnish: LocaleCopy = {
       architecture: 'React- ja TypeScript-käyttöliittymä → FastAPI-liiketoimintasäännöt → SQLiteen tallennetut perustelut ja toiminnan tila. Rajattu tekoälysovitin lukee erillistä tietopakettia; hyväksytyt toiminnot validoivat nykytilan uudelleen transaktion sisällä.',
       challenges: ['Erota historialliset havainnot synteettisistä toiminnan syötteistä.', 'Säilytä tallennetut perustelut muuttumattomina ja estä vanhentuneen tiedon hyväksyntä.', 'Käsittele tekoälyn kelvollisia viitteitä ja selitystekstin oikeellisuutta erillisinä varmennusongelmina.'],
       verification: ['Automaattiset tarkistukset kattavat virheelliset syötteet, tulosten toistamisen, rinnakkaisuuden, peruutukset, vanhentuneen tiedon hyväksynnät ja vierailijoiden eristämisen.', 'Monikieliset, epäsiistejä syötteitä käsittelevät ja hyökkäävät tekoälyarvioinnit säilyttävät havaitut merkitys- ja kielivirheet.', 'Dokumentoitu planning-v1.4-vaihe raportoi 303 läpäistyä taustajärjestelmän testiä Pythonin versioilla 3.11 ja 3.12 sekä Ruff-, TypeScript- ja tuotantokoontitarkistukset. Tämä on projektin lähdeaineistoa, ei tämän portfolion testimäärä.'],
-      placeholders: ['Selostettu esittelyvideo voidaan lisätä.'],
       linkLabels: { demo: 'Avaa demo', github: 'Lähdekoodi', caseStudy: 'Lue projektiesittely' },
       mediaText: { alt: 'ReorderOpsin julkinen varastonäkymä: historiallinen suunnittelupäivä, ilmoitus synteettisestä datasta, varastomittarit ja tuotetaulukko.', caption: 'Julkinen demo / Varaston tarkastelu. Kuvattu 3.10.2026. Kaikki näkyvät toiminnan tiedot ovat synteettisiä.' },
       study: [
@@ -78,10 +77,6 @@ export const finnish: LocaleCopy = {
       "verification": [
         "Tallennettuihin kehitysajoihin sisältyy 12/12 läpäistyä skriptattua AI-regressiotestiä 17.9.2026. Tulos on projektin aiempaa näyttöä; Unreal-testejä ei ajettu uudelleen tämän portfoliopäivityksen aikana.",
         "Skriptatut PIE-tarkistukset käsittelevät havainnointia, takaa-ajoa, muistia ja kiinniottoa. Konsolikomennot, päälle piirretyt tilatiedot ja maailmaan sijoitetut merkit tukevat kohdennettua pelitestausta ja virheenjäljitystä."
-      ],
-      "placeholders": [
-        "Aitoja peli- ja debug-kuvia suunnitellaan; konseptikuva ei ole pelikuva.",
-        "Julkista peliversio- tai lähdekoodilinkkiä ei ole toimitettu."
       ],
       "linkLabels": {
         "demo": "Avaa demo",
@@ -319,7 +314,6 @@ export const finnish: LocaleCopy = {
       highlights: ['Tarinoiden luonti painikkeilla', 'Suomenkielinen luonti ja kerronta', 'Tallennettujen tarinoiden käyttö ilman verkkoa'],
       architecture: 'Jetpack Compose -Android-sovellus, taustarajapinta ja kielimalli-integraatio sekä Androidin puhesynteesi ja tarinoiden välimuisti.',
       challenges: ['Lapsille suunnattu turvallisuuspainotteinen käyttöliittymä ja hallitut kehotteet.'], verification: [],
-      placeholders: ['Varmennetut kuvakaappaukset', 'Julkinen lähdekoodi- tai julkaisulinkki', 'Muodollinen arviointi- ja testausnäyttö'],
       linkLabels: { demo: 'Avaa demo', github: 'Lähdekoodi', caseStudy: 'Projektin esittely' }, mediaText: null,
       study: [
         { title: 'Helposti lähestyttävä tarinanluonti', paragraphs: ['Lapset valitsevat hahmot, paikan ja juonen painikkeilla. Sovellus lähettää hallitun kehotteen taustarajapintansa kautta ja tuottaa lapsille suunnatun suomenkielisen tarinan. Androidin puhesynteesi lukee tarinan ääneen.'] },
@@ -330,11 +324,10 @@ export const finnish: LocaleCopy = {
     'author-website': {
       category: 'Full-stack / Palvelimeton verkkosovellus', description: 'Kirjailijasivusto ja sen ylläpidon työkalut.',
       summary: 'Kaksikielinen kirjailijasivusto, jossa on kirjojen hallinta, JWT-pohjainen ylläpitäjän kirjautuminen ja yhteydenottorajapinta. Staattiset sivut yhdistyvät Node.js-taustajärjestelmään, ja paikallinen kehitys käyttää Express-palvelinta.',
-      role: null, status: 'Nykyinen verkkosivusto',
+      role: 'Sivuston ja backendin suunnittelu ja toteutus', status: 'Nykyinen verkkosivusto',
       highlights: ['Kaksikielinen staattinen käyttöliittymä', 'Kirjojen hallinta kirjautumisen takana', 'Paikallinen Express ja palvelimettomat rajapinnat'],
       architecture: 'HTML-, CSS- ja JavaScript-käyttöliittymä, palvelimettomat Node.js-rajapinnat, JWT-pohjainen ylläpitäjän kirjautuminen ja JSON-kirjatallennus. Express toteuttaa samat rajapinnat paikallisesti.',
       challenges: ['Pidä paikallinen kehitys ja palvelimeton toiminta yhdenmukaisina.', 'Erota julkiset kirjatiedot kirjautumista edellyttävästä hallinnasta.'], verification: [],
-      placeholders: ['Sovelluksen oma kuvakaappaus'],
       linkLabels: { demo: 'Katso sivusto', github: 'Lähdekoodi', caseStudy: 'Projektin esittely' }, mediaText: null,
       study: [
         { title: 'Julkinen sivusto ja ylläpidon työnkulku', paragraphs: ['Kirjailijasivusto tarjoaa staattisia kaksikielisiä sivuja ja kirjatietoja. Ylläpitäjän käyttöliittymä tunnistautuu JWT:llä ja tukee kirjojen luontia, lukemista, muokkausta ja poistamista Node.js-rajapintojen kautta. Yhteydenottorajapinta välittää viestit määritetyn sähköpostipalvelun kautta.'] },
