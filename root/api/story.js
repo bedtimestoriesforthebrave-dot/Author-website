@@ -83,11 +83,14 @@ function formatCharacterList(characters, language) {
 
 function sanitizeForTts(text) {
   if (!text) return '';
-  return text
+  const cleaned = text
     .replace(/[#_/`]+/g, '')
     .replace(/\s+\n/g, '\n')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
+  // The app reads the **Title** line; asterisks elsewhere would be read aloud.
+  const [first, ...rest] = cleaned.split('\n');
+  return [first, ...rest.map((line) => line.replace(/\*+/g, ''))].join('\n');
 }
 
 async function generateStoryWithLlm(characters, place, plot, language) {

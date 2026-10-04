@@ -51,6 +51,12 @@ test('app selections generate a gpt-6-luna story through the Responses API, then
   assert.equal(calls[1].body.input, '**Title**\n\nA kind story.');
 });
 
+test('only the title line keeps its asterisks, so emphasis is not read aloud', async () => {
+  respond({ story: '**Title**\nThey made a sign: **OUR BLANKET**!' });
+  const res = await request(english);
+  assert.equal(res.body.story, '**Title**\nThey made a sign: OUR BLANKET!');
+});
+
 test('a value from the other language list is accepted for regenerated saved stories', async () => {
   respond();
   const res = await request({ ...english, characters: ['Karhu'] });
