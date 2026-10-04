@@ -114,7 +114,7 @@ test('public pages omit unavailable optional content instead of rendering placeh
     const locale = prefix ? 'fi' : 'en';
     await page.goto(`${prefix}/portfolio.html`);
     expect(await page.locator('main').innerText()).not.toMatch(placeholders);
-    await expect(page.locator('#a-chain-of-pain figcaption')).toHaveText(locale === 'fi' ? 'Konseptikuva' : 'Concept graphic');
+    await expect(page.locator('#a-chain-of-pain figcaption')).toHaveText(locale === 'fi' ? 'Pelikuva / Kartanon portaikko.' : 'Gameplay capture / The manor staircase.');
     await expect(page.locator('#contact')).toContainText(locale === 'fi' ? 'Ota yhteyttä.' : 'Get in touch.');
     for (const slug of ['reorderops', 'a-chain-of-pain', 'storycodex', 'author-website']) {
       await page.goto(`${prefix}/case-studies/${slug}.html`);

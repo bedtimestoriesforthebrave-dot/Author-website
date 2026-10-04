@@ -133,74 +133,126 @@ export const projectMetadata: ProjectMetadata[] = [
       "github": null,
       "caseStudy": "/case-studies/a-chain-of-pain.html"
     },
-    "media": null,
+    "media": {
+      "src": "/assets/portfolio/a-chain-of-pain/manor-staircase-1600.webp",
+      "small": "/assets/portfolio/a-chain-of-pain/manor-staircase-960.webp",
+      "width": 1600,
+      "height": 870
+    },
     "sources": [
       "@sourceGame"
     ],
     "studyIds": [
+      "the-game",
+      "gameplay-showcase",
       "confirmed-project-scope",
+      "gameplay-first",
       "current-playable-focus",
       "level-composition",
-      "character-development",
+      "the-hunter",
       "audio-and-original-soundtrack",
+      "character-development",
       "systemic-enemy-ai",
       "path-aware-hearing",
       "gradual-visual-detection",
       "memory-and-search",
       "behaviour-selection",
-      "player-and-world",
-      "engineering-practices",
-      "prototype-work-and-next-steps"
+      "engineering-practices"
     ],
     "mediaSlots": [
       {
-        "id": "hero",
+        "id": "hospital-lobby",
         "sectionId": "hero",
         "kind": "image",
-        "assetPath": "/assets/portfolio/a-chain-of-pain/hero-gameplay.webp",
-        "available": false,
-        "width": 1920,
-        "height": 1080
+        "assetPath": "/assets/portfolio/a-chain-of-pain/hospital-main-lobby-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/hospital-main-lobby-960.webp",
+        "available": true,
+        "width": 1600,
+        "height": 868
       },
       {
-        "id": "detection",
-        "sectionId": "gradual-visual-detection",
-        "kind": "image",
-        "assetPath": "/assets/portfolio/a-chain-of-pain/detection-debug.webp",
-        "available": false,
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "id": "hearing",
-        "sectionId": "path-aware-hearing",
-        "kind": "image",
-        "assetPath": "/assets/portfolio/a-chain-of-pain/path-aware-hearing.webp",
-        "available": false,
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "id": "search",
-        "sectionId": "memory-and-search",
-        "kind": "image",
-        "assetPath": "/assets/portfolio/a-chain-of-pain/search-debug.webp",
-        "available": false,
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "id": "loop",
-        "sectionId": "current-playable-focus",
+        "id": "showcase",
+        "sectionId": "gameplay-showcase",
         "kind": "video",
-        "assetPath": "/assets/portfolio/a-chain-of-pain/stealth-loop.mp4",
-        "available": false,
-        "width": 1920,
-        "height": 1080,
-        "captions": {
-          "en": "/assets/portfolio/a-chain-of-pain/stealth-loop.en.vtt",
-          "fi": "/assets/portfolio/a-chain-of-pain/stealth-loop.fi.vtt"
-        }
+        "assetPath": "/assets/portfolio/a-chain-of-pain/gameplay-showcase.mp4",
+        "available": true,
+        "width": 1280,
+        "height": 720,
+        "poster": "/assets/portfolio/a-chain-of-pain/gameplay-showcase-poster.webp"
+      },
+      {
+        "id": "flashlight",
+        "sectionId": "current-playable-focus",
+        "kind": "comparison",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/hospital-lab-flash-off-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/hospital-lab-flash-off-960.webp",
+        "compare": {
+          "assetPath": "/assets/portfolio/a-chain-of-pain/hospital-lab-flash-on-1600.webp",
+          "small": "/assets/portfolio/a-chain-of-pain/hospital-lab-flash-on-960.webp"
+        },
+        "available": true,
+        "width": 1600,
+        "height": 870
+      },
+      {
+        "id": "locked-door",
+        "sectionId": "current-playable-focus",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/locked-door-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/locked-door-960.webp",
+        "available": true,
+        "width": 1600,
+        "height": 868
+      },
+      {
+        "id": "manor-staircase",
+        "sectionId": "level-composition",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/manor-staircase-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/manor-staircase-960.webp",
+        "available": true,
+        "width": 1600,
+        "height": 870
+      },
+      {
+        "id": "reception",
+        "sectionId": "level-composition",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/reception-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/reception-960.webp",
+        "available": true,
+        "width": 1600,
+        "height": 868
+      },
+      {
+        "id": "hunter-unaware",
+        "sectionId": "the-hunter",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/hunter-unsuspicious-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/hunter-unsuspicious-960.webp",
+        "available": true,
+        "width": 1600,
+        "height": 867
+      },
+      {
+        "id": "hunter-suspicious",
+        "sectionId": "the-hunter",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/hunter-suspicious-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/hunter-suspicious-960.webp",
+        "available": true,
+        "width": 1600,
+        "height": 868
+      },
+      {
+        "id": "chase",
+        "sectionId": "the-hunter",
+        "kind": "image",
+        "assetPath": "/assets/portfolio/a-chain-of-pain/chase-1600.webp",
+        "small": "/assets/portfolio/a-chain-of-pain/chase-960.webp",
+        "available": true,
+        "width": 1600,
+        "height": 868
       }
     ]
   },

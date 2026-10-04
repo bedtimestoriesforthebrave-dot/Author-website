@@ -7,13 +7,15 @@ for (const locale of locales) {
   const prefix = locale === 'en' ? '' : 'fi/';
   const renderer = createRenderer(locale);
   const content = getContent(locale);
-  // Planned captures produce text only. Published slots must have real local assets.
+  // Unavailable slots render nothing. Published media must reference real local assets.
   for (const project of content.projects) {
-    for (const slot of project.mediaSlots.filter(item => item.available)) {
-      for (const asset of [slot.assetPath, ...(slot.poster ? [slot.poster] : []), ...Object.values(slot.captions ?? {})]) {
-        if (!/^\/assets\/portfolio\/[a-zA-Z0-9/_.-]+$/.test(asset) || asset.includes('..')) throw new Error(`Invalid media asset: ${asset}`);
-        await access(`.${asset}`);
-      }
+    const files = [
+      ...(project.media ? [project.media.src, project.media.small] : []),
+      ...project.mediaSlots.filter(item => item.available).flatMap(slot => [slot.assetPath, slot.small, slot.compare?.assetPath, slot.compare?.small, slot.poster, ...Object.values(slot.captions ?? {})]),
+    ].filter((file): file is string => Boolean(file));
+    for (const asset of files) {
+      if (!/^\/assets\/portfolio\/[a-zA-Z0-9/_.-]+$/.test(asset) || asset.includes('..')) throw new Error(`Invalid media asset: ${asset}`);
+      await access(`.${asset}`);
     }
   }
   await mkdir(`${prefix}case-studies`, { recursive: true });

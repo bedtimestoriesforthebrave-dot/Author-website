@@ -29,7 +29,7 @@ Underlying technical documentation remains English-only. Both portfolio language
 
 ReorderOps presentation and technical documents derive from its actual project documentation. Five reviewed public editions are kept in `content/reorderops/`; `documentation.ts` owns their shared catalog and semantic Markdown rendering. The generator emits `/docs/reorderops/` and five English document pages. Both case-study locales link to this same catalog. The `/docs/reorderops/` path avoids creating a directory that would shadow `/portfolio`. Private deployment diaries, environment-loading instructions, session identifiers and retained-artifact paths are omitted; historical versions, failed evaluations and limitations remain qualified. Unpublished source references render as readable text, never private repository links. Originals remain untouched.
 
-A Chain of Pain uses the supplied 3 October 2026 read-only project evidence audit. Its curated case study focuses on the H1 Hunter's perception, memory, StateTree, navigation and gameplay integration. The intended narrative game is distinguished from the playable stealth/AI prototype. Recorded PIE results are historical development evidence, not tests rerun by this website build. Raw audit documents, internal paths and logs are not published. See `content/a-chain-of-pain-media.md` for the five planned capture slots and how to activate real assets.
+A Chain of Pain is presented as a story-driven first-person horror game, game first and engineering second: overview, gameplay showcase, spoiler-free story and lore, the gameplay-first development rationale, gameplay systems, world and level design, the Hunter, audio and the original soundtrack, characters and implementation, then the Hunter's technical depth. Claims come from the 3 October 2026 read-only project evidence audit, systems confirmed by the developer, and captures from the current playable build; only currently implemented systems are described, without roadmap items. Existing section IDs are reused where their meaning matches. Recorded PIE results are historical development evidence, not tests rerun by this website build. Raw audit documents, internal paths and logs are not published. See `content/a-chain-of-pain-media.md` for the media selection and the raw-source → web-media pipeline.
 
 StoryCodex and education derive from the original portfolio. Author Website also derives from the inspected implementation. Education dates are retained without asserting graduation. The existing public email and LinkedIn are reused; no additional personal CV data is extracted for publication.
 
@@ -58,7 +58,7 @@ Keyboard focus forces its panel front-facing. The optional motion toggle persist
 
 ## Content and media still needed
 
-- A Chain of Pain: real gameplay/debug captures and video, a public build/source link, and further runtime evidence where noted. Architecture, role, prototype status and recorded testing are now curated from the audit.
+- A Chain of Pain: gameplay screenshots and a gameplay showcase video are published. A public build/source link is not available.
 - StoryCodex: verified media, public release/source link and evaluation/testing evidence.
 - ReorderOps: the source repository returned an unauthenticated public 404, so no broken source link is displayed. Its public demo screenshot is real synthetic-data UI, captured 3 October 2026. A walkthrough video is optional.
 - Author Website: a dedicated application screenshot and a documented role could be added.

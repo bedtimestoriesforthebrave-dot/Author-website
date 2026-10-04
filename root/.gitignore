@@ -8,3 +8,6 @@ npm-debug.log*
 test-results/
 playwright-report/
 public/
+
+# Raw capture sources (large PNG/MP4 originals); only derived web media under assets/ is published.
+media-inbox/

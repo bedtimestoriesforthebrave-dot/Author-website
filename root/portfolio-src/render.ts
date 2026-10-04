@@ -1,5 +1,5 @@
 import { getContent, localizePath, locales } from './content';
-import type { Locale, Link, Project, StudyVisual } from './model';
+import type { ImageAsset, Locale, Link, Project, StudyVisual } from './model';
 import { documentationIndex, documentationRoot, documents } from './documentation';
 
 export function createRenderer(locale: Locale = 'en') {
@@ -16,6 +16,8 @@ export function createRenderer(locale: Locale = 'en') {
   const links = (project: Project) => `<div class="project-actions">${project.links.demo ? link(project.links.demo, 'button primary') : ''}${link(project.links.caseStudy, 'button secondary')}${project.links.github ? link(project.links.github) : ''}</div>`;
   const sectionLabel = (number: string, label: string) => `<p class="section-label"><span>${number}</span> ${text(label)}</p>`;
   const travel = (inner: string) => `<div class="travel-panel">${inner}</div>`;
+  const image = (asset: ImageAsset, alt: string, sizes: string) => `<img src="${escape(asset.src)}"${asset.small ? ` srcset="${escape(asset.small)} 960w, ${escape(asset.src)} ${asset.width}w" sizes="${sizes}"` : ''} alt="${escape(alt)}" width="${asset.width}" height="${asset.height}" loading="lazy" decoding="async">`;
+  const studySizes = '(min-width: 1100px) 800px, 100vw';
 
   function head(title: string, description: string, path: string, bilingual = true) {
     const canonical = absolute(path);
@@ -57,14 +59,15 @@ export function createRenderer(locale: Locale = 'en') {
     <figcaption>${text(ui.architectureCaption)}</figcaption></figure>`;
   }
 
-  function gameVisual() {
-    return `<figure class="game-visual"><div class="visual-topline">Unreal Engine 5 / C++ <span>${text(ui.project)} / 02</span></div><div class="game-wireframe" aria-hidden="true"><svg viewBox="0 0 640 400" fill="none"><g stroke="currentColor"><path d="M50 360 270 210 370 210 590 360M50 40 270 140 370 140 590 40M50 40V360M590 40V360M270 140V210M370 140V210M0 320H640M0 270H640M0 370H640M180 0 292 140M460 0 348 140M0 130 270 160M640 130 370 160M0 230 270 190M640 230 370 190M200 400 295 210M440 400 345 210"/><path d="M296 210V160H344V210" stroke-width="2"/><path d="M296 160 304 167V205L296 210M304 167H337V205H304" opacity=".6"/></g><circle cx="320" cy="186" r="2" fill="currentColor"/></svg><span class="game-visual-title">A CHAIN<br><i>OF PAIN</i></span></div><figcaption>${text(ui.gameCaption)}</figcaption></figure>`;
+  function gameCapture(project: Project) {
+    if (!project.media) return '';
+    return `<figure class="game-visual"><div class="visual-topline">Unreal Engine 5 / C++ <span>${text(ui.project)} / ${project.number}</span></div><div class="game-capture">${image(project.media, project.media.alt, '(min-width: 900px) 50vw, 100vw')}</div><figcaption>${text(project.media.caption)}</figcaption></figure>`;
   }
 
   function featured(project: Project) {
     return `<section id="${project.slug}" class="project-section ${project.prominence}" aria-labelledby="${project.slug}-title">${travel(`
     ${sectionLabel(project.number, project.prominence === 'flagship' ? ui.flagship : ui.featured)}
-    <div class="featured-grid"><div class="project-copy"><p class="eyebrow">${text(project.category)}</p><h2 id="${project.slug}-title">${text(project.title)}</h2><p class="project-statement">${text(project.description)}</p><p class="project-summary">${text(project.summary)}</p>${tags(project)}${links(project)}</div>${project.slug === 'reorderops' ? diagram() : gameVisual()}</div>
+    <div class="featured-grid"><div class="project-copy"><p class="eyebrow">${text(project.category)}</p><h2 id="${project.slug}-title">${text(project.title)}</h2><p class="project-statement">${text(project.description)}</p><p class="project-summary">${text(project.summary)}</p>${tags(project)}${links(project)}</div>${project.slug === 'reorderops' ? diagram() : gameCapture(project)}</div>
     <div class="project-bottom"><p class="project-status"><span class="status-dot ${project.slug === 'reorderops' ? '' : 'neutral'}"></span>${text(project.status)}</p><ul class="highlights">${project.highlights.map(item => `<li>${text(item)}</li>`).join('')}</ul></div>
     ${project.slug === 'reorderops' ? `<div class="evidence-path"><p class="micro-label">${text(ui.decisionPath)}</p><ol>${evidencePath.map(item => `<li>${text(item)}</li>`).join('')}</ol></div>` : ''}
     `)}</section>`;
@@ -97,16 +100,27 @@ export function createRenderer(locale: Locale = 'en') {
 
   function mediaSlots(project: Project, sectionId: string) {
     return project.mediaSlots.filter(slot => slot.available && slot.sectionId === sectionId).map(slot => {
-      const media = slot.kind === 'image'
-        ? `<a href="${escape(slot.assetPath)}" aria-label="${text(ui.fullScreenshot.replace('{project}', project.title))}"><img src="${escape(slot.assetPath)}" alt="${text(slot.alt)}" width="${slot.width}" height="${slot.height}" loading="lazy" decoding="async"></a>`
-        : `<video controls preload="none" aria-label="${text(slot.alt)}" width="${slot.width}" height="${slot.height}"${slot.poster ? ` poster="${escape(slot.poster)}"` : ''}><source src="${escape(slot.assetPath)}" type="video/mp4">${Object.entries(slot.captions ?? {}).map(([language, url]) => `<track kind="captions" src="${escape(url)}" srclang="${language}" label="${language === 'fi' ? 'Suomi' : 'English'}"${language === locale ? ' default' : ''}>`).join('')}<a href="${escape(slot.assetPath)}">${text(ui.videoFallback)}</a></video>`;
-      return `<figure class="project-media study-slot" data-media-slot="${slot.id}">${media}<figcaption>${text(slot.caption)}</figcaption></figure>`;
+      const full = (asset: ImageAsset, alt: string, title: string, sizes: string) => `<a href="${escape(asset.src)}" aria-label="${text(ui.fullImage.replace('{title}', title))}">${image(asset, alt, sizes)}</a>`;
+      const asset = { src: slot.assetPath, small: slot.small, width: slot.width, height: slot.height };
+      let media: string;
+      if (slot.kind === 'video') {
+        media = `<video controls preload="none" playsinline aria-label="${text(slot.alt)}" width="${slot.width}" height="${slot.height}"${slot.poster ? ` poster="${escape(slot.poster)}"` : ''}><source src="${escape(slot.assetPath)}" type="video/mp4">${Object.entries(slot.captions ?? {}).map(([language, url]) => `<track kind="captions" src="${escape(url)}" srclang="${language}" label="${language === 'fi' ? 'Suomi' : 'English'}"${language === locale ? ' default' : ''}>`).join('')}<a href="${escape(slot.assetPath)}">${text(ui.videoFallback)}</a></video>`;
+      } else if (slot.kind === 'comparison' && slot.compare && slot.labels && slot.compareAlt) {
+        const sizes = '(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw';
+        const second = { ...asset, src: slot.compare.assetPath, small: slot.compare.small };
+        const states: [ImageAsset, string, string][] = [[asset, slot.alt, slot.labels[0]], [second, slot.compareAlt, slot.labels[1]]];
+        media = `<div class="media-compare">${states.map(([item, alt, label]) => `<div><p class="micro-label">${text(label)}</p>${full(item, alt, label, sizes)}</div>`).join('')}</div>`;
+      } else {
+        media = full(asset, slot.alt, slot.title, slot.sectionId === 'hero' ? '(min-width: 1100px) 1000px, 100vw' : studySizes);
+      }
+      const sequence = slot.sequence?.length ? `<div class="media-sequence"><p class="micro-label">${text(ui.videoSequence)}</p><ol>${slot.sequence.map(item => `<li>${text(item)}</li>`).join('')}</ol></div>` : '';
+      return `<figure class="project-media study-slot study-slot-${slot.kind}" data-media-slot="${slot.id}">${media}<figcaption>${text(slot.caption)}</figcaption></figure>${sequence}`;
     }).join('');
   }
 
   function renderStudy(project: Project) {
     return `${head(`${project.title} — ${site.name}`, project.summary, `/case-studies/${project.slug}.html`)}<body class="study-page">${header(true, `/case-studies/${project.slug}.html`)}<main id="main" class="container study-main" tabindex="-1"><a class="text-link back-link" href="${path('/portfolio.html')}#${project.slug}"><span aria-hidden="true">←</span> ${text(ui.backWork)}</a>
-    <header class="study-hero">${sectionLabel(project.number, project.category)}<h1>${text(project.title)}</h1><p class="study-lead">${text(project.summary)}</p>${tags(project, true)}<div class="project-actions">${project.links.demo ? link(project.links.demo, 'button primary') : ''}${project.links.github ? link(project.links.github, 'button secondary') : ''}${project.links.documentation ? link(project.links.documentation, 'button secondary') : ''}</div><dl class="study-facts${project.role ? '' : ' study-facts-compact'}"><div><dt>${text(ui.status)}</dt><dd>${text(project.status)}</dd></div>${project.role ? `<div><dt>${text(ui.role)}</dt><dd>${text(project.role)}</dd></div>` : ''}<div><dt>${text(ui.architecture)}</dt><dd>${text(project.architecture)}</dd></div></dl>${project.media ? `<figure class="project-media"><a href="${escape(project.media.src)}" aria-label="${text(ui.fullScreenshot.replace('{project}', project.title))}"><img src="${escape(project.media.src)}" alt="${escape(project.media.alt)}" width="${project.media.width}" height="${project.media.height}" loading="lazy" decoding="async"></a><figcaption>${text(project.media.caption)} ${text(ui.imageHint)}</figcaption></figure>` : ''}${mediaSlots(project, 'hero')}</header>
+    <header class="study-hero">${sectionLabel(project.number, project.category)}<h1>${text(project.title)}</h1><p class="study-lead">${text(project.summary)}</p>${tags(project, true)}<div class="project-actions">${project.links.demo ? link(project.links.demo, 'button primary') : ''}${project.links.github ? link(project.links.github, 'button secondary') : ''}${project.links.documentation ? link(project.links.documentation, 'button secondary') : ''}</div><dl class="study-facts${project.role ? '' : ' study-facts-compact'}"><div><dt>${text(ui.status)}</dt><dd>${text(project.status)}</dd></div>${project.role ? `<div><dt>${text(ui.role)}</dt><dd>${text(project.role)}</dd></div>` : ''}<div><dt>${text(ui.architecture)}</dt><dd>${text(project.architecture)}</dd></div></dl>${project.media && !project.mediaSlots.some(slot => slot.sectionId === 'hero') ? `<figure class="project-media"><a href="${escape(project.media.src)}" aria-label="${text(ui.fullScreenshot.replace('{project}', project.title))}">${image(project.media, project.media.alt, '(min-width: 1100px) 1000px, 100vw')}</a><figcaption>${text(project.media.caption)} ${text(ui.imageHint)}</figcaption></figure>` : ''}${mediaSlots(project, 'hero')}</header>
     <div class="study-layout"><nav class="study-toc" aria-label="${text(ui.caseNavigation)}"><p class="micro-label">${text(ui.inStudy)}</p>${project.study.map(section => `<a href="#${section.id}">${text(section.title)}</a>`).join('')}${project.links.documentation ? `<a href="#technical-documentation">${text(ui.documentation)}</a>` : ''}</nav><article class="study-body">${project.study.map(section => `<section id="${section.id}"><h2>${text(section.title)}</h2>${section.paragraphs.map(paragraph => `<p>${text(paragraph)}</p>`).join('')}${section.bullets ? `<ul>${section.bullets.map(item => `<li>${text(item)}</li>`).join('')}</ul>` : ''}${section.visual ? studyVisual(section.visual) : ''}${mediaSlots(project, section.id)}${section.note ? `<p class="study-note">${text(section.note)}</p>` : ''}</section>`).join('')}
     ${project.verification.length ? `<section id="verification-record"><h2>${text(ui.verification)}</h2><ul>${project.verification.map(item => `<li>${text(item)}</li>`).join('')}</ul></section>` : ''}
     ${project.links.documentation ? `<section id="technical-documentation"><h2>${text(ui.documentation)}</h2><p>${text(ui.documentationSummary)}</p>${link(project.links.documentation)}</section>` : ''}

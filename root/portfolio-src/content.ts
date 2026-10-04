@@ -45,6 +45,7 @@ export function getContent(locale: Locale = 'en') {
         const slotCopy = presentation.mediaSlots?.[slot.id];
         if (!slotCopy) throw new Error(`Incomplete ${locale} media slot: ${metadata.slug}/${slot.id}`);
         if (slot.sectionId !== 'hero' && !metadata.studyIds.includes(slot.sectionId)) throw new Error(`Unknown media section: ${slot.sectionId}`);
+        if (slot.kind === 'comparison' && !(slot.compare && slotCopy.labels && slotCopy.compareAlt)) throw new Error(`Incomplete ${locale} comparison: ${metadata.slug}/${slot.id}`);
         return { ...slot, ...slotCopy };
       }),
       study: presentation.study.map((section, index) => ({ ...section, id: metadata.studyIds[index] })),

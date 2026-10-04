@@ -7,19 +7,29 @@ export interface StudyVisual {
 }
 export interface StudyCopy { title: string; paragraphs: string[]; bullets?: string[]; visual?: StudyVisual; note?: string }
 export interface StudySection extends StudyCopy { id: string }
+/** `src` is the full-size file; `small` is an optional narrower rendition of the same image for srcset. */
+export interface ImageAsset { src: string; small?: string; width: number; height: number }
 export interface MediaSlotMetadata {
-  id: string; sectionId: string | 'hero'; kind: 'image' | 'video';
-  assetPath: string; available: boolean; width: number; height: number;
+  id: string; sectionId: string | 'hero'; kind: 'image' | 'video' | 'comparison';
+  assetPath: string; small?: string; available: boolean; width: number; height: number;
+  /** Second image of a two-state comparison (kind 'comparison'). */
+  compare?: { assetPath: string; small?: string };
   poster?: string; captions?: Partial<Record<Locale, string>>;
 }
-export interface MediaSlotCopy { title: string; description: string; alt: string; caption: string }
+export interface MediaSlotCopy {
+  title: string; description: string; alt: string; caption: string;
+  /** Comparison only: alt text of the second image and a short label for each state. */
+  compareAlt?: string; labels?: [string, string];
+  /** Video only: an ordered text outline of what the recording shows. */
+  sequence?: string[];
+}
 export interface MediaSlot extends MediaSlotMetadata, MediaSlotCopy {}
 export interface ProjectMetadata {
   slug: ProjectSlug; title: string; number: string;
   prominence: 'flagship' | 'featured' | 'selected'; technologies: string[];
   additionalTechnologies?: string[];
   links: { demo: string | null; github: string | null; caseStudy: string; documentation?: string };
-  media: { src: string; width: number; height: number } | null;
+  media: ImageAsset | null;
   sources: string[]; studyIds: string[];
   mediaSlots?: MediaSlotMetadata[];
 }

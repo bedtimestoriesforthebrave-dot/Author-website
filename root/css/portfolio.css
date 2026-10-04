@@ -124,7 +124,7 @@ figcaption { color: var(--muted); font-family: var(--mono); font-size: .55rem; l
 .evidence-path { padding-top: 26px; }.evidence-path > p { margin-bottom: 14px; font-size: .53rem; color: var(--muted); }
 .evidence-path ol { display: flex; flex-wrap: wrap; gap: 0; list-style: none; padding: 0; margin: 0; }.evidence-path li { display: flex; align-items: center; margin: 0; padding-block: 7px; font-family: var(--mono); font-size: .53rem; color: var(--ink); }.evidence-path li + li::before { content: '→'; padding-inline: clamp(10px, 2.2vw, 30px); color: var(--muted); }
 .game-visual { position: relative; border: 1px solid #403e37; background: #1c1d19; padding: 22px; }.game-visual .visual-topline { border-color: #403e37; color: #c6bdae; }
-.game-wireframe { position: relative; min-height: 335px; color: #c6bdae; display: flex; align-items: center; justify-content: center; overflow: hidden; }.game-wireframe svg { position: absolute; width: 100%; height: 100%; opacity: .26; }.game-visual-title { position: relative; text-align: center; font-size: clamp(2.6rem, 4vw, 3.7rem); line-height: 1; letter-spacing: -.045em; }.game-visual-title i { display: block; margin-top: 7px; font-family: Georgia, serif; font-weight: 400; color: #c6bdae; }
+.game-capture { margin-bottom: 16px; background: #000; }.game-capture img { display: block; width: 100%; height: auto; }
 .game-visual figcaption { border-top: 1px solid #403e37; padding-top: 15px; }
 .featured .project-copy h2 { font-size: clamp(2.6rem, 4.7vw, 4.25rem); }.featured .section-label > span { color: #c6bdae; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 36px; }.section-heading h2 { margin: 0; }.section-heading > p { color: var(--muted); font-size: .78rem; margin: 0 0 5px; }
@@ -170,7 +170,10 @@ main.container, .site-footer { position: relative; z-index: 1; }
 .study-visual-layers li + li { position: relative; margin-top: 28px; }
 .study-visual-layers li + li::before { content: '↓'; position: absolute; top: -26px; left: 15px; color: var(--accent); font-family: var(--mono); }
 .study-slot { margin-block: 24px; }
-.study-slot video { display: block; width: 100%; height: auto; }
+.study-slot video, .study-slot img { display: block; width: 100%; height: auto; background: #000; }
+.study-slot figcaption { margin-top: 14px; color: var(--muted); font-size: .72rem; line-height: 1.7; }
+.media-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }.media-compare .micro-label { margin: 0 0 8px; color: var(--accent); font-size: .6rem; }
+.media-sequence { margin: -25px 0 24px; padding: 18px 20px; border: 1px solid var(--line); border-top: 0; }.media-sequence .micro-label { margin: 0 0 10px; color: var(--accent); font-size: .6rem; }.media-sequence ol { margin: 0; padding-left: 20px; }.study-body .media-sequence li { font-size: .8rem; line-height: 1.7; }
 .study-note { padding: 14px 18px; border-left: 2px solid var(--line); background: var(--surface); }
 .doc-navigation { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-block: 20px; }
 .documentation-page h1 { font-size: clamp(2rem, 5vw, 4.25rem); overflow-wrap: anywhere; }
@@ -193,6 +196,7 @@ main.container, .site-footer { position: relative; z-index: 1; }
   .study-visual { padding: 16px; }
   .study-visual-layers li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .study-visual-priority ol, .study-visual-integration ul { grid-template-columns: minmax(0, 1fr); }
+  .media-compare { grid-template-columns: minmax(0, 1fr); }
 }
 .not-found { padding-block: 100px 140px; min-height: 70vh; }.not-found h1 { font-size: clamp(2.7rem, 6vw, 5rem); line-height: 1.1; letter-spacing: -.05em; }.not-found > p:not(.section-label) { color: var(--muted); }.not-found .button { margin-right: 25px; }
 /* Keep supporting technical information comfortably readable. */
@@ -228,7 +232,7 @@ main.container, .site-footer { position: relative; z-index: 1; }
   .hero-top .eyebrow { max-width: 300px; font-size: .57rem; }.hero-top .eyebrow span { padding-inline: 8px; }.hero-location { font-size: .58rem; }.hero h1 { font-size: clamp(2.55rem, 10.3vw, 3.95rem); margin-bottom: 28px; }.hero-bottom > p { font-size: .83rem; }.hero-actions { gap: 13px 22px; }.hero-actions .button { flex-basis: 100%; max-width: 190px; margin-right: 20%; }.hero-foot { gap: 20px; font-size: .48rem; }.hero-foot span[aria-hidden] { margin-left: 5px; }.hero-foot > span:last-child { white-space: nowrap; }
   .work-intro { padding-top: 36px; }.work-intro > p:last-child { font-size: .7rem; }
   .project-copy h2 { font-size: 3.3rem; }.featured .project-copy h2 { font-size: 2.8rem; }.project-statement { font-size: 1.08rem; }.project-summary { font-size: .8rem; }.project-actions { gap: 12px; }.project-actions .button { font-size: .7rem; }
-  .system-visual, .game-visual { padding: 17px; }.visual-topline { font-size: .49rem; }.diagram-core strong { font-size: 1.4rem; }.diagram-branches { gap: 10px; }.diagram-branches strong { font-size: .74rem; }.diagram-branches span { font-size: .48rem; }.game-wireframe { min-height: 270px; }.game-visual-title { font-size: 2.8rem; }
+  .system-visual, .game-visual { padding: 17px; }.visual-topline { font-size: .49rem; }.diagram-core strong { font-size: 1.4rem; }.diagram-branches { gap: 10px; }.diagram-branches strong { font-size: .74rem; }.diagram-branches span { font-size: .48rem; }
   .highlights { display: block; font-size: .64rem; }.highlights li + li { margin-top: 10px; }.evidence-path { padding-top: 24px; }.evidence-path ol { flex-direction: column; }.evidence-path li { font-size: .65rem; padding-block: 6px; }.evidence-path li + li::before { content: '↓'; padding-inline: 0 12px; }.evidence-path li:first-child { padding-left: 19px; }
   .section-heading h2 { font-size: 2.35rem; }.selected-card { padding: 24px; }.selected-card .project-actions { gap: 14px; }.selected-card .button { font-size: .64rem; }
   .approach-grid h2, .background-grid h2 { font-size: 2.3rem; }.section-summary { font-size: .81rem; }.workflow li { gap: 18px; }.workflow h3 { font-size: .91rem; }.workflow p { font-size: .77rem; }

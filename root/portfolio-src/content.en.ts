@@ -167,11 +167,11 @@ export const english: LocaleCopy = {
       }
     },
     "a-chain-of-pain": {
-      "category": "Story-driven First-Person Narrative Game",
+      "category": "Story-driven first-person horror game",
       "description": "A solo-directed Unreal Engine 5 / C++ game combining story, systemic gameplay and atmosphere.",
-      "summary": "Built around an evolving story and lore, the project combines first-person exploration, stealth, enemy AI, environmental interaction, level design, character prototyping and original music. The current playable slice develops the gameplay and technical systems supporting that broader story-driven experience.",
-      "role": "Solo-directed, AI-assisted development using licensed environment assets.",
-      "status": "In development · playable stealth / AI prototype",
+      "summary": "A story-driven first-person horror game in Unreal Engine 5 / C++, built on an established story and lore. The current playable build leads from a manor into the hospital behind it, where stealth, the flashlight, sound and a custom Hunter AI create the tension.",
+      "role": "Solo-directed, AI-assisted development. Original soundtrack; licensed environment assets.",
+      "status": "In development · playable build",
       "highlights": [
         "Story & worldbuilding",
         "Gameplay & enemy systems",
@@ -179,11 +179,12 @@ export const english: LocaleCopy = {
       ],
       "architecture": "Unreal Engine 5 / C++ connects player movement and interaction, systemic enemy AI, world design and reactive audio.",
       "challenges": [
-        "Make perception and pursuit consistent without tracking hidden player positions.",
-        "Keep navigation, door interaction and hearing aligned with the playable territory.",
-        "Separate reproducible behaviour decisions from live tuning and presentation."
+        "Make darkness, sound and the flashlight meaningful choices rather than decoration.",
+        "Keep the Hunter's perception and pursuit consistent without tracking hidden player positions.",
+        "Keep navigation, doors, hearing and music aligned with the playable space."
       ],
       "verification": [
+        "The gameplay showcase and screenshots are captures from the current playable build.",
         "Recorded development runs include a 12/12 scripted AI regression pass on 17 September 2026. This is saved project evidence, not a new Unreal test run during this portfolio update.",
         "Scripted PIE checks exercise perception, pursuit, memory and capture. Console commands, overlays and world markers support focused playtesting and diagnosis."
       ],
@@ -192,47 +193,130 @@ export const english: LocaleCopy = {
         "github": "Source code",
         "caseStudy": "Explore project"
       },
-      "mediaText": null,
+      "mediaText": {
+        "alt": "First-person gameplay view from the manor's upper landing: a white-railed staircase curves down into a dim entrance hall with a single pool of light.",
+        "caption": "Gameplay capture / The manor staircase."
+      },
       "study": [
         {
-          "title": "Story & worldbuilding",
+          "title": "The game",
           "paragraphs": [
-            "A Chain of Pain is a story-driven first-person narrative game in development, built around a broader story and evolving lore. World history, environmental storytelling, encounters and the structure of the game are designed to support that story, including moments without direct dialogue.",
-            "The current playable slice focuses on the gameplay and technical systems that will support the narrative experience. Dialogue, player choices, objectives, story triggers, branching endings and full narrative progression are not implemented yet. Game design, engineering, level composition, character development and original music sit within one solo-directed project."
+            "A Chain of Pain is a story-driven first-person horror game in development in Unreal Engine 5 and C++. The player explores a manor and the hospital behind it, mostly in darkness and with a flashlight, while a Hunter moves through the building and reacts to what it sees and hears.",
+            "The current playable build connects exploration, stealth, environmental interaction, enemy AI, positional audio, an adaptive original soundtrack, pursuit and capture into one continuous loop. The systems feed each other: how the player moves, where the light points and which doors open change what the Hunter knows, and the Hunter's state changes the music."
           ]
         },
         {
-          "title": "Gameplay systems & the playable slice",
+          "title": "Gameplay showcase",
           "paragraphs": [
-            "First-person exploration and stealth-oriented movement form the current playable loop in the hospital environment. Sneaking, crouching, running and a limited panic sprint offer different ways to move through encounters and escape.",
-            "A reusable look-at interaction system connects the player to the environment, including a shared door system used by both player and enemy. The flashlight supports exploration while also affecting enemy perception. Movement and door noise feed the same gameplay loop.",
-            "Wounds recover in stages and include a critical state. Capture and death lead into a retry flow. These player systems provide the playable foundation for the broader game; the Hunter is one major system within it."
+            "A continuous sequence from the current playable build demonstrating exploration, environmental interaction, stealth, positional audio, flashlight-driven enemy response, adaptive music, pursuit and capture.",
+            "The sound is part of the evidence: the wind outside, the player's and the Hunter's footsteps and the soundtrack's shift into the chase are all in the recording. Headphones are recommended."
           ]
         },
         {
-          "title": "World & level design",
+          "title": "Story and lore",
           "paragraphs": [
-            "The large environment combines a manor and two hospital buildings in a single One File Per Actor map. I compose the layout, traversal routes and encounter spaces using licensed third-party modular environment assets; the source assets are not my original modelling work. World history and environmental storytelling guide the design of the spaces. The H2 hospital currently connects multi-floor NavMesh, AI territory, barriers, locked routes and doors adapted to the shared interaction system.",
-            "One scripted Door-14 ambush temporarily directs the Hunter outside normal StateTree behaviour, then hands control back to the systemic chase. The surrounding world is broader than this tested slice: multi-floor navigation setup is evidenced, but stair chases still need dedicated playtesting."
+            "The narrative foundation and wider lore of A Chain of Pain are already substantially developed, and the game's environments and encounters are built within that world.",
+            "The public portfolio intentionally remains spoiler-free: it shows how the game plays and how it is built, not what the story reveals."
           ]
         },
         {
-          "title": "Character development",
+          "title": "Why the gameplay came first",
           "paragraphs": [
-            "AI-assisted character prototyping and development for Hunter 1. The character remains a work in progress, with its presentation and gameplay integration still being developed."
+            "Before layering the full narrative presentation on top, development set out to answer one question early: is the game actually frightening, responsive and enjoyable to play?",
+            "The current playable build therefore concentrates on the systems that create tension and make the experience convincing: movement, stealth, enemy behaviour and perception, darkness and the flashlight, player vulnerability, environmental interaction, sound, reactive music, encounters, pursuit and capture. The story sets the direction; the playable build is where the horror is tested and tuned."
           ]
         },
         {
-          "title": "Audio & original soundtrack",
+          "title": "Gameplay systems",
           "paragraphs": [
-            "I composed the game’s original soundtrack.",
-            "I also integrated reactive audio systems that respond to enemy state and gameplay. Music changes between exploration, danger, chase and death, while surface- and gait-aware footsteps and door sounds connect the player’s actions to the enemy’s hearing."
+            "The player moves in first person with distinct stealth gaits: sneaking, crouching, walking and running. Each changes how loud the footsteps are and how quickly the Hunter can see the player. A limited panic sprint gives a short burst for escape and recharges according to posture.",
+            "Darkness is a gameplay resource. The flashlight is often the only way to read a room, but its beam widens the Hunter's sight and speeds up detection, and a beam in the Hunter's face, or a lit spot it notices, gives it a location to investigate.",
+            "A look-at interaction system drives the doors. Hinged doors are opened by the player, automatic sliding doors operate on their own, and locked doors show a lock prompt, so blocked routes are communicated in the world. The same door class serves the player, the Hunter and scripted encounters.",
+            "Being caught has consequences. Hunter attacks cause wounds that recover in stages, with a critical state when they stack up. Capture locks input, turns the camera toward the Hunter and fades to a death screen before the level restarts for another attempt."
+          ],
+          "visual": {
+            "kind": "integration",
+            "label": "Connected gameplay systems",
+            "caption": "Player actions change what the Hunter can perceive; the Hunter's behaviour feeds back into player pressure and the music.",
+            "items": [
+              {
+                "title": "Movement",
+                "description": "Sneak, crouch, walk and run set footstep loudness and visibility. A limited panic sprint supports escape."
+              },
+              {
+                "title": "Flashlight",
+                "description": "Reveals the space but widens the Hunter's sight, speeds up detection and can create a clue."
+              },
+              {
+                "title": "Interaction / doors",
+                "description": "A reusable look-at interface; one door class for hinged, sliding and locked doors, the player, the AI and encounters."
+              },
+              {
+                "title": "Wounds / capture",
+                "description": "Wounds recover in stages, with a critical state. Capture leads to a death screen and retry."
+              },
+              {
+                "title": "Reactive audio",
+                "description": "Footsteps and doors report noise to the Hunter; music follows its distance and behaviour."
+              }
+            ]
+          }
+        },
+        {
+          "title": "World and level design",
+          "paragraphs": [
+            "The playable world is one large map containing a manor and two hospital buildings, composed from licensed environment kits. I compose the layout, traversal routes, lighting and encounter spaces using licensed third-party modular environment assets; the source assets are not my original modelling work. World history and environmental storytelling guide the design of the spaces. Lighting keeps most spaces dark enough that the flashlight decides what the player can read.",
+            "The manor was extended from a licensed building into a three-wing structure: seams removed, wings joined by new doorways, roofs and floors unified. The route leads from the grounds through the manor into the hospital, so the space changes from a house to an institution as the player goes deeper.",
+            "The hospital is the Hunter's territory: a multi-floor building with NavMesh navigation, patrol and search points, barriers that shape the playable routes, locked doors, and pack doors converted to the project's interactive door class. A scripted encounter can hand control back to the normal systemic Hunter behaviour."
           ]
         },
         {
-          "title": "Systemic enemy AI",
+          "title": "The Hunter",
           "paragraphs": [
-            "The H1 Hunter is a custom C++ enemy built on Unreal AI Perception and StateTree. The controller manages the brain, while the character handles movement and physical actions. A dedicated knowledge component processes perception, detection, memory and search information; behaviour tasks read that component rather than hidden live player state.",
+            "The Hunter is a custom C++ enemy that patrols the hospital and acts only on what it has actually perceived. It hears footsteps and doors, notices the flashlight and becomes suspicious before it is certain.",
+            "A faint sound makes it stop and listen; a clear one sends it to investigate. Once it confirms the player, it charges briefly and gives chase, following fresh noise when line of sight breaks. When it loses the player, it searches from where it last perceived them, not from where they really are, and stays alert before returning to patrol. It opens unlocked doors on its way, respects locked ones and does not pursue beyond its territory.",
+            "For the player, the rules are readable: stay quiet and out of the light, and the Hunter has to work with incomplete information. The technical sections below show how this is built."
+          ]
+        },
+        {
+          "title": "Audio and original soundtrack",
+          "paragraphs": [
+            "Audio is part of the stealth loop. Player footsteps vary by surface and gait and report noise to the Hunter's hearing. The Hunter's footsteps are triggered by its foot plants, so the player can follow its position by ear, and doors make sound as they move. Environmental ambience establishes each space, including the wind outside the manor.",
+            "A music system follows the gameplay state: exploration, danger when the Hunter is near, chase while it pursues or captures the player, and death, with crossfades between them.",
+            "I composed the game’s original soundtrack. Sound effects use licensed sound libraries."
+          ],
+          "visual": {
+            "kind": "integration",
+            "label": "Audio system design / original composition",
+            "caption": "Player and Hunter footsteps provide positional information during stealth, environmental ambience establishes the space, and the original soundtrack changes with gameplay state.",
+            "items": [
+              {
+                "title": "Audio system design",
+                "description": "Surface- and gait-aware footsteps, Hunter foot-plant footsteps, door sounds and ambience, connected to the Hunter's hearing."
+              },
+              {
+                "title": "Adaptive music",
+                "description": "Exploration, danger, chase and death states driven by the Hunter's distance and behaviour, with crossfades."
+              },
+              {
+                "title": "Original soundtrack",
+                "description": "Original music I composed for the game."
+              }
+            ]
+          }
+        },
+        {
+          "title": "Characters and implementation",
+          "paragraphs": [
+            "The player character extends Unreal's first-person template with stealth movement, Enhanced Input actions, the panic sprint, wounds, the flashlight and the capture sequence. The flashlight component started from a public tutorial and was extended to feed the Hunter's perception.",
+            "AI-assisted character prototyping and development for Hunter 1. The Hunter is split into brain and body: an AI controller owns perception and decisions; the character handles movement styles, facing, the charge, capture and its visible body, which is driven through animation retargeting. The character is a work in progress.",
+            "Ownership: I direct the game design, architecture and implementation decisions, level composition, lighting, gameplay and AI design, integration, playtesting and acceptance, and I composed the soundtrack. Coding agents assist with implementation and review under that direction. Environment art, character meshes, animations and sound effects come from licensed or engine-provided assets and are not presented as original art."
+          ]
+        },
+        {
+          "title": "Inside the Hunter",
+          "paragraphs": [
+            "The Hunter is built on Unreal AI Perception and StateTree. A dedicated knowledge component processes perception, detection, memory and search information; behaviour tasks read that component rather than hidden live player state.",
             "Custom C++ tasks and conditions form a StateTree generated and compiled from code. This keeps the behaviour graph reproducible and separates information gathering from decisions and world interaction."
           ],
           "visual": {
@@ -267,27 +351,27 @@ export const english: LocaleCopy = {
           "title": "Hearing the route, not just the radius",
           "paragraphs": [
             "Sound is evaluated using the length of a complete, navigable NavMesh path. Loudness changes the accepted range. A nearby source across a wall or on another floor can therefore be quiet to the Hunter if the route is long. This is a gameplay hearing filter based on route geometry, rather than a physical acoustic simulation.",
-            "A faint noise makes the Hunter stop, face the sound and listen. A clear noise—or a second faint noise that confirms the first within a short window—creates an investigation location. Player gait changes footstep loudness, and doors report their own noise."
+            "A faint noise makes the Hunter stop, face the sound and listen. A clear noise, or a second faint noise that confirms the first within a short window, creates an investigation location. Player gait changes footstep loudness, and doors report their own noise."
           ]
         },
         {
           "title": "Gradual visual detection",
           "paragraphs": [
             "Detection accumulates in a meter instead of treating visibility as a simple on/off switch. Its fill rate responds to distance, view angle, gait or posture, movement and flashlight use. It decays out of sight, with immediate detection at very close range. Suspicion can start an investigation before a confirmed target triggers pursuit.",
-            "The flashlight is a stealth trade-off: it affects sight range and detection, and a visible beam or illuminated spot can become a clue. The debug overlay exposes the sight factors so the response can be inspected and tuned."
+            "The flashlight affects sight range and detection, and a visible beam or illuminated spot can become a clue. The debug overlay exposes the sight factors so the response can be inspected and tuned."
           ]
         },
         {
           "title": "Memory without wall-hacking",
           "paragraphs": [
-            "The enemy searches for what it last perceived rather than following the player’s hidden live position. When sight fails, the last verified position and movement direction are retained. Fresh sound can sustain a chase or replace older search evidence; losing the target starts search from the last perceived location.",
-            "The initial search is biased toward the player’s recent heading. Its radius expands, visited locations are avoided, and candidate paths must stay within the territory. After search, AlertRoam patrols the loss area until alertness decays."
+            "When sight fails, the last verified position and movement direction are retained. Fresh sound can sustain a chase or replace older search evidence; losing the target starts search from the last perceived location.",
+            "The initial search is biased toward the player's recent heading. Its radius expands, visited locations are avoided, and candidate paths must stay within the territory. After search, AlertRoam patrols the loss area until alertness decays. A short, bounded charge on a new engagement has a cooldown, and capture requires reach, verified line of sight and a short navigable path."
           ]
         },
         {
           "title": "Behaviour selected by priority",
           "paragraphs": [
-            "The StateTree selects the first eligible state in this priority order. It reselects when knowledge changes or a task completes; these are competing behaviours, not sequential gameplay steps. Capture and stun also have event-driven overrides. Alert level is a separate knowledge value."
+            "The StateTree selects the first eligible state in this priority order. It reselects when knowledge changes or a task completes; these are competing behaviours, not sequential gameplay steps. Capture also has an event-driven override. Alert level is a separate knowledge value."
           ],
           "visual": {
             "kind": "priority",
@@ -297,11 +381,6 @@ export const english: LocaleCopy = {
               {
                 "title": "Capture",
                 "description": "Capture is active. It holds until the death flow reloads the level."
-              },
-              {
-                "title": "Stunned",
-                "description": "Stun is active; recovery starts a search.",
-                "note": "Debug-triggered support only; no in-game stun source is established."
               },
               {
                 "title": "Chase",
@@ -331,88 +410,85 @@ export const english: LocaleCopy = {
           }
         },
         {
-          "title": "Player, world and Hunter",
-          "paragraphs": [
-            "The AI is integrated with the playable environment. A short, bounded charge on a new engagement has a cooldown. Capture requires reach, verified line of sight and a short navigable path; the territory and leash bound pursuit. The Hunter opens closed, unlocked doors on its route and respects locks."
-          ],
-          "visual": {
-            "kind": "integration",
-            "label": "Connected gameplay systems",
-            "caption": "Player actions change the environment and perception evidence; Hunter behaviour feeds back into player pressure and audio.",
-            "items": [
-              {
-                "title": "Player movement",
-                "description": "Sneak, crouch and run affect visibility and noise. A limited panic sprint supports escape."
-              },
-              {
-                "title": "Interaction / doors",
-                "description": "A reusable look-at interface and shared door class serve the player, AI and encounters."
-              },
-              {
-                "title": "Perception inputs",
-                "description": "Surface- and gait-aware footsteps, door noise and the flashlight feed the Hunter."
-              },
-              {
-                "title": "Wounds / retry",
-                "description": "Wounds recover in stages, with a critical state. Capture and death lead to a retry flow."
-              },
-              {
-                "title": "Reactive audio",
-                "description": "Music changes between exploration, danger, chase and death in response to the Hunter."
-              }
-            ]
-          }
-        },
-        {
           "title": "Engineering and iteration",
           "paragraphs": [
-            "Milestone development uses Git, Git LFS and One File Per Actor. Reusable components separate perception, character actions, interaction, wounds and audio. AI tuning lives in a data asset read during play, making iteration possible without scattering constants through behaviour code."
+            "Milestone development uses Git, Git LFS and One File Per Actor. Reusable components separate perception, character actions, interaction, wounds and audio. AI tuning lives in a data asset read during play, so values can be adjusted without scattering constants through behaviour code."
           ],
           "bullets": [
             "Console test commands, visual markers and overlays expose detection, hearing decisions, remembered locations and search destinations.",
             "Python tooling supports scripted PIE regression checks and exports level geometry into scaled floor plans.",
-            "Design rules, acceptance criteria and small milestones keep implementation and review focused."
-          ]
-        },
-        {
-          "title": "Prototype work and next steps",
-          "paragraphs": [
-            "A smaller Hunter nail-gun prototype uses physical projectiles, line-of-sight-gated firing, projectile embedding and a live projectile cap. Its aim presentation is placeholder-level, with audiovisual polish still incomplete.",
-            "The current playable slice brings player systems, systemic enemy AI, world composition and reactive audio together. The broader story and lore guide the project, while narrative delivery remains future implementation work. Character development and audiovisual polish continue alongside gameplay iteration."
+            "Documented fairness rules, acceptance criteria and small milestones define what the Hunter may know and keep implementation and review focused."
           ],
           "note": "Gameplay, AI debug views and deeper technical implementation details are available on request."
         }
       ],
       "mediaSlots": {
-        "hero": {
-          "title": "The playable hospital slice",
-          "description": "A real gameplay capture will show the hospital composition and Hunter in the same environment. The current concept graphic is not gameplay.",
-          "alt": "First-person gameplay in the H2 hospital, showing the Hunter and an interactive door.",
-          "caption": "Gameplay / H2 hospital. Environment composed from third-party modular assets."
+        "showcase": {
+          "title": "Gameplay showcase",
+          "description": "Continuous sequence from the current build: exploration, doors, stealth, positional audio, flashlight provocation, chase, adaptive music and capture.",
+          "alt": "Gameplay video: the player walks from the manor grounds into the hospital, hides from the Hunter with the flashlight off, draws its attention with the light, is chased into a dead end and captured.",
+          "caption": "Gameplay showcase / Current playable build · 1 min 41 s · with sound. Environment art from licensed asset kits.",
+          "sequence": [
+            "Approaching the manor outside, with wind ambience.",
+            "Entering the manor and moving through it toward the hospital.",
+            "Automatic sliding doors and manually opened doors.",
+            "Exploring the hospital by flashlight; player and Hunter footsteps.",
+            "Hearing something nearby and responding to it.",
+            "Switching the flashlight off and waiting out of sight behind a doorway.",
+            "Deliberately provoking the Hunter with the flashlight.",
+            "Detection, chase and the soundtrack's change into pursuit.",
+            "An escape attempt that ends in a dead end, and capture."
+          ]
         },
-        "detection": {
-          "title": "Visual detection, made inspectable",
-          "description": "A planned debug capture will show the detection meter mid-fill with distance, view angle, gait and flashlight factors.",
-          "alt": "Hunter debug overlay showing a partly filled detection meter and individual sight factors.",
-          "caption": "PIE debug capture / Gradual visual detection and sight factors."
+        "flashlight": {
+          "title": "Flashlight off and on",
+          "description": "The same hospital laboratory doorway with the flashlight off and on.",
+          "alt": "A hospital laboratory doorway in near-darkness; only faint shapes of the room and the wall posters are visible.",
+          "compareAlt": "The same laboratory doorway lit by the flashlight held in the player's hand; the room, cabinets and wall posters are clearly visible.",
+          "labels": ["Flashlight off", "Flashlight on"],
+          "caption": "Gameplay / The same hospital laboratory with the flashlight off and on. The light reveals the room, and it also makes the player easier for the Hunter to detect."
         },
-        "hearing": {
-          "title": "Sound across floors and routes",
-          "description": "A planned debug capture will compare heard and muffled noise using the navigable path length and hearing limit.",
-          "alt": "Hunter hearing debug output showing a noise decision, NavMesh path length and last-heard marker.",
-          "caption": "PIE debug capture / Path-aware hearing across the hospital."
+        "locked-door": {
+          "title": "Locked-route feedback",
+          "description": "A locked door with its lock prompt under the flashlight.",
+          "alt": "A hospital door with a broken window, lit by the player's flashlight, with a padlock icon and the label Locked.",
+          "caption": "Gameplay / A locked door shows its state in the world when the player looks at it."
         },
-        "search": {
-          "title": "Search from remembered evidence",
-          "description": "A planned capture will show the last-seen marker, expanding search area, heading bias and selected destination after sight is lost.",
-          "alt": "Hunter search debug markers showing the last perceived position, search area, heading and destination.",
-          "caption": "PIE debug capture / Memory-based, direction-biased search."
+        "manor-staircase": {
+          "title": "Manor staircase",
+          "description": "The manor's main staircase and entrance hall.",
+          "alt": "First-person gameplay view from the manor's upper landing: a white-railed staircase curves down into a dim entrance hall with a single pool of light.",
+          "caption": "Gameplay / The manor's main staircase. Composition and lighting in a licensed building extended into three wings."
         },
-        "loop": {
-          "title": "A short stealth loop",
-          "description": "A planned gameplay clip will connect noise, investigation, visual detection, pursuit, escape and search. It will show the actual prototype rather than a staged feature claim.",
-          "alt": "Gameplay video of the player attracting the Hunter, escaping pursuit and watching it search the last perceived area.",
-          "caption": "Gameplay / Integrated stealth loop. Environment art is third-party."
+        "hospital-lobby": {
+          "title": "Hospital lobby",
+          "description": "The hospital's main lobby under the flashlight.",
+          "alt": "A derelict hospital lobby with blue waiting-room chairs, debris on the floor and glass doors, lit by the player's flashlight.",
+          "caption": "Gameplay / The hospital's main lobby. Composition, lighting and setup in a licensed hospital environment kit."
+        },
+        "reception": {
+          "title": "Reception",
+          "description": "A dark reception area with a single light source.",
+          "alt": "A dark hospital reception area: a counter and trolley in a faint pool of light, with a closed door and shadowed seating.",
+          "caption": "Gameplay / The reception area. Most spaces stay dark enough that light decides what the player can read."
+        },
+        "hunter-unaware": {
+          "title": "The Hunter on patrol",
+          "description": "The Hunter as a distant silhouette, unaware of the player.",
+          "alt": "A dark hospital corridor seen from a doorway; the Hunter's silhouette stands far away at the lit end of the corridor.",
+          "caption": "Gameplay / The Hunter on patrol at the far end of a corridor, not yet aware of the player."
+        },
+        "hunter-suspicious": {
+          "title": "Suspicion from the flashlight",
+          "description": "Debug text shows the Hunter investigating after light hit its face.",
+          "alt": "A waiting area lit by the flashlight, with the Hunter at the end of the corridor. Debug text reads that light hit the Hunter's face and that it is suspicious and investigating.",
+          "caption": "Gameplay with AI debug text / The flashlight caught the Hunter's face: it becomes suspicious and moves in to investigate."
+        },
+        "chase": {
+          "title": "Pursuit",
+          "description": "Debug text shows confirmed detection and the Chase state.",
+          "alt": "The Hunter, blurred by motion, running in a bright flashlight-lit hospital corridor. Debug text reports detection and the Chase state.",
+          "caption": "Gameplay with AI debug text / Detection confirmed and the Hunter in its Chase state."
         }
       }
     },

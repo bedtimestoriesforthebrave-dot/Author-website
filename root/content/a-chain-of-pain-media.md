@@ -1,34 +1,39 @@
-# A Chain of Pain — portfolio media slots
+# A Chain of Pain — portfolio media
 
-This is a maintenance guide, not a public case-study page. The public English and Finnish pages share five slots from `portfolio-src/content.shared.ts`. Titles, internal capture descriptions, alt text and captions live in `content.en.ts` / `content.fi.ts`. Slots with `available: false` render nothing publicly: no placeholder card, empty image frame, broken request or fake gameplay image.
+This is a maintenance guide, not a public case-study page. Media metadata (paths, dimensions, section placement) lives in `portfolio-src/content.shared.ts`; alt text, captions, comparison labels and the video outline live in `content.en.ts` / `content.fi.ts`.
 
-## Expected files
+## Raw sources vs published files
 
-All paths below are relative to the `root` application directory. Image/video metadata currently expects 1920 × 1080; update the dimensions if the actual capture differs.
+Raw captures go in `media-inbox/` (PNG screenshots and the original showcase MP4). That folder is listed in `.gitignore` and `.vercelignore`, is not one of the directories `scripts/public-output.mjs` stages into `public/`, is not served by the local preview, and must never be referenced by a page. Tests assert this, including that `public/` carries byte-identical copies of the derivatives.
 
-| Slot | Exact expected file | What the capture should demonstrate |
+Web derivatives are generated into `assets/portfolio/a-chain-of-pain/` by an explicit script that is not part of `npm run build`:
+
+```
+FFMPEG=/path/to/ffmpeg node scripts/prepare-game-media.mjs
+```
+
+- Screenshots → WebP at 1600 px (full size / link target) and 960 px (`srcset`), quality 86 with full-resolution chroma to keep shadow detail in dark scenes.
+- Video → `gameplay-showcase.mp4`: 1280×720 H.264 High, CRF 22 capped at 2.6 Mbps, `aq-mode=3` for dark flat areas, AAC 160 kbps stereo, `+faststart`. About 28 MB from a ~228 MB source.
+- Poster → `gameplay-showcase-poster.webp`, taken from the manor entrance at 12 s rather than the capture at the end.
+
+## Current selection
+
+| Slot | Files | Section |
 | --- | --- | --- |
-| Hero | `assets/portfolio/a-chain-of-pain/hero-gameplay.webp` | Real first-person H2 hospital gameplay with the Hunter and an interactive door; credit third-party environment composition. |
-| Detection | `assets/portfolio/a-chain-of-pain/detection-debug.webp` | A partly filled detection meter and its distance, angle, gait/movement and flashlight factors in PIE. |
-| Hearing | `assets/portfolio/a-chain-of-pain/path-aware-hearing.webp` | Heard/muffled decisions, navigable path length and hearing limit. A comparison image may contain two genuine captures. |
-| Search | `assets/portfolio/a-chain-of-pain/search-debug.webp` | Last-perceived position, widening search area, heading bias and selected destination after sight is lost. |
-| Stealth loop | `assets/portfolio/a-chain-of-pain/stealth-loop.mp4` | Approximately 45–75 seconds connecting noise, investigation, detection, pursuit, escape and search in the actual prototype. |
+| Main card | `manor-staircase-{960,1600}.webp` | portfolio card |
+| Case-study header | `hospital-main-lobby-{960,1600}.webp` | study header (a different environment from the card) |
+| Gameplay showcase | `gameplay-showcase.mp4`, `gameplay-showcase-poster.webp` | Gameplay showcase |
+| Flashlight comparison | `hospital-lab-flash-{off,on}-{960,1600}.webp` | Gameplay systems |
+| Locked door | `locked-door-*` | Gameplay systems |
+| Manor staircase, reception | `manor-staircase-*`, `reception-*` | World and level design |
+| Hunter unaware, suspicious, chase | `hunter-unsuspicious-*`, `hunter-suspicious-*`, `chase-*` | The Hunter |
 
-The video slot also expects:
+Not used: `hospital-entrance.png` (too dark to read at web size) and `manor-upstairs.png` (duplicates the staircase's role).
 
-- `assets/portfolio/a-chain-of-pain/stealth-loop.en.vtt`
-- `assets/portfolio/a-chain-of-pain/stealth-loop.fi.vtt`
+## Adding or replacing media
 
-These caption tracks describe meaningful dialogue, notices and audio cues in the supplied recording. The same video serves both portfolio languages; the appropriate caption track is selected by default. No caption or media files have been fabricated. An optional real video poster can be set through the slot's `poster` field.
+1. Put the raw file in `media-inbox/`, add it to the script's list and rerun the script.
+2. Add or update the slot in `content.shared.ts` (dimensions of the 1600 px file) and its copy in both locale files. Describe only what the capture really shows; environment art is licensed and must not be captioned as original modelling.
+3. Run `npm run typecheck`, `npm run lint`, `npm run build` and `npm test`. The generator rejects missing files; the tests check declared dimensions, file sizes, lazy loading, that the video is never fetched before playback, and that nothing from `media-inbox/` is published.
 
-## Adding real captures
-
-1. Capture manually in the Unreal project. This portfolio task does not operate or modify Unreal. Use the supplied media capture plan as evidence guidance, not as public copy.
-2. Select captures that demonstrate the claimed system and have suitable asset credits/rights. The source audit did not establish every third-party asset's provenance; check the material selected for the capture.
-3. Add the actual files at the paths above. Review both localized captions and alt text against what the files really show. Keep environment composition distinct from original modelling. A staged/frozen pose should be described accordingly.
-4. Set that slot's `available` flag to `true` in the shared metadata. Add any real poster URL and update dimensions. The generator verifies that enabled assets and referenced caption tracks exist before emitting pages.
-5. Run `npm run typecheck`, `npm run lint`, `npm run build`, and `npm test`. Update the missing-media assertions in `tests/hunter.spec.ts` to verify the newly available capture, preserving the factual and accessibility checks. Inspect both languages on desktop and mobile.
-
-Images become semantic figures with localized alt text/captions and a full-size link. Video uses native controls, `preload="none"`, caption tracks and a download fallback. No autoplay or new player dependency is introduced.
-
-The current main-card graphic remains explicitly labelled as a concept graphic. Do not relabel it as gameplay. No second enemy, narrative ending, player weapon or superseded blockout area should be staged or captioned as implemented work.
+The video uses native controls, `preload="none"`, a poster and no autoplay. A text outline of the sequence follows it; there are no caption tracks because the recording has no dialogue.
