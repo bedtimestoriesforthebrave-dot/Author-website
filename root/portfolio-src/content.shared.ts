@@ -273,9 +273,7 @@ export const projectMetadata: ProjectMetadata[] = [
       "caseStudy": "/case-studies/storycodex.html"
     },
     "media": null,
-    "sources": [
-      "@sourceLegacy"
-    ],
+    "sources": [],
     "studyIds": [
       "an-accessible-story-making-flow",
       "useful-without-a-connection",
@@ -301,8 +299,7 @@ export const projectMetadata: ProjectMetadata[] = [
     },
     "media": null,
     "sources": [
-      "@sourceRepository",
-      "@sourceOriginal"
+      "@sourceRepository"
     ],
     "studyIds": [
       "a-public-site-and-an-admin-workflow",

@@ -69,6 +69,9 @@ test('all Finnish case studies keep shared documentation, assets and working nav
     expect(await page.locator('.sources a').evaluateAll(links => links.map(link => link.getAttribute('href')))).toEqual(docs);
     expect(await page.locator('.study-body section[id]').evaluateAll(sections => sections.map(section => section.id))).toEqual(ids);
     if (slug === 'reorderops' || slug === 'author-website') await expect(page.locator('.sources .documentation-language')).toHaveText('Dokumentaatio · englanniksi');
+    // StoryCodex has no Source material section; Author Website lists only its repository source.
+    if (slug === 'storycodex') await expect(page.locator('.sources')).toHaveCount(0);
+    if (slug === 'author-website') await expect(page.locator('.sources li')).toHaveText(['Projektin nykyiset README.md, api/, js/admin.js ja dev-server.js']);
     for (const href of new Set(await page.locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')!)))) {
       if (href.startsWith('#')) expect(await page.locator(href).count(), href).toBe(1);
       if (href.startsWith('/')) expect((await request.get(href)).status(), href).toBe(200);
