@@ -9,7 +9,7 @@
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "node --test scripts/public-output.test.mjs && playwright test"
+    "test": "node --test scripts/public-output.test.mjs scripts/story-api.test.mjs && playwright test"
   },
   "dependencies": {
     "express": "^4.22.1",

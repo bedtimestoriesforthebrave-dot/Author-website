@@ -1,8 +1,20 @@
 const { parseRequestBody } = require('./_lib/booksStore');
+const { storyOptions } = require('./_lib/storyOptions');
 
-const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
-const API_URL = process.env.OPENAI_API_URL || 'https://api.openai.com/v1/chat/completions';
+const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gpt-6-luna';
+const RESPONSES_URL = 'https://api.openai.com/v1/responses';
+const MODERATION_URL = 'https://api.openai.com/v1/moderations';
+const MODERATION_MODEL = 'omni-moderation-latest';
+// Covers a 300-600 word story plus the model's reasoning.
+const MAX_OUTPUT_TOKENS = 4000;
+const MAX_CHARACTERS = 3;
 const APP_API_KEY = process.env.APP_API_KEY || '';
+
+// A saved story can be regenerated after the app language changes, so values from
+// either language's lists are accepted; `language` only selects the story language.
+const allowed = Object.fromEntries(
+  Object.entries(storyOptions).map(([key, lists]) => [key, new Set([...lists.FINNISH, ...lists.ENGLISH])]),
+);
 
 function buildSystemPrompt(language) {
   if (language === 'ENGLISH') {
@@ -10,6 +22,7 @@ function buildSystemPrompt(language) {
       'You are a warm storyteller who writes stories in English for children aged 3-8.',
       'Stories never include violence, death, illness, scary creatures, swearing, war, or anything that could frighten or distress a child.',
       'All conflicts are solved through talking, cooperation, or kindness, and adults are safe and trustworthy.',
+      'Never present talking to strangers or going somewhere with a stranger as brave or desirable.',
       'Write text that is easy to read aloud.',
       'The ending is safe, comforting, and hopeful.',
       'Start the story with a title in the form **Title Here** on its own line with nothing else on that line.',
@@ -19,6 +32,8 @@ function buildSystemPrompt(language) {
     'Olet lämminhenkinen tarinankertoja, joka kirjoittaa tarinoita 3-8-vuotiaille lapsille suomeksi.',
     'Tarinoissa ei ole väkivaltaa, kuolemaa, sairautta, pelottavia olentoja, kiroilua, sotaa eikä mitään muuta sisältöä, joka voisi pelottaa tai ahdistaa lasta.',
     'Kaikki konfliktit ratkeavat puhumalla, yhteistyöllä tai ystävällisyydellä, ja aikuiset ovat luotettavia ja turvallisia.',
+    'Älä koskaan esitä tuntemattomien kanssa puhumista tai tuntemattoman mukaan lähtemistä rohkeana tai toivottavana.',
+    'Kirjoita kieliopillisesti virheetöntä ja luontevaa suomen yleiskieltä.',
     'Kirjoitat tekstin niin, että se on helppo lukea ääneen lapselle.',
     'Tarinan lopussa tunnelma on turvallinen, lohdullinen ja toiveikas.',
     'Aloita tarina otsikolla muodossa **Otsikko tähän** omalle rivilleen. Rivillä ei saa olla muuta.',
@@ -81,43 +96,66 @@ async function generateStoryWithLlm(characters, place, plot, language) {
     throw new Error('Missing OpenAI API key');
   }
 
-  const systemPrompt = buildSystemPrompt(language);
-  const userPrompt = buildUserPrompt(characters, place, plot, language);
+  const data = await postOpenAi(RESPONSES_URL, apiKey, {
+    model: DEFAULT_MODEL,
+    instructions: buildSystemPrompt(language),
+    input: buildUserPrompt(characters, place, plot, language),
+    max_output_tokens: MAX_OUTPUT_TOKENS,
+  }, 'LLM');
 
+  if (data?.status && data.status !== 'completed') {
+    throw new Error(`LLM response ${data.status}`);
+  }
+  const story = extractOutputText(data);
+  if (!story) {
+    throw new Error('Invalid LLM response payload');
+  }
+
+  // Fail closed: a story is only returned after moderation confirms it is not flagged.
+  const moderation = await postOpenAi(MODERATION_URL, apiKey, { model: MODERATION_MODEL, input: story }, 'Moderation');
+  if (!Array.isArray(moderation?.results) || moderation.results.length === 0) {
+    throw new Error('Invalid moderation response payload');
+  }
+  if (moderation.results.some((result) => result.flagged)) {
+    throw new Error('Story flagged by moderation');
+  }
+
+  return sanitizeForTts(story);
+}
+
+async function postOpenAi(url, apiKey, payload, label) {
   let response;
   try {
-    response = await fetch(API_URL, {
+    response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
-      body: JSON.stringify({
-        model: DEFAULT_MODEL,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-        temperature: 0.8,
-      }),
+      body: JSON.stringify(payload),
     });
   } catch (err) {
-    throw new Error(`LLM request failed: ${err.message}`);
+    throw new Error(`${label} request failed: ${err.message}`);
   }
 
   if (!response || !response.ok) {
-    const errorText = response ? await safeReadError(response) : 'No response from LLM';
-    throw new Error(`LLM request failed: ${errorText}`);
+    const errorText = response ? await safeReadError(response) : `No response from ${label}`;
+    throw new Error(`${label} request failed: ${errorText}`);
   }
 
-  const data = await response.json().catch(() => null);
-  const story = data?.choices?.[0]?.message?.content?.trim();
+  return response.json().catch(() => null);
+}
 
-  if (!story) {
-    throw new Error('Invalid LLM response payload');
-  }
-
-  return sanitizeForTts(story);
+// Responses API: joins the text parts of the assistant message items.
+function extractOutputText(data) {
+  if (typeof data?.output_text === 'string') return data.output_text.trim();
+  return (data?.output || [])
+    .filter((item) => item?.type === 'message')
+    .flatMap((item) => item.content || [])
+    .filter((part) => part?.type === 'output_text' && typeof part.text === 'string')
+    .map((part) => part.text)
+    .join('')
+    .trim();
 }
 
 async function safeReadError(response) {
@@ -129,17 +167,21 @@ async function safeReadError(response) {
   }
 }
 
+// Only the app's own selectable values are accepted: 1-3 distinct characters, one place, one plot.
 function isValidRequest(characters, place, plot) {
-  if (!Array.isArray(characters) || characters.length === 0) {
+  if (!Array.isArray(characters) || characters.length === 0 || characters.length > MAX_CHARACTERS) {
     return false;
   }
-  if (characters.some((name) => typeof name !== 'string' || name.trim() === '')) {
+  if (new Set(characters).size !== characters.length) {
     return false;
   }
-  if (typeof place !== 'string' || place.trim() === '') {
+  if (characters.some((name) => typeof name !== 'string' || !allowed.characters.has(name.trim()))) {
     return false;
   }
-  if (typeof plot !== 'string' || plot.trim() === '') {
+  if (typeof place !== 'string' || !allowed.places.has(place.trim())) {
+    return false;
+  }
+  if (typeof plot !== 'string' || !allowed.plots.has(plot.trim())) {
     return false;
   }
   return true;
