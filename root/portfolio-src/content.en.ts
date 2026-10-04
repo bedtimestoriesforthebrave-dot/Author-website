@@ -495,12 +495,12 @@ export const english: LocaleCopy = {
     "storycodex": {
       "category": "Android / AI storytelling",
       "description": "A small interface for a bigger imagination.",
-      "summary": "An Android story app where children choose characters, a setting and a plot. An LLM generates a Finnish story, Android TTS reads it aloud, and cached stories remain available offline.",
+      "summary": "An Android story app where children choose characters, a setting and a plot. GPT-6 Luna generates stories in Finnish or English, Android TTS reads them aloud, and cached stories remain available offline.",
       "role": null,
       "status": "Portfolio project",
       "highlights": [
         "Button-based story creation",
-        "Finnish generation and narration",
+        "Finnish and English generation and narration",
         "Offline access to cached stories"
       ],
       "architecture": "Jetpack Compose Android client, backend API and LLM integration, with Android TTS and cached stories.",
@@ -512,7 +512,7 @@ export const english: LocaleCopy = {
         {
           "title": "An accessible story-making flow",
           "paragraphs": [
-            "Children choose characters, a setting and a plot through buttons. The app sends a controlled prompt through its backend API and generates a child-oriented Finnish story. Android text-to-speech provides narration."
+            "Children choose characters, a setting and a plot through buttons. The app sends a controlled prompt through its backend API to GPT-6 Luna and generates a child-oriented story in Finnish or English. Android text-to-speech provides narration."
           ]
         },
         {
@@ -522,9 +522,12 @@ export const english: LocaleCopy = {
           ]
         },
         {
-          "title": "Design considerations",
+          "title": "Safety design and evaluation",
           "paragraphs": [
-            "The existing project description emphasizes safety-focused application design and controlled prompting. Formal child-safety evaluation results and release links are not supplied, so no validated safety claim is made."
+            "The story service combines controlled prompts for ages 3–8 with output moderation. A flagged story, failed moderation check or generation error returns a template story. The prompts emphasize kindness, cooperation and comforting endings, and explicitly discourage framing interaction with strangers as brave.",
+            "A manual before-and-after review used the same 30 selections and seed: 15 English stories and 15 Finnish stories. Both runs generated all 30 stories without template fallbacks, and the review found no unsafe or frightening content in either run. After the switch from GPT-4o mini to GPT-6 Luna and prompt fixes, mild peril scenes fell from three to zero, and examples framing talking to strangers as brave fell from one to zero. All 30 re-test stories passed moderation; several also modeled asking a trusted adult for help.",
+            "Finnish stories with language errors fell from 13 of 15 to 2 of 15. The remaining slips were an English word inside a Finnish compound and a lowercase sentence start. Re-test generation took 6.7–15.1 seconds per story against the app’s 60-second allowance. English stories contained 301–422 words and Finnish stories 235–298 words; the Finnish outputs remained below the requested 300–600-word range.",
+            "Two English stories also contained bold markers in their body text. The service now strips those markers before read-aloud while preserving the title line; its five API tests pass. This 30-story sample provides development evidence, not a formal child-safety certification or a guarantee about future generated stories."
           ]
         }
       ],

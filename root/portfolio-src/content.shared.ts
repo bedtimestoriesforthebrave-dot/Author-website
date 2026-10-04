@@ -264,7 +264,7 @@ export const projectMetadata: ProjectMetadata[] = [
     "technologies": [
       "Kotlin",
       "Jetpack Compose",
-      "LLM API",
+      "GPT-6 Luna",
       "Android TTS"
     ],
     "links": {

@@ -385,16 +385,21 @@ export const finnish: LocaleCopy = {
     },
     storycodex: {
       category: 'Android / Tekoälytarinat', description: 'Pieni käyttöliittymä suurelle mielikuvitukselle.',
-      summary: 'Android-tarinasovellus, jossa lapset valitsevat hahmot, paikan ja juonen. Kielimalli luo suomenkielisen tarinan, Androidin puhesynteesi lukee sen ääneen ja välimuistiin tallennetut tarinat ovat käytettävissä ilman verkkoyhteyttä.',
+      summary: 'Android-tarinasovellus, jossa lapset valitsevat hahmot, paikan ja juonen. GPT-6 Luna luo tarinoita suomeksi tai englanniksi, Androidin puhesynteesi lukee ne ääneen ja välimuistiin tallennetut tarinat ovat käytettävissä ilman verkkoyhteyttä.',
       role: null, status: 'Portfolioprojekti',
-      highlights: ['Tarinoiden luonti painikkeilla', 'Suomenkielinen luonti ja kerronta', 'Tallennettujen tarinoiden käyttö ilman verkkoa'],
+      highlights: ['Tarinoiden luonti painikkeilla', 'Tarinoiden luonti ja kerronta suomeksi ja englanniksi', 'Tallennettujen tarinoiden käyttö ilman verkkoa'],
       architecture: 'Jetpack Compose -Android-sovellus, taustarajapinta ja kielimalli-integraatio sekä Androidin puhesynteesi ja tarinoiden välimuisti.',
       challenges: ['Lapsille suunnattu turvallisuuspainotteinen käyttöliittymä ja hallitut kehotteet.'], verification: [],
       linkLabels: { demo: 'Avaa demo', github: 'Lähdekoodi', caseStudy: 'Projektin esittely' }, mediaText: null,
       study: [
-        { title: 'Helposti lähestyttävä tarinanluonti', paragraphs: ['Lapset valitsevat hahmot, paikan ja juonen painikkeilla. Sovellus lähettää hallitun kehotteen taustarajapintansa kautta ja tuottaa lapsille suunnatun suomenkielisen tarinan. Androidin puhesynteesi lukee tarinan ääneen.'] },
+        { title: 'Helposti lähestyttävä tarinanluonti', paragraphs: ['Lapset valitsevat hahmot, paikan ja juonen painikkeilla. Sovellus lähettää hallitun kehotteen taustarajapintansa kautta GPT-6 Lunalle ja tuottaa lapsille suunnatun tarinan suomeksi tai englanniksi. Androidin puhesynteesi lukee tarinan ääneen.'] },
         { title: 'Hyödyllinen ilman verkkoyhteyttä', paragraphs: ['Verkoton käyttö perustuu aiemmin välimuistiin tallennettuihin tarinoihin. Se ei tarkoita paikallista kielimallin käyttöä. Alkuperäinen portfolio kertoo Kotlinista, Jetpack Composesta, Androidin puhesynteesistä, OpenAI-kielimallirajapinnasta ja taustarajapinnasta.'] },
-        { title: 'Suunnittelun lähtökohdat', paragraphs: ['Nykyinen projektikuvaus korostaa turvallisuuspainotteista sovellussuunnittelua ja hallittuja kehotteita. Muodollisen lapsiturvallisuusarvioinnin tuloksia tai julkaisulinkkejä ei ole toimitettu, joten turvallisuuden varmennusta ei väitetä tehdyksi.'] },
+        { title: 'Turvallisuussuunnittelu ja arviointi', paragraphs: [
+          'Tarinapalvelu yhdistää 3–8-vuotiaille suunnatut hallitut kehotteet ja tuotetun sisällön moderoinnin. Jos tarina hylätään, moderointitarkistus epäonnistuu tai generointi tuottaa virheen, palvelu palauttaa mallipohjaisen varatarinan. Kehotteet korostavat ystävällisyyttä, yhteistyötä ja lohdullisia loppuja sekä kieltävät esittämästä tuntemattomien kanssa toimimista rohkeana.',
+          'Manuaalinen vertailu käytti samoja 30 valintaa ja samaa satunnaissiementä: 15 englanninkielistä ja 15 suomenkielistä tarinaa. Molemmat ajot tuottivat kaikki 30 tarinaa ilman varatarinoita, eikä kummankaan ajon tarkastuksessa löytynyt turvatonta tai pelottavaa sisältöä. GPT-4o minin vaihtaminen GPT-6 Lunaan ja kehotteiden korjaukset vähensivät lievät vaaratilanteet kolmesta nollaan ja tuntemattomille puhumisen esittämisen rohkeana yhdestä nollaan. Kaikki 30 uusintatestin tarinaa läpäisivät moderoinnin, ja useat myös näyttivät mallia avun pyytämisestä luotettavalta aikuiselta.',
+          'Kielivirheitä sisältävien suomenkielisten tarinoiden määrä laski 13:sta kahteen 15 tarinan joukossa. Jäljelle jäivät englanninkielinen sana suomenkielisen yhdyssanan sisällä ja pienellä kirjaimella alkava virke. Uusintatestissä tarinan tuottaminen kesti 6,7–15,1 sekuntia sovelluksen salliessa 60 sekuntia. Englanninkielisissä tarinoissa oli 301–422 sanaa ja suomenkielisissä 235–298 sanaa; suomenkieliset tuotokset jäivät pyydetyn 300–600 sanan pituuden alle.',
+          'Kahden englanninkielisen tarinan leipätekstissä oli myös lihavointimerkkejä. Palvelu poistaa nyt nämä merkit ennen ääneenlukua ja säilyttää otsikkorivin; sen viisi rajapintatestiä läpäisevät tarkistukset. Tämä 30 tarinan otos tarjoaa näyttöä kehitystyöstä, mutta ei ole muodollinen lapsiturvallisuussertifiointi tai takuu tulevien tarinoiden sisällöstä.',
+        ] },
       ],
     },
     'author-website': {
