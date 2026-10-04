@@ -524,11 +524,9 @@ export const english: LocaleCopy = {
         {
           "title": "Safety design and evaluation",
           "paragraphs": [
-            "The story service combines controlled prompts for ages 3–8 with output moderation. A flagged story, failed moderation check or generation error returns a template story. The prompts emphasize kindness, cooperation and comforting endings, and explicitly discourage framing interaction with strangers as brave.",
-            "A manual before-and-after review used the same 30 selections and seed: 15 English stories and 15 Finnish stories. Both runs generated all 30 stories without template fallbacks, and the review found no unsafe or frightening content in either run. After the switch from GPT-4o mini to GPT-6 Luna and prompt fixes, mild peril scenes fell from three to zero, and examples framing talking to strangers as brave fell from one to zero. All 30 re-test stories passed moderation; several also modeled asking a trusted adult for help.",
-            "Finnish stories with language errors fell from 13 of 15 to 2 of 15. The remaining slips were an English word inside a Finnish compound and a lowercase sentence start. Re-test generation took 6.7–15.1 seconds per story against the app’s 60-second allowance. English stories contained 301–422 words and Finnish stories 235–298 words; the Finnish outputs remained below the requested 300–600-word range.",
-            "Two English stories also contained bold markers in their body text. The service now strips those markers before read-aloud while preserving the title line; its five API tests pass. This 30-story sample provides development evidence, not a formal child-safety certification or a guarantee about future generated stories."
-          ]
+            "The service combines controlled prompts for ages 3–8 with output moderation and a template fallback if generation or moderation fails. A manual before-and-after review used the same 30 selections: 15 English stories and 15 Finnish stories. All 30 re-test stories passed moderation without fallbacks, and neither run contained unsafe or frightening content. Switching to GPT-6 Luna and refining the prompts reduced mild peril scenes from three to zero and examples framing talking to strangers as brave from one to zero. Finnish stories with language errors fell from 13 of 15 to 2 of 15. This small sample informs development; it does not guarantee the safety or language quality of future stories."
+          ],
+          "note": "I can show the app in action on request."
         }
       ],
       "linkLabels": {
