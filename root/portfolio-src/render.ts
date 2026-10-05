@@ -40,12 +40,12 @@ export function createRenderer(locale: Locale = 'en') {
   </head>`;
   }
 
-  function header(isStudy = false, pagePath = '/portfolio.html') {
+  function header(isStudy = false, pagePath = '/portfolio.html', bilingual = true) {
     return `<a class="skip-link" href="#main">${text(ui.skip)}</a>
   <header class="site-header"><div class="header-inner">
   <a class="wordmark" href="${path('/portfolio.html')}" aria-label="${text(site.name)}, ${text(ui.home)}"><span class="monogram" aria-hidden="true">VL<span>_</span></span><span class="wordmark-name">${text(site.name)}</span></a>
   <nav aria-label="${text(ui.mainNavigation)}">${site.navigation.map(item => `<a href="${isStudy ? path('/portfolio.html') : ''}${item.url}" data-nav="${item.url.slice(1)}">${text(item.label)}</a>`).join('')}</nav>
-  <div class="header-actions"><div class="language-switch" role="group" aria-label="${text(ui.languageNavigation)}">${locales.map(language => `<a href="${localizePath(pagePath, language)}" lang="${language}" hreflang="${language}" data-locale-switch="${language}" aria-label="${language === 'en' ? 'English' : 'Suomi'}"${language === locale ? ' aria-current="page"' : ''}>${language.toUpperCase()}</a>`).join('<span aria-hidden="true">/</span>')}</div>${link(site.cv, 'cv-link')}<button class="motion-toggle" type="button" aria-pressed="false" data-motion-on="${text(ui.motionOn)}" data-motion-off="${text(ui.motionOff)}" data-motion-enable="${text(ui.motionEnable)}" data-motion-disable="${text(ui.motionDisable)}" hidden>${text(ui.motion)} <span data-motion-label>${text(ui.motionOn)}</span></button></div>
+  <div class="header-actions"><div class="language-control"><div class="language-switch" role="group" aria-label="${text(ui.languageNavigation)}">${locales.map(language => `<a href="${localizePath(pagePath, language)}" lang="${language}" hreflang="${language}" data-locale-switch="${language}" aria-label="${language === 'en' ? 'English' : 'Suomi'}"${language === locale ? ' aria-current="page"' : ''}>${language.toUpperCase()}</a>`).join('<span aria-hidden="true">/</span>')}</div>${locale === 'en' && bilingual ? `<div class="language-hint" hidden><a href="${localizePath(pagePath, 'fi')}" lang="fi" hreflang="fi" data-locale-switch="fi">${text(ui.languageHint)} <span aria-hidden="true">↗</span></a><button type="button" aria-label="${text(ui.dismissLanguageHint)}"><span aria-hidden="true">×</span></button></div>` : ''}</div>${link(site.cv, 'cv-link')}<button class="motion-toggle" type="button" aria-pressed="false" data-motion-on="${text(ui.motionOn)}" data-motion-off="${text(ui.motionOff)}" data-motion-enable="${text(ui.motionEnable)}" data-motion-disable="${text(ui.motionDisable)}" hidden>${text(ui.motion)} <span data-motion-label>${text(ui.motionOn)}</span></button></div>
   </div></header>`;
   }
 
@@ -132,7 +132,7 @@ export function createRenderer(locale: Locale = 'en') {
     const content = article
       ? `<p class="study-note">${text(article.note)}</p><div class="study-layout"><nav class="study-toc" aria-label="Document sections"><p class="micro-label">In this document</p>${article.headings.map(item => `<a href="#${item.id}">${text(item.title)}</a>`).join('')}</nav><article class="study-body doc-prose" aria-label="${text(title)}">${article.html}</article></div>`
       : `<ul class="doc-index" aria-label="Technical documents">${documents.map(doc => `<li><p class="micro-label">${text(doc.category)}</p><h2><a href="${documentationRoot}/${doc.slug}.html">${text(doc.title)}</a></h2><p>${text(doc.description)}</p><a class="text-link" href="${documentationRoot}/${doc.slug}.html">Read ${text(doc.title)} ${arrow}</a></li>`).join('')}</ul>`;
-    const documentHeader = header(true, '/case-studies/reorderops.html').replace(/ data-locale-switch="(?:en|fi)"/g, '');
+    const documentHeader = header(true, '/case-studies/reorderops.html', false).replace(/ data-locale-switch="(?:en|fi)"/g, '');
     return `${head(`${title} — ReorderOps — ${site.name}`, description, pagePath, false)}<body class="study-page">${documentHeader}<main id="main" tabindex="-1" class="container study-main documentation-page">${navigation}<header class="study-hero"><p class="section-label"><span>01</span> ReorderOps / Documentation · English</p><h1>${text(title)}</h1><p class="study-lead">${text(description)}</p><p class="documentation-language">Technical documentation is published in English. The EN / FI switch returns to the matching ReorderOps case study.</p></header>${content}${navigation}</main>${footer()}<script type="module" src="/assets/portfolio/main.js"></script></body></html>`;
   }
 

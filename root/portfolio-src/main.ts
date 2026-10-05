@@ -90,3 +90,36 @@ for (const languageLink of document.querySelectorAll<HTMLAnchorElement>('[data-l
   languageLink.addEventListener('focus', preservePosition);
   languageLink.addEventListener('click', preservePosition);
 }
+
+// Introduce the Finnish version once per tab visit, without taking keyboard focus.
+const languageHint = document.querySelector<HTMLElement>('.language-hint');
+if (languageHint) {
+  let seen = false;
+  try { seen = sessionStorage.getItem('portfolio-language-hint') === 'seen'; } catch { /* Storage is optional. */ }
+  if (!seen) {
+    let hideTimer: ReturnType<typeof setTimeout>;
+    const dismissHint = () => {
+      clearTimeout(hideTimer);
+      if (languageHint.contains(document.activeElement)) {
+        document.querySelector<HTMLAnchorElement>('.language-switch [data-locale-switch="fi"]')?.focus();
+      }
+      languageHint.classList.add('is-leaving');
+      setTimeout(() => { languageHint.hidden = true; }, reduced.matches ? 0 : 200);
+    };
+    const expireHint = () => {
+      // Give someone reading or using the hint time to finish.
+      if (languageHint.matches(':hover, :focus-within')) {
+        hideTimer = setTimeout(expireHint, 1500);
+      } else dismissHint();
+    };
+    setTimeout(() => {
+      languageHint.hidden = false;
+      try { sessionStorage.setItem('portfolio-language-hint', 'seen'); } catch { /* Continue without persistence. */ }
+      hideTimer = setTimeout(expireHint, 8000);
+    }, 700);
+    languageHint.querySelector('button')?.addEventListener('click', dismissHint);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !languageHint.hidden) dismissHint();
+    });
+  }
+}

@@ -6,6 +6,8 @@ const messages = {
   home: { en: 'portfolio home', fi: 'portfolion etusivu' },
   mainNavigation: { en: 'Main navigation', fi: 'Päänavigaatio' },
   languageNavigation: { en: 'Language', fi: 'Kieli' },
+  languageHint: { en: 'Myös suomeksi', fi: 'Myös englanniksi' },
+  dismissLanguageHint: { en: 'Dismiss language hint', fi: 'Sulje kielivihje' },
   newTab: { en: 'opens in a new tab', fi: 'avautuu uuteen välilehteen' },
   technologies: { en: 'technologies', fi: 'teknologiat' },
   motion: { en: 'Motion', fi: 'Liike' },
